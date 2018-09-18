@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Semeru</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_welcome_screen">WelcomeScreenActivity</string>
+</resources>
