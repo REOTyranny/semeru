@@ -66,3 +66,4 @@ fabric.properties
 .idea/httpRequests
 
 .DS_Store
+local.properties
