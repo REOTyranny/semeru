@@ -11,12 +11,12 @@ import android.widget.Button;
 
 import com.reotyranny.semeru.R;
 
-public class WelcomeScreenActivity extends AppCompatActivity {
+public class RegistrationScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome_screen);
+        setContentView(R.layout.activity_login_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -29,20 +29,20 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             }
         });
 
-        Button registerButton = (Button) findViewById(R.id.button_SignUp);
+        Button registerButton = (Button) findViewById(R.id.button_Register);
         registerButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeScreenActivity.this, RegistrationScreenActivity.class));
+                startActivity(new Intent(RegistrationScreenActivity.this, HomeScreenActivity.class));
             }
         });
-        Button loginButton = (Button) findViewById(R.id.button_Login);
+        Button loginButton = (Button) findViewById(R.id.button_Cancel);
         loginButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeScreenActivity.this, LoginScreenActivity.class));
+                startActivity(new Intent(RegistrationScreenActivity.this, WelcomeScreenActivity.class));
             }
         });
     }
