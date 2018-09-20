@@ -9,6 +9,7 @@
 .idea/**/shelf
 
 .idea/caches/
+.gradle/
 
 # Generated files
 .idea/**/contentModel.xml
