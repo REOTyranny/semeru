@@ -31,12 +31,12 @@ public class WelcomeScreenActivity extends AppCompatActivity {
 
         Button registerButton = (Button) findViewById(R.id.button_SignUp);
         registerButton.setOnClickListener( new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeScreenActivity.this, RegistrationScreenActivity.class));
             }
         });
+
         Button loginButton = (Button) findViewById(R.id.button_Login);
         loginButton.setOnClickListener( new View.OnClickListener() {
 

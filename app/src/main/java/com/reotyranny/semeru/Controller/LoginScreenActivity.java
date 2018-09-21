@@ -7,7 +7,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Button;
+import android.util.Log;
 
 import com.reotyranny.semeru.R;
 
@@ -29,14 +31,24 @@ public class LoginScreenActivity extends AppCompatActivity {
 //            }
 //        });
 
+
         Button registerButton = (Button) findViewById(R.id.button_Confirm);
         registerButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
+                //startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
+                EditText editTextEmail = (EditText)findViewById(R.id.editText_Email);
+                String LoginEmail = editTextEmail.getText().toString();
+
+                EditText editTextPassword = (EditText)findViewById(R.id.editText_Password);
+                String LoginPassword = editTextEmail.getText().toString();
+
+                Log.d("matt-test", "user: " + LoginEmail + " password: " + LoginPassword);
+
             }
         });
+
         Button loginButton = (Button) findViewById(R.id.button_Cancel);
         loginButton.setOnClickListener( new View.OnClickListener() {
 
