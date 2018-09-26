@@ -6,11 +6,11 @@ package com.reotyranny.semeru.Model;
  */
 public class User {
 
-    private String name;
-    private String username;
-    private String password;
-    private String email;
-    private int role;
+    protected String name;
+    protected String username;
+    protected String password;
+    protected String email;
+    protected int role;
 
     public String getName() {
         return name;
@@ -50,6 +50,10 @@ public class User {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public User(String name, String username, String password, String email){
+        this(name,username,password,email, 1);
     }
 
     public User(String name, String username, String password, String email, int role){
