@@ -33,8 +33,8 @@
             android:name=".Controller.HomeScreenActivity"
             android:label="HomeScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EmployeeRegistationScreen" />
-        <activity android:name=".AccountType"></activity>
+        <activity android:name=".Controller.EmployeeRegistationScreenActivity" />
+        <activity android:name=".Controller.AccountTypeActivity"></activity>
     </application>
 
 </manifest>
