@@ -1,9 +1,11 @@
-package com.reotyranny.semeru;
+package com.reotyranny.semeru.Controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class EmployeeRegistationScreen extends AppCompatActivity {
+import com.reotyranny.semeru.R;
+
+public class EmployeeRegistationScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
