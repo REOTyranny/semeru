@@ -13,27 +13,27 @@
             android:name=".Controller.WelcomeScreenActivity"
             android:label="@string/title_activity_welcome_screen"
             android:theme="@style/AppTheme.NoActionBar">
+
             <!-- This activity is the main entry / default -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Controller.LoginScreenActivity"
             android:label="LoginScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Controller.RegistrationScreenActivity"
             android:label="RegistrationScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Controller.HomeScreenActivity"
             android:label="HomeScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".EmployeeRegistationScreen"></activity>
     </application>
 
 </manifest>
