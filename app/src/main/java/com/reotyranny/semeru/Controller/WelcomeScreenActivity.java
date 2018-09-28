@@ -16,11 +16,11 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_screen);
 
 
-        Button registerButton = findViewById(R.id.button_SignUp);
-        registerButton.setOnClickListener( new View.OnClickListener() {
+        Button signUpButton = findViewById(R.id.button_SignUp);
+        signUpButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeScreenActivity.this, RegistrationScreenActivity.class));
+                startActivity(new Intent(WelcomeScreenActivity.this, AccountTypeActivity.class));
             }
         });
 
