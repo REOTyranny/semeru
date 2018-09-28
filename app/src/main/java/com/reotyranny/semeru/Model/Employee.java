@@ -1,9 +1,9 @@
 package com.reotyranny.semeru.Model;
 
-public class Employee extends User{
+public class Employee extends Account{
     private String location;
     public Employee(String name, String username, String password, String email, String location){
-        super(name, username, password, email,1);
+        super(name, username, password, email,1,false);
         this.location = location;
     }
 
@@ -13,5 +13,8 @@ public class Employee extends User{
     public String getLocation(){
         return location;
     }
+
+    public void addStock(){} // placeholder
+    public void removeStock(){}// placeholder
 
 }
