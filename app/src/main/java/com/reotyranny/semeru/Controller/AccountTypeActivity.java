@@ -33,7 +33,7 @@ public class AccountTypeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AccountTypeActivity.this, RegistrationScreenActivity.class);
+                Intent i = new Intent(AccountTypeActivity.this, EmployeeRegistationScreenActivity.class);
                 AccountType a = AccountType.employee;
                 i.putExtra("type", a);
                 startActivity(i);
