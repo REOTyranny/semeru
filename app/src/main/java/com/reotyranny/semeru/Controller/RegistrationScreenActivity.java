@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.reotyranny.semeru.Model.*;
 import com.reotyranny.semeru.R;
@@ -25,6 +24,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
 				EditText editTextName = findViewById(R.id.editText_Name);
 				String Name = editTextName.getText().toString();
 				// email
@@ -38,20 +38,19 @@ public class RegistrationScreenActivity extends AppCompatActivity {
             	if (!a.equals(AccountType.employee)) {
 					EditText editTextLocation = findViewById(R.id.editText_Location);
 					String Location = editTextEmail.getText().toString();
-
 					Employee newRegister = new Employee(Name, LoginEmail, LoginPassword, LoginEmail, Location);
 
 				}
-
 				else {
             		if (a.equals(AccountType.administrator)) {
 						Admin newRegister = new Admin(Name, LoginEmail, LoginPassword, LoginEmail);
 					}
 					else if (a.equals(AccountType.manager)) {
-            			//
+            			Manager newRegister = new Manager(Name, LoginEmail, LoginPassword, LoginEmail);
 					}
-
-
+					else if (a.equals(AccountType.user)){
+						User newRegister = new User(Name, LoginEmail, LoginPassword, LoginEmail);
+					}
 				}
 
 
