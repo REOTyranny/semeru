@@ -42,9 +42,6 @@ public class LoginScreenActivity extends AppCompatActivity {
                 // incorrect login text
                 TextView badLoginText = findViewById(R.id.badLoginTextView);
 
-
-
-
                 boolean loggedIn = false;
                 for ( Account acc : tempDB.getDatabase() ) {
                     if (acc.getEmail().equals(LoginEmail)) {
