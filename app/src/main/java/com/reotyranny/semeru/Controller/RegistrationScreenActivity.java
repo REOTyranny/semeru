@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.R;
 
 public class RegistrationScreenActivity extends AppCompatActivity {
@@ -14,6 +15,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_screen);
+        AccountType a = (AccountType) getIntent().getSerializableExtra("type");
 
 
         Button registerButton = findViewById(R.id.button_Register);
