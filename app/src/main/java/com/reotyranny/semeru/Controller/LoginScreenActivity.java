@@ -46,8 +46,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                 for ( Account acc : tempDB.getDatabase() ) {
                     if (acc.getEmail().equals(LoginEmail)) {
                         if (acc.getPassword().equals(LoginPassword)) {
-                            startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
                             loggedIn = true;
+                            startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
                         }
                         else {
                             badLoginText.setVisibility(View.VISIBLE);
