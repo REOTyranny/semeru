@@ -7,19 +7,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
-import com.reotyranny.semeru.Model.User;
+import com.reotyranny.semeru.Model.*;
+import android.util.Log;
+import java.util.ArrayList;
+
 
 import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-
-        final User test_user = new User("test-user", "user", "pass", "test@gmail.com", 1 );
+        final TempDatabase tempDB = new TempDatabase().getInstance();
 
         Button registerButton = findViewById(R.id.button_Confirm);
         registerButton.setOnClickListener( new View.OnClickListener() {
@@ -39,11 +43,21 @@ public class LoginScreenActivity extends AppCompatActivity {
                 TextView badLoginText = findViewById(R.id.badLoginTextView);
 
 
-                if( test_user.getUsername().equals(LoginEmail) && test_user.getPassword().equals(LoginPassword) )
-                    startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
-                else
-                    badLoginText.setVisibility(View.VISIBLE);
 
+
+                boolean loggedIn = false;
+                for ( Account acc : tempDB.getDatabase() ) {
+                    if (acc.getEmail().equals(LoginEmail)) {
+                        if (acc.getPassword().equals(LoginPassword)) {
+                            startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
+                            loggedIn = true;
+                        }
+                        else {
+                            badLoginText.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+                if (!loggedIn) badLoginText.setVisibility(View.VISIBLE);
 
             }
         });
