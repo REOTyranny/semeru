@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.reotyranny.semeru.Model.AccountType;
+import com.reotyranny.semeru.Model.Employee;
 import com.reotyranny.semeru.R;
 
 public class AccountTypeActivity extends AppCompatActivity {
@@ -33,9 +34,10 @@ public class AccountTypeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AccountTypeActivity.this, RegistrationScreenActivity.class);
+                Intent i = new Intent(AccountTypeActivity.this, EmployeeRegistationScreenActivity.class);
                 AccountType a = AccountType.employee;
                 i.putExtra("type", a);
+                i.putExtra("test", Employee.class);
                 startActivity(i);
             }
         });
