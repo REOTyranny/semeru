@@ -8,10 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
 import com.reotyranny.semeru.Model.*;
-import android.util.Log;
-import java.util.ArrayList;
-
-
 import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {

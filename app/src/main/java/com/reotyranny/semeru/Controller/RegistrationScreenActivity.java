@@ -17,7 +17,6 @@ public class RegistrationScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_screen);
         final AccountType a = (AccountType) getIntent().getSerializableExtra("type");
-
 		final TempDatabase tempDB = TempDatabase.getInstance();
 
 
