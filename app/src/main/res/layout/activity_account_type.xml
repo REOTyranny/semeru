@@ -10,6 +10,7 @@
         android:id="@+id/button_Employee"
         android:layout_width="367dp"
         android:layout_height="100dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="204dp"
@@ -17,7 +18,6 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_User"
         app:layout_constraintVertical_bias="0.0" />
@@ -26,6 +26,7 @@
         android:id="@+id/button_Manager"
         android:layout_width="367dp"
         android:layout_height="100dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="68dp"
@@ -33,7 +34,6 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_Admin"
         app:layout_constraintVertical_bias="0.0" />
@@ -42,14 +42,17 @@
         android:id="@+id/button_Admin"
         android:layout_width="367dp"
         android:layout_height="100dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Administrator"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Employee" />
+        app:layout_constraintTop_toBottomOf="@+id/button_Employee"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/text_AccountType"
@@ -71,6 +74,7 @@
         android:id="@+id/button_User"
         android:layout_width="367dp"
         android:layout_height="100dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -78,10 +82,9 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_AccountType"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.002" />
 
     <Button
         android:id="@+id/button_Cancel"
