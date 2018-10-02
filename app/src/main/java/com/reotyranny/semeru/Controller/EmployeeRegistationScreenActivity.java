@@ -45,6 +45,15 @@ public class EmployeeRegistationScreenActivity extends AppCompatActivity {
             }
         });
 
+        Button loginButton = findViewById(R.id.button_Cancel);
+        loginButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EmployeeRegistationScreenActivity.this, WelcomeScreenActivity.class));
+            }
+        });
+
 
     }
 
