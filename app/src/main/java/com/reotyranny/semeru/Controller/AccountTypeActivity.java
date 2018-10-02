@@ -61,5 +61,14 @@ public class AccountTypeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        Button cancelButton =  findViewById(R.id.button_Cancel);
+        cancelButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AccountTypeActivity.this, WelcomeScreenActivity.class));
+            }
+        });
     }
 }
