@@ -6,12 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.reotyranny.semeru.Model.AccountType;
-import com.reotyranny.semeru.Model.Admin;
-import com.reotyranny.semeru.Model.Employee;
-import com.reotyranny.semeru.Model.Manager;
-import com.reotyranny.semeru.Model.User;
 import com.reotyranny.semeru.R;
 import com.reotyranny.semeru.Model.*;
 

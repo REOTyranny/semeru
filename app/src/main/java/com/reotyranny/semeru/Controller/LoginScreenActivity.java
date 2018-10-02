@@ -8,10 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
 import com.reotyranny.semeru.Model.*;
-import android.util.Log;
-import java.util.ArrayList;
-
-
 import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
@@ -46,8 +42,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                 for ( Account acc : tempDB.getDatabase() ) {
                     if (acc.getEmail().equals(LoginEmail)) {
                         if (acc.getPassword().equals(LoginPassword)) {
-                            startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
                             loggedIn = true;
+                            startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
                         }
                         else {
                             badLoginText.setVisibility(View.VISIBLE);
