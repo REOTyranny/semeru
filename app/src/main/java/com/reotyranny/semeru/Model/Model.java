@@ -14,7 +14,7 @@ public class Model {
 
     /** holds the list of all registered accounts */
     private ArrayList<Account> registeredAccounts;
-    private ArrayList<Location> places;
+    public ArrayList<Location> places;
 
     /** the currently selected course, defaults to first course */
     private Account currentAccount;
@@ -28,6 +28,7 @@ public class Model {
     private Model() {
         registeredAccounts = new ArrayList<>();
         loadDummyData();
+        locationDummy();
     }
 
     /**
@@ -40,7 +41,7 @@ public class Model {
         registeredAccounts.add(new Employee("test-employee", "employee@gmail.com", "klm", "employee@gmail.com", "Atlanta"));
     }
 
-    private void locationDummy(){
+    public void locationDummy(){
         places.add(new Location(1,"f",0,0,"y","o",
                 "u","Ruari","have","a nice","day"));
         places.add(new Location(1,"I",0,0,"Love","Meatballs",
