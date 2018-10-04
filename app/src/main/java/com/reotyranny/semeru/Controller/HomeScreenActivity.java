@@ -15,12 +15,21 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        Button loginButton =  findViewById(R.id.button_SignOut);
-        loginButton.setOnClickListener( new View.OnClickListener() {
+        Button signOutButton =  findViewById(R.id.button_SignOut);
+        signOutButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeScreenActivity.this, WelcomeScreenActivity.class));
+            }
+        });
+
+        Button loadIn =  findViewById(R.id.button_LoadIn);
+        loadIn.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeScreenActivity.this, LocationListActivity.class));
             }
         });
     }
