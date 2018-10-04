@@ -16,7 +16,7 @@ public class EmployeeRegistationScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_registation_screen);
-        final TempDatabase tempDB = TempDatabase.getInstance();
+        final Model model = Model.getInstance();
 
         Button registerButton = findViewById(R.id.button_Register);
         registerButton.setOnClickListener( new View.OnClickListener() {
@@ -29,7 +29,7 @@ public class EmployeeRegistationScreenActivity extends AppCompatActivity {
                 String LoginPassword = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
                 String Location = ((EditText) findViewById(R.id.editText_Location)).getText().toString();
 
-                tempDB.addToDatabase(new Employee(Name, LoginEmail, LoginPassword, LoginEmail, Location));
+                model.addAccount(new Employee(Name, LoginEmail, LoginPassword, LoginEmail, Location));
 
                 startActivity(new Intent(EmployeeRegistationScreenActivity.this, WelcomeScreenActivity.class));
 
