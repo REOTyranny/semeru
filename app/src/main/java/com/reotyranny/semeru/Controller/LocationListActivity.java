@@ -15,23 +15,26 @@ import java.util.List;
 public class LocationListActivity extends AppCompatActivity {
 
     List<Location> location;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location_specific);
-        // ...
-        // Lookup the recyclerview in activity layout
-        RecyclerView rvLocation = (RecyclerView) findViewById(R.id.recycler_Locations);
-        final Model mo = Model.getInstance();
-        // Initialize contacts
+        setContentView(R.layout.activity_location_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rvLocation);
+
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        Model mo = Model.getInstance();
         location = mo.places;
-        // Create adapter passing in the sample user data
-        LocationAdapter adapter = new LocationAdapter(location);
-        // Attach the adapter to the recyclerview to populate items
-        rvLocation.setAdapter(adapter);
-        // Set layout manager to position the items
-        rvLocation.setLayoutManager(new LinearLayoutManager(this));
-        // That's all!
+
+        // specify an adapter (see also next example)
+        mAdapter = new LocationAdapter(location);
+        mRecyclerView.setAdapter(mAdapter);
     }
 }

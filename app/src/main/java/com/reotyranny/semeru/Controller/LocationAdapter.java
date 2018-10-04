@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationAdapter extends
@@ -52,7 +53,11 @@ public class LocationAdapter extends
     private List<Location> mLocation;
     // Pass in the contact array into the constructor
     public LocationAdapter(List<Location> location) {
-        mLocation = location;
+        if(location == null){
+            mLocation = new ArrayList<>();
+        }else {
+            mLocation = location;
+        }
     }
     // Involves populating data into the item through holder
     @Override
@@ -66,6 +71,7 @@ public class LocationAdapter extends
         TextView addressView = viewHolder.addressTextView;
         addressView.setText(location.getAddress());
         Button button = viewHolder.specificButton;
+
     }
 
     // Returns the total count of items in the list

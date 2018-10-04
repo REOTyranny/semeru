@@ -28,6 +28,7 @@ public class Model {
     private Model() {
         registeredAccounts = new ArrayList<>();
         loadDummyData();
+        places = new ArrayList<>();
         locationDummy();
     }
 
