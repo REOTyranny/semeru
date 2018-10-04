@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
+
+import java.util.List;
 
 public class LocationAdapter extends
         RecyclerView.Adapter<LocationAdapter.ViewHolder> {
