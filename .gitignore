@@ -8,6 +8,8 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+google-services.json
+
 .idea/caches/
 .gradle/
 
