@@ -17,7 +17,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_screen);
         final AccountType a = (AccountType) getIntent().getSerializableExtra("type");
-		final TempDatabase tempDB = TempDatabase.getInstance();
+        final Model model = Model.getInstance();
 
 
         Button registerButton = findViewById(R.id.button_Register);
@@ -32,11 +32,11 @@ public class RegistrationScreenActivity extends AppCompatActivity {
 
                 // Using the given email as the username
                 if (a == AccountType.administrator)
-                    tempDB.addToDatabase(new Admin(Name, LoginEmail, LoginPassword, LoginEmail));
+                    model.addAccount(new Admin(Name, LoginEmail, LoginPassword, LoginEmail));
                 else if (a == AccountType.manager)
-                    tempDB.addToDatabase(new Manager(Name, LoginEmail, LoginPassword, LoginEmail));
+                    model.addAccount(new Manager(Name, LoginEmail, LoginPassword, LoginEmail));
                 else if (a == AccountType.user)
-                    tempDB.addToDatabase(new User(Name, LoginEmail, LoginPassword, LoginEmail));
+                    model.addAccount(new User(Name, LoginEmail, LoginPassword, LoginEmail));
 
                 startActivity(new Intent(RegistrationScreenActivity.this, WelcomeScreenActivity.class));
 

@@ -12,46 +12,32 @@ import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        final TempDatabase tempDB = new TempDatabase().getInstance();
+        final Model model = Model.getInstance();
 
         Button registerButton = findViewById(R.id.button_Confirm);
-        registerButton.setOnClickListener( new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                // email (username)
-                EditText editTextEmail = findViewById(R.id.editText_Email);
-                String LoginEmail = editTextEmail.getText().toString();
-
-                // password
-                EditText editTextPassword = findViewById(R.id.editText_Password);
-                String LoginPassword = editTextPassword.getText().toString();
-
-                // incorrect login text
+                // email, password, incorrect login text
+                String LoginEmail = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
+                String LoginPassword = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
                 TextView badLoginText = findViewById(R.id.badLoginTextView);
 
-                boolean loggedIn = false;
-                for ( Account acc : tempDB.getDatabase() ) {
-                    if (acc.getEmail().equals(LoginEmail)) {
-                        if (acc.getPassword().equals(LoginPassword)) {
-                            loggedIn = true;
-                            startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
-                        }
-                        else {
-                            badLoginText.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-                if (!loggedIn) badLoginText.setVisibility(View.VISIBLE);
+                Account account = model.checkLogin(LoginEmail, LoginPassword);
 
+                if (account != model.theNullAccount) {
+                    model.setCurrentAccount(account);
+                    startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
+                } else {
+                    badLoginText.setVisibility(View.VISIBLE);
+                }
             }
         });
 
