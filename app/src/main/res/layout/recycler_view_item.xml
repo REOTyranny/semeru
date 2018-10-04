@@ -5,25 +5,32 @@
               android:padding="8dp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
-  <ImageView
-      android:layout_width="50dp"
-      android:layout_height="50dp"
-      tools:src="@tools:sample/avatars"/>
+
   <LinearLayout
-      android:layout_width="wrap_content"
+      android:layout_width="249dp"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:padding="5dp"
-      android:orientation="vertical">
+      android:orientation="vertical"
+      android:padding="5dp">
+
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/text_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/lorem[3]" />
+
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/text_Address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/lorem[4]" />
   </LinearLayout>
+
+  <Button
+      android:id="@+id/button_Specfic"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="More Information"
+      android:textSize="10sp" />
 </LinearLayout>
