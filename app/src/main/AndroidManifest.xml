@@ -35,8 +35,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Controller.EmployeeRegistationScreenActivity" />
         <activity android:name=".Controller.AccountTypeActivity" />
-        <activity android:name=".LocationList" />
-        <activity android:name=".LocationSpecific"></activity>
+        <activity android:name=".Controller.LocationListActivity" />
+        <activity android:name=".Controller.LocationSpecificActivity"></activity>
     </application>
 
 </manifest>
