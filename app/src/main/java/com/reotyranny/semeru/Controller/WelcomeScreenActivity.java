@@ -19,7 +19,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         signUpButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeScreenActivity.this, LocationListActivity.class));
+                startActivity(new Intent(WelcomeScreenActivity.this, AccountTypeActivity.class));
             }
         });
 
