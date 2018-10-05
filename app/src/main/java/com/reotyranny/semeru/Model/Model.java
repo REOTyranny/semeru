@@ -43,8 +43,8 @@ public class Model {
     }
 
     public void locationDummy(){
-        places.add(new Location(1,"f",0,0,"y","o",
-                "u","Ruari","have","a nice","day"));
+        places.add(new Location(1,"free",0,0,"jottunheim","o",
+                "u","Ruarai is awsome","have","a nice","day"));
         places.add(new Location(1,"I",0,0,"Love","Meatballs",
                 "On","Pizza","I","am","raf"));
 
