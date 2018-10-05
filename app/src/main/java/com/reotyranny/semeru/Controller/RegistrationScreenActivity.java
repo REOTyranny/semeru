@@ -17,7 +17,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_screen);
         final AccountType a = (AccountType) getIntent().getSerializableExtra("type");
-		final TempDatabase tempDB = TempDatabase.getInstance();
+        final Model model = Model.getInstance();
 
 
         Button registerButton = findViewById(R.id.button_Register);
@@ -25,30 +25,20 @@ public class RegistrationScreenActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-            // name
-            EditText editTextName = findViewById(R.id.editText_Name);
-            String Name = editTextName.getText().toString();
-            // email
-            EditText editTextEmail = findViewById(R.id.editText_Email);
-            String LoginEmail = editTextEmail.getText().toString();
+                // name, email, password
+                String Name = ((EditText)findViewById(R.id.editText_Name)).getText().toString();
+                String LoginEmail = ((EditText)findViewById(R.id.editText_Email)).getText().toString();
+                String LoginPassword = ((EditText)findViewById(R.id.editText_Password)).getText().toString();
 
-            // password
-            EditText editTextPassword = findViewById(R.id.editText_Password);
-            String LoginPassword = editTextPassword.getText().toString();
+                // Using the given email as the username
+                if (a == AccountType.administrator)
+                    model.addAccount(new Admin(Name, LoginEmail, LoginPassword, LoginEmail));
+                else if (a == AccountType.manager)
+                    model.addAccount(new Manager(Name, LoginEmail, LoginPassword, LoginEmail));
+                else if (a == AccountType.user)
+                    model.addAccount(new User(Name, LoginEmail, LoginPassword, LoginEmail));
 
-            // Using the given email as the username
-            if (a == AccountType.administrator) {
-                tempDB.addToDatabase(new Admin(Name, LoginEmail, LoginPassword, LoginEmail));
-            }
-            else if (a == AccountType.manager) {
-                tempDB.addToDatabase(new Manager(Name, LoginEmail, LoginPassword, LoginEmail));
-            }
-            else if (a == AccountType.user) {
-                tempDB.addToDatabase(new User(Name, LoginEmail, LoginPassword, LoginEmail));
-            }
-
-
-            startActivity(new Intent(RegistrationScreenActivity.this, WelcomeScreenActivity.class));
+                startActivity(new Intent(RegistrationScreenActivity.this, WelcomeScreenActivity.class));
 
             }
         });

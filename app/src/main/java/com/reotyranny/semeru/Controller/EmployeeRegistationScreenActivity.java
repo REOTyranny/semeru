@@ -16,7 +16,7 @@ public class EmployeeRegistationScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_registation_screen);
-        final TempDatabase tempDB = TempDatabase.getInstance();
+        final Model model = Model.getInstance();
 
         Button registerButton = findViewById(R.id.button_Register);
         registerButton.setOnClickListener( new View.OnClickListener() {
@@ -24,21 +24,12 @@ public class EmployeeRegistationScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // name
-                EditText editTextName = findViewById(R.id.editText_Name);
-                String Name = editTextName.getText().toString();
-                // email
-                EditText editTextEmail = findViewById(R.id.editText_Email);
-                String LoginEmail = editTextEmail.getText().toString();
-                // password
-                EditText editTextPassword = findViewById(R.id.editText_Password);
-                String LoginPassword = editTextPassword.getText().toString();
-                // employee is the only type of user to register with a custom set of constructor
-                // parameters (i.e. location is also passed to its constructor)
-                EditText editTextLocation = findViewById(R.id.editText_Location);
-                String Location = editTextLocation.getText().toString();
+                String Name = ((EditText) findViewById(R.id.editText_Name)).getText().toString();
+                String LoginEmail = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
+                String LoginPassword = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
+                String Location = ((EditText) findViewById(R.id.editText_Location)).getText().toString();
 
-                tempDB.addToDatabase(new Employee(Name, LoginEmail, LoginPassword, LoginEmail, Location));
+                model.addAccount(new Employee(Name, LoginEmail, LoginPassword, LoginEmail, Location));
 
                 startActivity(new Intent(EmployeeRegistationScreenActivity.this, WelcomeScreenActivity.class));
 
