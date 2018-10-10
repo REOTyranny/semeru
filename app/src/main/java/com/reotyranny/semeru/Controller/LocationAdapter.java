@@ -1,16 +1,16 @@
 package com.reotyranny.semeru.Controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class LocationAdapter extends
     }
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         // Get the data model based on position
         Location location= mLocation.get(position);
 
@@ -70,7 +70,16 @@ public class LocationAdapter extends
         nameView.setText(location.getName());
         TextView addressView = viewHolder.addressTextView;
         addressView.setText(location.getAddress());
-        Button button = viewHolder.specificButton;
+        Button moreInfoButton = viewHolder.specificButton;
+        moreInfoButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("hmm", "clicked item " + position);
+                Intent intent = new Intent (v.getContext(), LocationDetailsActivity.class);
+                intent.putExtra("key", position + 1);
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
@@ -36,15 +37,16 @@ public class LocationListActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        readSDFile();
+
         Model mo = Model.getInstance();
+        if (mo.places.isEmpty())
+            readSDFile();
         location = mo.places;
 
         // specify an adapter (see also next example)
         mAdapter = new LocationAdapter(location);
         mRecyclerView.setAdapter(mAdapter);
     }
-
 
     public static final int KEY = 0;
     public static final int NAME = 1;
