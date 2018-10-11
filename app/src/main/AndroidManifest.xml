@@ -36,7 +36,8 @@
         <activity android:name=".Controller.EmployeeRegistationScreenActivity" />
         <activity android:name=".Controller.AccountTypeActivity" />
         <activity android:name=".Controller.LocationListActivity" />
-        <activity android:name=".Controller.LocationSpecificActivity"></activity>
+        <activity android:name=".Controller.LocationSpecificActivity" />
+        <activity android:name=".Controller.LocationDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -29,7 +29,7 @@ public class Model {
         registeredAccounts = new ArrayList<>();
         loadDummyData();
         places = new ArrayList<>();
-        locationDummy();
+        //locationDummy();
     }
 
     /**
@@ -45,8 +45,11 @@ public class Model {
     public void locationDummy(){
         places.add(new Location(1,"free",0,0,"jottunheim","o",
                 "u","Ruarai is awsome","have","a nice","day"));
-        places.add(new Location(1,"I",0,0,"Love","Meatballs",
+        places.add(new Location(2,"I",0,0,"Love","Meatballs",
                 "On","Pizza","I","am","raf"));
+        places.add(new Location(3,"I2",0,0,"Love2","Meatballs2",
+                "On2","Pizza2","I2","am2","raf2"));
+
 
     }
 
@@ -54,6 +57,12 @@ public class Model {
         // TODO: check if username already exists
         registeredAccounts.add(account);
     }
+
+    public void addLocation(Location location){
+        // TODO: check if username already exists
+        places.add(location);
+    }
+
 
     public Account checkLogin(String username, String password) {
         for ( Account acc : registeredAccounts) {
