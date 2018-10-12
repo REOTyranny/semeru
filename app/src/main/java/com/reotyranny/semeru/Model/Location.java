@@ -15,7 +15,8 @@ public class Location {
     private String phone;
     private String website;
 
-    List<Employee> employeeRoster = new LinkedList<>();
+    private List<Employee> employeeRoster = new LinkedList<>();
+    private List<Donation> donationHistory = new LinkedList<>();
 
     public Location( int key, String name, float longitude, float latitude, String address,
                      String city, String state, String zip, String type, String phone, String website){
@@ -46,6 +47,10 @@ public class Location {
         this.type = type;
         this.phone = phone;
         this.website = website;
+    }
+
+    private void addDonation(Donation stuff){
+        this.donationHistory.add(stuff);
     }
 
     public String getWebsite() {
@@ -130,6 +135,13 @@ public class Location {
 
     public int getKey() {
         return key;
+    }
+
+    public void addEmployee(Employee emp){
+        this.employeeRoster.add(emp);
+    }
+    public List<Employee> getEmployeeRoster(){
+        return employeeRoster;
     }
 
 }
