@@ -49,7 +49,7 @@ public class Location {
         this.website = website;
     }
 
-    private void addDonations(Donation stuff){
+    private void addDonation(Donation stuff){
         this.donationHistory.add(stuff);
     }
 
