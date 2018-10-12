@@ -16,7 +16,7 @@ public class Location {
     private String website;
 
     private List<Employee> employeeRoster = new LinkedList<>();
-    private List<Donations> donationHistory = new LinkedList<>();
+    private List<Donation> donationHistory = new LinkedList<>();
 
     public Location( int key, String name, float longitude, float latitude, String address,
                      String city, String state, String zip, String type, String phone, String website){
@@ -49,7 +49,7 @@ public class Location {
         this.website = website;
     }
 
-    private void addDonations(Donations stuff){
+    private void addDonations(Donation stuff){
         this.donationHistory.add(stuff);
     }
 

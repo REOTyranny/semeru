@@ -4,13 +4,13 @@ import java.util.Date;
 
 
 
-public class Donations {
+public class Donation {
     private String shortDes, longDes,category,fulltime;
     private Location place ;
     private float value;
     private String comments;
 
-    public Donations ( Location place, String shortDes, String longDes,
+    public Donation ( Location place, String shortDes, String longDes,
                       float value, String category, String comments){
         this.fulltime = getTimeStamp();
         this.place = place;
