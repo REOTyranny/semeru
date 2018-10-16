@@ -53,6 +53,10 @@ public class Location {
         this.donationHistory.add(stuff);
     }
 
+    public List<Donation> getDonationHistory() {
+        return this.donationHistory;
+    }
+
     public String getWebsite() {
         return website;
     }

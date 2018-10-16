@@ -1,4 +1,6 @@
 package com.reotyranny.semeru.Model;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Employee extends Account{
     private Location location;
@@ -17,5 +19,10 @@ public class Employee extends Account{
 
     public void addStock(){} // placeholder
     public void removeStock(){}// placeholder
+
+    public List<Donation> getDonationList(){
+        return location.getDonationHistory();
+    }
+
 
 }
