@@ -1,16 +1,17 @@
 package com.reotyranny.semeru.Model;
 
 public class Employee extends Account{
-    private String location;
-    public Employee(String name, String username, String password, String email, String location){
+    private Location location;
+
+    public Employee(String name, String username, String password, String email, Location location){
         super(name, username, password, email,1,false);
         this.location = location;
     }
 
-    public void setLocation(String location){
+    public void setLocation(Location location){
         this.location = location;
     }
-    public String getLocation(){
+    public Location getLocation(){
         return location;
     }
 
