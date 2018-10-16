@@ -39,7 +39,7 @@ public class Model {
         registeredAccounts.add(new User("test-user", "user@gmail.com", "abc", "user@gmail.com"));
         registeredAccounts.add(new Admin("test-admin", "admin@gmail.com", "def", "admin@gmail.com"));
         registeredAccounts.add(new Manager("test-manager", "manager@gmail.com", "ghi", "manager@gmail.com"));
-        registeredAccounts.add(new Employee("test-employee", "employee@gmail.com", "klm", "employee@gmail.com", "Atlanta"));
+        //registeredAccounts.add(new Employee("test-employee", "employee@gmail.com", "klm", "employee@gmail.com", "Atlanta"));
     }
 
     public void locationDummy(){

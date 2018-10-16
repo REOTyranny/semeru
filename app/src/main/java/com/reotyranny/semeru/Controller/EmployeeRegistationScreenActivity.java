@@ -27,9 +27,17 @@ public class EmployeeRegistationScreenActivity extends AppCompatActivity {
                 String Name = ((EditText) findViewById(R.id.editText_Name)).getText().toString();
                 String LoginEmail = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                 String LoginPassword = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
-                String Location = ((EditText) findViewById(R.id.editText_Location)).getText().toString();
 
-                model.addAccount(new Employee(Name, LoginEmail, LoginPassword, LoginEmail, Location));
+                boolean correctLocation = false;
+                String LocationName = ((EditText) findViewById(R.id.editText_Location)).getText().toString();
+                for (Location location : model.places) {
+                    if (LocationName.equals(location.getName())) {
+                        model.addAccount(new Employee(Name, LoginEmail, LoginPassword, LoginEmail, location));
+                        correctLocation = true;
+                    }
+                }
+                // invalid location ? --> just give in first location in model
+                if (!correctLocation) model.addAccount(new Employee(Name, LoginEmail, LoginPassword, LoginEmail, model.places.get(0)));
 
                 startActivity(new Intent(EmployeeRegistationScreenActivity.this, WelcomeScreenActivity.class));
 
