@@ -2,7 +2,7 @@ package com.reotyranny.semeru.Model;
 
 public class Admin extends Account{
     public Admin(String name, String username, String password, String email){
-        super(name, username, password, email,1,false);
+        super(name, username, password, email,false);
     }
     public void lock(User user){
         user.locked = true;
