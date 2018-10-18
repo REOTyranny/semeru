@@ -35,7 +35,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Controller.EmployeeRegistationScreenActivity" />
         <activity android:name=".Controller.AccountTypeActivity" />
-        <activity android:name=".Controller.LocationListActivity" />
+        <activity android:name=".Controller.LocationListActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".Controller.LocationSpecificActivity" />
         <activity android:name=".Controller.LocationDetailsActivity" />
         <activity android:name=".AddItem" />
