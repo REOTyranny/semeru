@@ -5,7 +5,6 @@ public abstract class Account {
     protected String username;
     protected String password;
     protected String email;
-    protected int role;
     protected boolean locked ;
 
     public String getName() {
@@ -40,24 +39,15 @@ public abstract class Account {
         this.email = email;
     }
 
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
-    }
-
     public Account(String name, String username, String password, String email ){
-        this(name,username,password,email,1,false);
+        this(name,username,password,email,false);
     }
-    public Account(String name, String username, String password, String email, int role, boolean locked)
+    public Account(String name, String username, String password, String email, boolean locked)
     {
         this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
         this.locked = locked;
     }
 }
