@@ -6,7 +6,7 @@ public class Employee extends Account{
     private Location location;
 
     public Employee(String name, String username, String password, String email, Location location){
-        super(name, username, password, email,1,false);
+        super(name, username, password, email,false);
         this.location = location;
     }
 
@@ -17,8 +17,13 @@ public class Employee extends Account{
         return location;
     }
 
-    public void addStock(){} // placeholder
-    public void removeStock(){}// placeholder
+    private void addStock(Donation stuffers){
+        this.location.addDonation((stuffers));
+
+    } // placeholder
+    private void removeStock(Donation stuffers){
+        this.location.removeDonation(stuffers);
+    }// placeholder
 
     public List<Donation> getDonationList(){
         return location.getDonationHistory();
