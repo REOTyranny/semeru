@@ -38,9 +38,9 @@
         <activity android:name=".Controller.LocationListActivity" />
         <activity android:name=".Controller.LocationSpecificActivity" />
         <activity android:name=".Controller.LocationDetailsActivity" />
-        <activity android:name=".AddItem" />
-        <activity android:name=".ItemList" />
-        <activity android:name=".SpecificItem"></activity>
+        <activity android:name=".Controller.AddItemActivity" />
+        <activity android:name=".Controller.ItemListActivity" />
+        <activity android:name=".Controller.SpecificItemActivity"></activity>
     </application>
 
 </manifest>
