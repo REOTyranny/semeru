@@ -1,9 +1,12 @@
 package com.reotyranny.semeru.Controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Location;
@@ -22,7 +25,7 @@ public class ItemListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location_list);
+        setContentView(R.layout.activity_item_list);
         mRecyclerView = (RecyclerView) findViewById(R.id.rvItems);
 
 
@@ -38,7 +41,15 @@ public class ItemListActivity extends AppCompatActivity {
         items = location.inventory;
 
         // specify an adapter (see also next example)
-        mAdapter = new ItemAdapter(items);
+        mAdapter = new ItemAdapter(items, key);
         mRecyclerView.setAdapter(mAdapter);
+
+        Button backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ItemListActivity.this, LocationListActivity.class));
+            }
+        });
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.reotyranny.semeru.Model.Donation;
+import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
 import java.util.ArrayList;
@@ -19,12 +20,14 @@ import java.util.List;
 public class ItemAdapter extends
         RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
+    final int locationKey;
+
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public TextView desTextView;
+        public TextView descriptionTextView;
         public Button specificButton;
 
         public ViewHolder(View itemView) {
@@ -32,7 +35,7 @@ public class ItemAdapter extends
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            desTextView = (TextView) itemView.findViewById(R.id.text_Des);
+            descriptionTextView = (TextView) itemView.findViewById(R.id.text_ShortDescription);
             specificButton = (Button) itemView.findViewById(R.id.button_Specfic);
         }
     }
@@ -44,15 +47,16 @@ public class ItemAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View locationView = inflater.inflate(R.layout.recycler_view_location, parent, false);
+        View item = inflater.inflate(R.layout.recycler_view_item, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(locationView);
+        ViewHolder viewHolder = new ViewHolder(item);
         return viewHolder;
     }
     private List<Donation> mItem;
     // Pass in the contact array into the constructor
-    public ItemAdapter(List<Donation> donation) {
+    public ItemAdapter(List<Donation> donation, int key) {
+        locationKey = key;
         if(donation == null){
             mItem = new ArrayList<>();
         }else {
@@ -66,15 +70,16 @@ public class ItemAdapter extends
         Donation donation = mItem.get(position);
 
         // Set item views based on your views and data model
-        TextView nameView = viewHolder.desTextView;
-        nameView.setText(donation.getShortDes());
+        TextView descriptionTextView = viewHolder.descriptionTextView;
+        descriptionTextView.setText(donation.getShortDes());
         Button moreInfoButton = viewHolder.specificButton;
         moreInfoButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("hmm", "clicked item " + position);
                 Intent intent = new Intent (v.getContext(), SpecificItemActivity.class);
-                intent.putExtra("key", position + 1);
+                intent.putExtra("itemKey", position);
+                intent.putExtra("locationKey", locationKey);
                 v.getContext().startActivity(intent);
             }
         });

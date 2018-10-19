@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
@@ -85,6 +86,9 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             Log.e("test-location", "error reading assets", e);
         }
 
+        //Dummy Data Delete Later
+        model.places.get(0).addDonation(new Donation(model.places.get(0), "soap", "Bar of Soap", 112, "Personal", "Has been the cause of much unrest in prison"));
+        model.places.get(0).addDonation(new Donation(model.places.get(0), "socks", "3 pack of socks", 2000, "Personal", "Minimal number of holes"));
     }
 
 }

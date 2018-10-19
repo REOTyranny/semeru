@@ -14,7 +14,7 @@
       android:padding="5dp">
 
     <TextView
-        android:id="@+id/text_Des"
+        android:id="@+id/text_ShortDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/lorem[3]" />

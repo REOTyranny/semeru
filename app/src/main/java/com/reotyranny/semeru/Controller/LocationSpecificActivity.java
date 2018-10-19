@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.Model.Model;
@@ -31,9 +32,21 @@ public class LocationSpecificActivity extends AppCompatActivity {
             }
         });
 
+        TextView name = findViewById(R.id.text_LocName);
+        name.setText(location.getName());
+        TextView type = findViewById(R.id.text_LocType);
+        type.setText(location.getType());
+        TextView longe = findViewById(R.id.text_Long);
+        longe.setText(""+location.getLongitude());
+        TextView lati = findViewById(R.id.text_Lat);
+        lati.setText(""+location.getLatitude());
+        TextView address = findViewById(R.id.text_Address);
+        address.setText(location.getAddress());
+        TextView phone = findViewById(R.id.text_Phone);
+        phone.setText(location.getPhone());
 
 
-        Button backButton = findViewById(R.id.button_Back);
+        Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
