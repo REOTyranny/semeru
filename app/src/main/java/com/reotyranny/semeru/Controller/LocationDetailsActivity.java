@@ -35,7 +35,7 @@ public class LocationDetailsActivity extends AppCompatActivity {
             }
         }
 
-        TextView tv = (TextView)findViewById(R.id.textView);
+        TextView tv = findViewById(R.id.textView);
         tv.setText(details);
 
         Button backButton = findViewById(R.id.backButton);

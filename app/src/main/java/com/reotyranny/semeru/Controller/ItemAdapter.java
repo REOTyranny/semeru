@@ -35,8 +35,8 @@ public class ItemAdapter extends
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            descriptionTextView = (TextView) itemView.findViewById(R.id.text_ShortDescription);
-            specificButton = (Button) itemView.findViewById(R.id.button_Specfic);
+            descriptionTextView = itemView.findViewById(R.id.text_ShortDescription);
+            specificButton = itemView.findViewById(R.id.button_Specfic);
         }
     }
 
@@ -50,8 +50,7 @@ public class ItemAdapter extends
         View item = inflater.inflate(R.layout.recycler_view_item, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(item);
-        return viewHolder;
+        return new ViewHolder(item);
     }
     private List<Donation> mItem;
     // Pass in the contact array into the constructor
@@ -65,7 +64,7 @@ public class ItemAdapter extends
     }
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         // Get the data model based on position
         Donation donation = mItem.get(position);
 
@@ -76,9 +75,9 @@ public class ItemAdapter extends
         moreInfoButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("hmm", "clicked item " + position);
+                Log.d("hmm", "clicked item " + viewHolder.getAdapterPosition());
                 Intent intent = new Intent (v.getContext(), SpecificItemActivity.class);
-                intent.putExtra("itemKey", position);
+                intent.putExtra("itemKey", viewHolder.getAdapterPosition());
                 intent.putExtra("locationKey", locationKey);
                 v.getContext().startActivity(intent);
             }

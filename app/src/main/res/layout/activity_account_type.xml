@@ -88,14 +88,14 @@
 
     <Button
         android:id="@+id/button_Cancel"
-        android:layout_width="58dp"
-        android:layout_height="31dp"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:text="Go Back"
-        android:textSize="8sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.003"

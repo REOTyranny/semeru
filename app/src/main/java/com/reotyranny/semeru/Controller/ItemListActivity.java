@@ -26,7 +26,7 @@ public class ItemListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rvItems);
+        mRecyclerView = findViewById(R.id.rvItems);
 
 
         // use a linear layout manager
