@@ -1,5 +1,7 @@
 package com.reotyranny.semeru.Model;
 
+
+
 public abstract class Account {
     protected String name;
     protected String username;
