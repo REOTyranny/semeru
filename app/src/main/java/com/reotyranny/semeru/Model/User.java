@@ -20,5 +20,8 @@ public class User extends Account {
     public void setPersonalDonations(List<Donation> personalDonations) {
         this.personalDonations = personalDonations;
     }
+    public void donate(Donation stuffers, Location place){
+        place.addDonation(stuffers);
+    }
 }
 
