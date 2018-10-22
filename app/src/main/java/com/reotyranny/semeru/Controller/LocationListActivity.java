@@ -32,7 +32,7 @@ public class LocationListActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //TODO
+        //TODO: Restore the way locations are pulled from Firebase
         location = null;
 
         // specify an adapter (see also next example)

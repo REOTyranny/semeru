@@ -6,6 +6,7 @@ import java.util.List;
 
 
 public class Donation {
+    //TODO: Integrate with Firebase
     private String shortDes, longDes,fulltime;
     private Location place ;
     private float value;

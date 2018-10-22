@@ -28,17 +28,16 @@ public class AccountTypeActivity extends AppCompatActivity {
         });
 
         Button employeeButton =  findViewById(R.id.button_Employee);
-//        employeeButton.setOnClickListener( new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(AccountTypeActivity.this, EmployeeRegistrationScreenActivity.class);
-//                AccountType a = AccountType.EMPLOYEE;
-//                i.putExtra("type", a);
-//                i.putExtra("test", Employee.class);
-//                startActivity(i);
-//            }
-//        });
+        employeeButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AccountTypeActivity.this, EmployeeRegistrationScreenActivity.class);
+                AccountType a = AccountType.EMPLOYEE;
+                i.putExtra("type", a);
+                startActivity(i);
+            }
+        });
         Button managerButton =  findViewById(R.id.button_Manager);
         managerButton.setOnClickListener( new View.OnClickListener() {
 

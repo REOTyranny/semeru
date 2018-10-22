@@ -12,7 +12,7 @@ import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
 public class SpecificItemActivity extends AppCompatActivity {
-
+    //TODO: Integrate with Firebase
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
