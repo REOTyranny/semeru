@@ -5,20 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.Model.Location;
-import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 
@@ -40,9 +32,8 @@ public class LocationListActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
-        Model mo = Model.getInstance();
-        location = mo.places;
+        //TODO
+        location = null;
 
         // specify an adapter (see also next example)
         mAdapter = new LocationAdapter(location);

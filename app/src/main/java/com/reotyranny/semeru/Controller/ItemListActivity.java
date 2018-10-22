@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Location;
-import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
 import java.util.List;
@@ -35,10 +34,11 @@ public class ItemListActivity extends AppCompatActivity {
 
 
         final int key = (int) getIntent().getSerializableExtra("key");
-        Model model = Model.getInstance();
-        Location location = model.places.get(key);
+        //Model model = Model.getInstance();
+        //Location location = model.places.get(key);
 
-        items = location.inventory;
+        //TODO
+        items = null;
 
         // specify an adapter (see also next example)
         mAdapter = new ItemAdapter(items, key);

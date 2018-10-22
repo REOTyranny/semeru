@@ -15,7 +15,7 @@ public class Location {
     private String phone;
     private String website;
 
-    private List<Employee> employeeRoster = new LinkedList<>();
+    //private List<Employee> employeeRoster = new LinkedList<>();
     private List<Donation> donationHistory = new LinkedList<>();
     public List<Donation> inventory = new LinkedList<>();
 
@@ -148,14 +148,14 @@ public class Location {
         return key;
     }
 
-    public void addEmployee(Employee emp){
-        this.employeeRoster.add(emp);
-    }
-
-    public void removeEmployee(Employee emp) { this.employeeRoster.remove(emp);}
-
-    public List<Employee> getEmployeeRoster(){
-        return employeeRoster;
-    }
+//    public void addEmployee(Employee emp){
+//        this.employeeRoster.add(emp);
+//    }
+//
+//    public void removeEmployee(Employee emp) { this.employeeRoster.remove(emp);}
+//
+//    public List<Employee> getEmployeeRoster(){
+//        return employeeRoster;
+//    }
 
 }

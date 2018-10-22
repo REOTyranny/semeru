@@ -1,8 +1,13 @@
 package com.reotyranny.semeru.Model;
 
 public enum AccountType {
-    employee,
-    manager,
-    administrator,
-    user
+    EMPLOYEE,
+    MANAGER,
+    ADMINISTRATOR,
+    DONOR;
+
+    @Override
+    public String toString() {
+        return(this.name());
+    }
 }
