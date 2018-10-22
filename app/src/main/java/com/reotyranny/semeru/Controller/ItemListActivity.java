@@ -37,7 +37,7 @@ public class ItemListActivity extends AppCompatActivity {
         //Model model = Model.getInstance();
         //Location location = model.places.get(key);
 
-        //TODO
+        //TODO: Integrate with Firebase
         items = null;
 
         // specify an adapter (see also next example)

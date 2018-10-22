@@ -18,7 +18,7 @@ public class LocationDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_details);
         final int key = (int) getIntent().getSerializableExtra("key");
         //Model model = Model.getInstance();
-
+        //TODO: Integrate with Firebase
        String details = "";
 //        for (Location location : model.places){
 //            if (location.getKey() == key) {

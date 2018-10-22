@@ -6,6 +6,7 @@ public class Account {
     private String username;
     private String email;
     private AccountType acctType;
+    private String location;
     boolean locked;
 
     public String getName() {
@@ -47,15 +48,20 @@ public class Account {
         this.locked = false;
     }
 
-    public Account(String name, String username, String email) {
-        this(name, username, email, false);
+    public Account(String name, String email, AccountType acctType, String location) {
+        this.name = name;
+        this.email = email;
+        this.acctType = acctType;
+        this.location = location;
+        this.locked = false;
     }
 
-    public Account(String name, String username, String email, boolean locked)
-    {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.locked = locked;
+    public String getLocation() {
+        return location;
     }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
 }

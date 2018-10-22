@@ -32,7 +32,6 @@ public class LoginScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // email, password, incorrect login text
                 String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
 

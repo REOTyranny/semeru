@@ -18,7 +18,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_specific);
         final int key = (int) getIntent().getSerializableExtra("key");
         //Model model = Model.getInstance();
-        //TODO
+        //TODO: Integrate with Firebase
         Location location = null;
 
         Button itemListButton = findViewById(R.id.button_ItemsList);

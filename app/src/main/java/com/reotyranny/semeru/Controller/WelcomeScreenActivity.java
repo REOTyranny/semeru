@@ -59,7 +59,8 @@ public class WelcomeScreenActivity extends AppCompatActivity {
     public static final int WEBSITE = 10;
 
     private void readSDFile() {
-
+        //TODO: This will no longer use a CSV, but will read from Firebase.
+        //The Model singleton is no more as well.
         //Model model = Model.getInstance();
 
         try {
@@ -85,9 +86,6 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             Log.e("test-location", "error reading assets", e);
         }
 
-        //Dummy Data Delete Later
-        //model.places.get(0).addDonation(new Donation(model.places.get(0), "soap", "Bar of Soap", 112, "Personal", "Has been the cause of much unrest in prison"));
-        //model.places.get(0).addDonation(new Donation(model.places.get(0), "socks", "3 pack of socks", 2000, "Personal", "Minimal number of holes"));
     }
 
 }
