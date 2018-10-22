@@ -1,6 +1,6 @@
 # Team Semeru's Android App Repository
 
-[![CircleCI](https://circleci.com/gh/rpaulucci3/semeru.svg?style=svg)](https://circleci.com/gh/rpaulucci3/semeru)
+[![CircleCI](https://circleci.com/gh/REOTyranny/semeru.svg?style=svg)](https://circleci.com/gh/REOTyranny/semeru)
 
 ### A project for CS 2340 at Georgia Tech.
 
