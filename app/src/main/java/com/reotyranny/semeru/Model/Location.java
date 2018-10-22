@@ -151,6 +151,9 @@ public class Location {
     public void addEmployee(Employee emp){
         this.employeeRoster.add(emp);
     }
+
+    public void removeEmployee(Employee emp) { this.employeeRoster.remove(emp);}
+
     public List<Employee> getEmployeeRoster(){
         return employeeRoster;
     }

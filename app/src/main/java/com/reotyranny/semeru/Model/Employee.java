@@ -19,8 +19,8 @@ public class Employee extends Account{
 
     private void addStock(Donation stuffers){
         this.location.addDonation((stuffers));
-
     } // placeholder
+
     private void removeStock(Donation stuffers){
         this.location.removeDonation(stuffers);
     }// placeholder
@@ -28,6 +28,4 @@ public class Employee extends Account{
     public List<Donation> getDonationList(){
         return location.getDonationHistory();
     }
-
-
 }
