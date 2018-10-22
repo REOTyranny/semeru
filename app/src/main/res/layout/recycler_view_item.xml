@@ -14,16 +14,10 @@
       android:padding="5dp">
 
     <TextView
-        android:id="@+id/text_Short"
+        android:id="@+id/text_ShortDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/lorem[3]" />
-
-    <TextView
-        android:id="@+id/text_Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="@tools:sample/lorem[4]" />
   </LinearLayout>
 
   <Button
