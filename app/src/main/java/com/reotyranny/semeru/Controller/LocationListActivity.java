@@ -33,7 +33,7 @@ public class LocationListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_list);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rvLocation);
+        mRecyclerView = findViewById(R.id.rvLocation);
 
 
         // use a linear layout manager

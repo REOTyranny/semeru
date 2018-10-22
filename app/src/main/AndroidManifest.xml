@@ -42,7 +42,7 @@
         <activity android:name=".Controller.LocationDetailsActivity" />
         <activity android:name=".Controller.AddItemActivity" />
         <activity android:name=".Controller.ItemListActivity" />
-        <activity android:name=".Controller.SpecificItemActivity"></activity>
+        <activity android:name=".Controller.SpecificItemActivity" />
     </application>
 
 </manifest>
