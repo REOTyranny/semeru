@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Location;
-import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
 public class SpecificItemActivity extends AppCompatActivity {
@@ -21,8 +20,8 @@ public class SpecificItemActivity extends AppCompatActivity {
 
         final int locationID = (int) getIntent().getSerializableExtra("locationKey");
         final int itemID = (int) getIntent().getSerializableExtra("itemKey");
-        Model model = Model.getInstance();
-        Location location = model.places.get(locationID);
+        //Model model = Model.getInstance();
+        Location location = null;
         Donation item = location.inventory.get(itemID);
 
 

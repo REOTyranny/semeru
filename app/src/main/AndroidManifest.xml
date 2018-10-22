@@ -33,7 +33,7 @@
             android:name=".Controller.HomeScreenActivity"
             android:label="HomeScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Controller.EmployeeRegistationScreenActivity" />
+        <activity android:name=".Controller.EmployeeRegistrationScreenActivity" />
         <activity android:name=".Controller.AccountTypeActivity" />
         <activity android:name=".Controller.LocationListActivity"
             android:windowSoftInputMode="adjustPan"

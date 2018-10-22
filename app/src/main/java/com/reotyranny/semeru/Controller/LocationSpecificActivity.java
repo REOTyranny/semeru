@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.reotyranny.semeru.Model.Location;
-import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
 public class LocationSpecificActivity extends AppCompatActivity {
@@ -18,8 +17,9 @@ public class LocationSpecificActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_specific);
         final int key = (int) getIntent().getSerializableExtra("key");
-        Model model = Model.getInstance();
-        Location location = model.places.get(key);
+        //Model model = Model.getInstance();
+        //TODO
+        Location location = null;
 
         Button itemListButton = findViewById(R.id.button_ItemsList);
         itemListButton.setOnClickListener( new View.OnClickListener() {
