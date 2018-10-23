@@ -70,6 +70,7 @@ public class LocationAdapter extends
         TextView addressView = viewHolder.addressTextView;
         addressView.setText(location.getAddress());
         Button moreInfoButton = viewHolder.specificButton;
+
         moreInfoButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
