@@ -48,13 +48,9 @@ public class Donation {
         this.comments = comments;
     }
 
-    public String getfullTime() {
-        return fulltime;
-    }
-
-    public void setfullTime(String time) {
-        this.fulltime = time;
-    }
+//    public void setfullTime(String time) {
+//        this.fulltime = time;
+//    }
 
     public String getCategory() {
         return category;

@@ -18,6 +18,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Account;
 import com.reotyranny.semeru.Model.AccountType;
+import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,14 +30,15 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase firebaseDB;
     DatabaseReference mDatabase;
-    boolean isAvailable = false;
+
+    FirebaseModel FirebaseInstance = FirebaseModel.getInstance();
+
     //TODO: Avoid code repetition (DRY) from the other Registration Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_registration_screen);
         final AccountType acctType = (AccountType) getIntent().getSerializableExtra("type");
-
         mAuth = FirebaseAuth.getInstance();
         firebaseDB = FirebaseDatabase.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -52,32 +54,36 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
                 final String location = ((EditText) findViewById(R.id.editText_Location)).getText().toString();
 
                 // check firebase DB for location
-                boolean locationExists = true;
-                if ( locationExists )  {
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
-                            EmployeeRegistrationScreenActivity.this,
-                            new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (!task.isSuccessful()) {
-                                        //TODO: Handle each type of login error
-                                        Toast.makeText(EmployeeRegistrationScreenActivity.this,
-                                                "Login error - see log", Toast.LENGTH_LONG).show();
-                                        Log.w("registration-errors", "signInWithEmail:failure", task.getException());
-                                    } else {
-                                        addDetails(name, email, acctType, location);
-                                        Toast.makeText(EmployeeRegistrationScreenActivity.this,
-                                                "Registered successfully", Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(
-                                                EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
-                                    }
-                                }
-                            });
-                }
-                else {
-                    // DONT REGISTER WITH INVALID LOCATION !!
-                    Log.d("testt", location + "doesn't exist");
-                }
+                FirebaseInstance.checkLocation(location, new FirebaseModel.FireBaseCallback() {
+                    @Override
+                    public void onCallback(boolean isValid) {
+                        if (isValid) {
+                            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+                                    EmployeeRegistrationScreenActivity.this,
+                                    new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (!task.isSuccessful()) {
+                                                //TODO: Handle each type of login error
+                                                Toast.makeText(EmployeeRegistrationScreenActivity.this,
+                                                        "Login error - see log", Toast.LENGTH_LONG).show();
+                                                Log.w("registration-errors", "signInWithEmail:failure", task.getException());
+                                            } else {
+                                                addDetails(name, email, acctType, location);
+                                                Toast.makeText(EmployeeRegistrationScreenActivity.this,
+                                                        "Registered successfully", Toast.LENGTH_LONG).show();
+                                                startActivity(new Intent(
+                                                        EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
+                                            }
+                                        }
+                                    });
+                        }
+                        else {
+                            Toast.makeText(EmployeeRegistrationScreenActivity.this,
+                                    "Invalid Location", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
             }
         });
 

@@ -1,5 +1,7 @@
 package com.reotyranny.semeru.Model;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -10,6 +12,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseModel {
+
+    /** Singleton instance */
+    private static final FirebaseModel _instance = new FirebaseModel();
+    public static FirebaseModel getInstance() { return _instance; }
+
+    public boolean correctLocation = false;
 
     public DatabaseReference getDatabaseReference() {
         return FirebaseDatabase.getInstance().getReference();
@@ -33,25 +41,52 @@ public class FirebaseModel {
     public void addLocation(){
     }
 
-    // TODO
-    public void queryFirebase (Query query) {
-        //Query query = reference.child("users").orderByChild("email").equalTo(user.getEmail());
+    public interface FireBaseCallback {
+        void onCallback(boolean isValid);
+    }
+
+    public void checkLocation (String location, final FireBaseCallback fireBaseCallback) {
+        Query query = getDatabaseReference().child("locations").orderByChild("City").equalTo(location);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // dataSnapshot is the "issue" node with all children with id 0
-                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        // do something with the individual "issues"
-                    }
-                }
+                fireBaseCallback.onCallback(dataSnapshot.exists());
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("Database-Error", databaseError.getMessage());
             }
         });
     }
+
+    public void pushDummyDonationData(){
+        Location atlanta = new Location(1, "AFD Station 4", 33.75416f, -84.37742f,
+                "309 EDGEWOOD AVE SE", "Atlanta", "GA", "30332", "Drop Off",
+                "(404) 555 - 3456", "www.afd04.atl.ga");
+
+        Donation donation1 = new Donation(atlanta, "Old shirt", "Old blue shirt",
+                12.15f, "Clothing", "A cool old blue shirt");
+
+        Donation donation2 = new Donation(atlanta, "Old shirt", "Old red shirt",
+                6.50f, "Clothing", "A cool old red shirt");
+
+        Donation donation3 = new Donation(atlanta, "Dope hat", "Hat with dope things on it",
+                16.50f, "Hat", "hat be dope");
+
+        Donation donation4 = new Donation(atlanta, "iphone X", "overpriced garbage",
+                9999.50f, "Electronics", "dont buy this lol");
+
+        Donation donation5 = new Donation(atlanta, "Toaster", "Old toaster",
+                5.50f, "Households", "toast malone");
+
+        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation1);
+        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation2);
+        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation3);
+        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation4);
+        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation5);
+    }
+
+
 
 
 }

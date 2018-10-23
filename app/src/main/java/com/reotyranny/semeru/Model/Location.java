@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 public class Location {
     //TODO: Integrate with Firebase
-    private int key;
+    private long key;
     private String name;
     private float longitude;
     private float latitude;
@@ -19,7 +19,7 @@ public class Location {
     private List<Donation> donationHistory = new LinkedList<>();
     public List<Donation> inventory = new LinkedList<>();
 
-    public Location( int key, String name, float longitude, float latitude, String address,
+    public Location( long key, String name, float longitude, float latitude, String address,
                      String city, String state, String zip, String type, String phone, String website){
 
         this.key = key;
@@ -35,7 +35,7 @@ public class Location {
         this.website = website;
     }
 
-    private void setAll(int key, String name, float longitude, float latitude, String address,
+    private void setAll(long key, String name, float longitude, float latitude, String address,
                         String city, String state, String zip, String type, String phone, String website){
         this.key = key;
         this.name = name;
@@ -143,7 +143,7 @@ public class Location {
         this.name = name;
     }
 
-    public int getKey() {
+    public long getKey() {
         return key;
     }
 

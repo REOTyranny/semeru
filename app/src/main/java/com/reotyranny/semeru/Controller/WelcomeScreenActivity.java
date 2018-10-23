@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.reotyranny.semeru.Model.Donation;
+import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
@@ -24,9 +25,10 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
-//        Model mo = Model.getInstance();
-//        if (mo.places.isEmpty())
-//            readSDFile();
+        // only run this once
+//        FirebaseModel firebaseModel = FirebaseModel.getInstance();
+//        firebaseModel.pushDummyDonationData();
+
 
         Button signUpButton = findViewById(R.id.button_SignUp);
         signUpButton.setOnClickListener( new View.OnClickListener() {
@@ -44,6 +46,14 @@ public class WelcomeScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(WelcomeScreenActivity.this, LoginScreenActivity.class));
             }
         });
+
+//        Button viewDonationsButton = findViewById(R.id.button_viewDonations);
+//        viewDonationsButton.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(WelcomeScreenActivity.this, AccountTypeActivity.class));
+//            }
+//        });
     }
 
     public static final int KEY = 0;
