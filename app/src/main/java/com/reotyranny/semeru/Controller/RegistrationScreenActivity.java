@@ -54,7 +54,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
                                     //TODO: Handle each type of login error
                                     Toast.makeText(RegistrationScreenActivity.this,
                                             "Login error - see log", Toast.LENGTH_LONG).show();
-                                    Log.w("login-errors", "signInWithEmail:failure", task.getException());
+                                    Log.w("registration-errors", "signInWithEmail:failure", task.getException());
                                 } else {
                                     addDetails(name, email, acctType);
                                     Toast.makeText(RegistrationScreenActivity.this,

@@ -10,6 +10,12 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.R;
 
 public class HomeScreenActivity extends AppCompatActivity {
@@ -37,17 +43,32 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
-        TextView currentUser = findViewById(R.id.currentUser_TextView);
-
+        final TextView currentUserText = findViewById(R.id.currentUser_TextView);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user != null) {
+        if (user != null && user.getEmail() != null) {
             // User is signed in
-//            String name = user.getDisplayName();
-//            Log.d("testt", name);
-//            currentUser.setText(user.getDisplayName());
-        }
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+            Query query = reference.child("users").orderByChild("email").equalTo(user.getEmail());
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // dataSnapshot is the "issue" node with all children with id 0
+                        for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                            // do something with the individual "issues"
+                            String name = (String) issue.child("name").getValue();
+                            currentUserText.setText(name);
+                        }
+                    }
+                }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
 
     }
 
