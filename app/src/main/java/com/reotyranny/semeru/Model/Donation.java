@@ -1,14 +1,17 @@
 package com.reotyranny.semeru.Model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Donation {
-    private String shortDes, longDes,category,fulltime;
+    private String shortDes, longDes,fulltime;
     private Location place ;
     private float value;
     private String comments;
+    private String category;
+    private List<String> categoryChoices = new LinkedList<>();
 
     public Donation ( Location place, String shortDes, String longDes,
                       float value, String category, String comments){
@@ -17,10 +20,15 @@ public class Donation {
         this.shortDes = shortDes;
         this.longDes = longDes;
         this.value = value;
-        this.category = category;
         this.comments = comments;
 
+        this.category = category;
+        if (!categoryChoices.contains(category)){
+            categoryChoices.add(category);
+        }
     }
+
+    public enum Category{Clothing,Hat,Kitchen,Electronics,Households,Others}
 
 
     public String getTimeStamp(){
@@ -50,9 +58,19 @@ public class Donation {
     public String getCategory() {
         return category;
     }
+    public void addCategory(String newCat){
+        categoryChoices.add(newCat);
+    }
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public void initialCategories(){
+        categoryChoices.add("Kitchen");
+        categoryChoices.add("Clothes");
+        categoryChoices.add("Hat");
+        categoryChoices.add("Other");
     }
 
     public String getLongDes() {

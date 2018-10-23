@@ -2,47 +2,61 @@ package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Button;
-import com.reotyranny.semeru.Model.*;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
+    FirebaseAuth mAuth;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+        mAuth = FirebaseAuth.getInstance();
 
-        final Model model = Model.getInstance();
-
-        Button registerButton = findViewById(R.id.button_Confirm);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        Button confirmButton = findViewById(R.id.button_Confirm);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
                 // email, password, incorrect login text
-                String LoginEmail = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
-                String LoginPassword = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
-                TextView badLoginText = findViewById(R.id.badLoginTextView);
+                String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
+                String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
 
-                Account account = model.checkLogin(LoginEmail, LoginPassword);
 
-                if (account != model.theNullAccount) {
-                    model.setCurrentAccount(account);
-                    startActivity(new Intent(LoginScreenActivity.this, HomeScreenActivity.class));
-                } else {
-                    badLoginText.setVisibility(View.VISIBLE);
+                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
+                            LoginScreenActivity.this,
+                            new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(LoginScreenActivity.this,
+                                        "Sign in error", Toast.LENGTH_SHORT).show();
+                            } else
+                                startActivity(new Intent(
+                                        LoginScreenActivity.this, HomeScreenActivity.class));
+                        }
+                    });
                 }
-            }
+                            }
         });
 
-        Button loginButton =  findViewById(R.id.button_Cancel);
-        loginButton.setOnClickListener( new View.OnClickListener() {
+        Button cancelButton =  findViewById(R.id.button_Cancel);
+        cancelButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
