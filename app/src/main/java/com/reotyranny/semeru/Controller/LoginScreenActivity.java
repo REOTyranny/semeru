@@ -45,9 +45,12 @@ public class LoginScreenActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginScreenActivity.this,
                                         "Sign in error", Toast.LENGTH_SHORT).show();
-                            } else
+                            } else {
+                                Toast.makeText(LoginScreenActivity.this,
+                                        "Login Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(
                                         LoginScreenActivity.this, HomeScreenActivity.class));
+                            }
                         }
                     });
                 }
