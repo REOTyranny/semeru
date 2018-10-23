@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,21 +44,24 @@ public class RegistrationScreenActivity extends AppCompatActivity {
                 final String name = ((EditText)findViewById(R.id.editText_Name)).getText().toString();
                 final String email = ((EditText)findViewById(R.id.editText_Email)).getText().toString();
                 final String password = ((EditText)findViewById(R.id.editText_Password)).getText().toString();
-
+                Log.d("test-pass", "password is " + password);
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
                         RegistrationScreenActivity.this,
                         new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
+                                    //TODO: Handle each type of login error
                                     Toast.makeText(RegistrationScreenActivity.this,
-                                            "Password too short", Toast.LENGTH_LONG).show();
-                                } else
+                                            "Login error - see log", Toast.LENGTH_LONG).show();
+                                    Log.w("login-errors", "signInWithEmail:failure", task.getException());
+                                } else {
                                     addDetails(name, email, acctType);
                                     Toast.makeText(RegistrationScreenActivity.this,
                                             "Registered successfully", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(
-                                        RegistrationScreenActivity.this, HomeScreenActivity.class));
+                                    startActivity(new Intent(
+                                            RegistrationScreenActivity.this, HomeScreenActivity.class));
+                                }
                             }
                         });
             }
