@@ -51,14 +51,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
                 final String password = ((EditText)findViewById(R.id.editText_Password)).getText().toString();
                 final String location = ((EditText) findViewById(R.id.editText_Location)).getText().toString();
 
-//                boolean locationExists = checkLocation(location, new MyCallback() {
-//                    boolean locationExists = false;
-//                    @Override
-//                    public void onCallback(boolean value) {
-//                        locationExists = true;
-//                    }
-//                    return locationExists;
-//                });
+                // check firebase DB for location
                 boolean locationExists = true;
                 if ( locationExists )  {
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
@@ -104,30 +97,6 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         ref.child("users").push().setValue(account);
     }
 
-//    public interface MyCallback {
-//        boolean onCallback(boolean value);
-//    }
-//
-//    // checks if location city is valid (in firebase DB)
-//    public void checkLocation(String location, final MyCallback myCallback) {
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-//        Query query = reference.child("locations").orderByChild("City").equalTo(location);
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    myCallback.onCallback(true);
-//                }
-//                else {
-//                    myCallback.onCallback(false);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
 
 
 }
