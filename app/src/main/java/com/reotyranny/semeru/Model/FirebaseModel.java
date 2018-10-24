@@ -74,12 +74,8 @@ public class FirebaseModel {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         fireBaseCallback.onCallback(issue.child("location").getValue().toString());
-                        //fireBaseCallback.onCallback(issue.getKey());
                         break;
                     }
-                }
-                else {
-                    Log.d("zzz", "nope");
                 }
             }
             @Override
@@ -90,32 +86,32 @@ public class FirebaseModel {
     }
 
 
-    public void pushDummyDonationData(){
-        Location atlanta = new Location(1, "AFD Station 4", 33.75416f, -84.37742f,
-                "309 EDGEWOOD AVE SE", "Atlanta", "GA", "30332", "Drop Off",
-                "(404) 555 - 3456", "www.afd04.atl.ga");
-
-        Donation donation1 = new Donation(atlanta, "Old shirt", "Old blue shirt",
-                12.15f, "Clothing", "A cool old blue shirt");
-
-        Donation donation2 = new Donation(atlanta, "Old shirt", "Old red shirt",
-                6.50f, "Clothing", "A cool old red shirt");
-
-        Donation donation3 = new Donation(atlanta, "Dope hat", "Hat with dope things on it",
-                16.50f, "Hat", "hat be dope");
-
-        Donation donation4 = new Donation(atlanta, "iphone X", "overpriced garbage",
-                9999.50f, "Electronics", "dont buy this lol");
-
-        Donation donation5 = new Donation(atlanta, "Toaster", "Old toaster",
-                5.50f, "Households", "toast malone");
-
-        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation1);
-        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation2);
-        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation3);
-        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation4);
-        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation5);
-    }
+//    public void pushDummyDonationData(){
+//        Location atlanta = new Location(1, "AFD Station 4", 33.75416f, -84.37742f,
+//                "309 EDGEWOOD AVE SE", "Atlanta", "GA", "30332", "Drop Off",
+//                "(404) 555 - 3456", "www.afd04.atl.ga");
+//
+//        Donation donation1 = new Donation(atlanta, "Old shirt", "Old blue shirt",
+//                12.15f, "Clothing", "A cool old blue shirt");
+//
+//        Donation donation2 = new Donation(atlanta, "Old shirt", "Old red shirt",
+//                6.50f, "Clothing", "A cool old red shirt");
+//
+//        Donation donation3 = new Donation(atlanta, "Dope hat", "Hat with dope things on it",
+//                16.50f, "Hat", "hat be dope");
+//
+//        Donation donation4 = new Donation(atlanta, "iphone X", "overpriced garbage",
+//                9999.50f, "Electronics", "dont buy this lol");
+//
+//        Donation donation5 = new Donation(atlanta, "Toaster", "Old toaster",
+//                5.50f, "Households", "toast malone");
+//
+//        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation1);
+//        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation2);
+//        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation3);
+//        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation4);
+//        getDatabaseReference().child("locations").child("0").child("Donations").push().setValue(donation5);
+//    }
 
 
 

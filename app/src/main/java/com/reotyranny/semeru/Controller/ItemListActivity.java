@@ -64,23 +64,23 @@ public class ItemListActivity extends AppCompatActivity {
                         float value = ((Number) issue.child("value").getValue()).floatValue();
                         String category = issue.child("category").getValue().toString();
                         String comments = issue.child("comments").getValue().toString();
-                        issue = issue.child("place");
-                        long keyf = (long) issue.child("key").getValue();
-                        String name = (String) issue.child("name").getValue();
-                        float longitude = ((Number) issue.child("longitude").getValue()).floatValue();
-                        float latitude = ((Number) issue.child("latitude").getValue()).floatValue();
-                        String address = (String) issue.child("address").getValue();
-                        String city = (String) issue.child("city").getValue();
-                        String state = (String) issue.child("state").getValue();
-                        String zip = issue.child("zip").getValue().toString();
-                        String type = (String) issue.child("type").getValue();
-                        String phone = (String) issue.child("phone").getValue();
-                        String website = (String) issue.child("website").getValue();
-                        Location location = new Location(keyf, name, longitude, latitude, address,
-                                city, state, zip, type, phone, website);
+                        String place = issue.child("place").getValue().toString();
+//                        long keyf = (long) issue.child("key").getValue();
+//                        String name = (String) issue.child("name").getValue();
+//                        float longitude = ((Number) issue.child("longitude").getValue()).floatValue();
+//                        float latitude = ((Number) issue.child("latitude").getValue()).floatValue();
+//                        String address = (String) issue.child("address").getValue();
+//                        String city = (String) issue.child("city").getValue();
+//                        String state = (String) issue.child("state").getValue();
+//                        String zip = issue.child("zip").getValue().toString();
+//                        String type = (String) issue.child("type").getValue();
+//                        String phone = (String) issue.child("phone").getValue();
+//                        String website = (String) issue.child("website").getValue();
+//                        Location location = new Location(keyf, name, longitude, latitude, address,
+//                                city, state, zip, type, phone, website);
 
 
-                        items.add(new Donation(location, shortDes,longDes, value, category, comments));
+                        items.add(new Donation(place, shortDes,longDes, value, category, comments));
 
                     }
                 }
