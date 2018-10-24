@@ -1,6 +1,7 @@
 package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -101,6 +102,15 @@ public class ItemListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ItemListActivity.this, LocationListActivity.class));
+            }
+        });
+
+
+        FloatingActionButton addNewDonation =  findViewById(R.id.button_Add);
+        addNewDonation.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ItemListActivity.this, AddItemActivity.class));
             }
         });
     }
