@@ -22,7 +22,9 @@ public class FirebaseModel {
 
 
     public DatabaseReference getDatabaseReference() {
-        return FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        ref.keepSynced(true); // important! -- caches up to 10MB of data
+        return ref;
     }
 
     public FirebaseAuth getAuthInstance() {
