@@ -27,7 +27,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         FirebaseModel FirebaseInstance = FirebaseModel.getInstance();
-        Log.d("zzz", "location is hm? " + FirebaseModel.getInstance().userLocation);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         Button signOutButton =  findViewById(R.id.button_SignOut);
         signOutButton.setOnClickListener( new View.OnClickListener() {
@@ -50,8 +50,6 @@ public class HomeScreenActivity extends AppCompatActivity {
         final TextView currentUserText = findViewById(R.id.currentUser_TextView);
         final TextView welcomeUserText = findViewById(R.id.text_Welcome);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         if (user != null && user.getEmail() != null) {
             // User is signed in
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -60,19 +58,17 @@ public class HomeScreenActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        // dataSnapshot is the "issue" node with all children with id 0
-                        for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                            // do something with the individual "issues"
-                            String name = (String) issue.child("name").getValue();
-                            currentUserText.setText(name);
-                            welcomeUserText.setText(name);
-                        }
+                        // query matches exactly to user.getEmail() -- just use 1 iteration
+                        DataSnapshot item = dataSnapshot.getChildren().iterator().next();
+                        String name = item.child("name").getValue().toString();
+                        currentUserText.setText(name);
+                        welcomeUserText.setText(name);
                     }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    Log.d("Database-Error", databaseError.getMessage());
                 }
             });
         }
