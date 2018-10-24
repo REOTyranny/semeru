@@ -47,6 +47,15 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
+        Button addDonation =  findViewById(R.id.button_addDonation);
+        addDonation.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeScreenActivity.this, AddItemActivity.class));
+            }
+        });
+
         final TextView currentUserText = findViewById(R.id.currentUser_TextView);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 

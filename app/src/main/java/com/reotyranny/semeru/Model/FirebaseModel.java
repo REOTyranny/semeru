@@ -20,8 +20,10 @@ public class FirebaseModel {
     public boolean correctLocation = false;
     public String userLocation = "";
 
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
     public DatabaseReference getDatabaseReference() {
-        return FirebaseDatabase.getInstance().getReference();
+        return ref;
     }
 
     public FirebaseAuth getFirebaseAuthInstance() {

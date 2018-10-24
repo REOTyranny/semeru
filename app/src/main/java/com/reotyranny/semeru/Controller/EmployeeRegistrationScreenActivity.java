@@ -72,6 +72,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
                                                 addDetails(name, email, acctType, location);
                                                 Toast.makeText(EmployeeRegistrationScreenActivity.this,
                                                         "Registered successfully", Toast.LENGTH_LONG).show();
+
                                                 startActivity(new Intent(
                                                         EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
                                             }
@@ -101,6 +102,14 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         Account account = new Account(name, email, acctType, location);
         DatabaseReference ref = firebaseDB.getReference();
         ref.child("users").push().setValue(account);
+        FirebaseInstance.storeUser(email, new FirebaseModel.FireBaseCallback2() {
+            @Override
+            public void onCallback(String location) {
+                FirebaseModel.getInstance().userLocation = location;
+                startActivity(new Intent(
+                        EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
+            }
+        });
     }
 
 
