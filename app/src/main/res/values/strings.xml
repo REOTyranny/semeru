@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Semeru</string>
     <string name="title_activity_welcome_screen">WelcomeScreenActivity</string>
+    <string-array name="category_array">
+        <item>Clothing</item>
+        <item>Hat</item>
+        <item>Kitchen</item>
+        <item>Electronics</item>
+        <item>Households</item>
+        <item>Others</item>
+    </string-array>
 </resources>

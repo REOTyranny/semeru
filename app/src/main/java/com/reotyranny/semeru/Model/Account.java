@@ -1,13 +1,13 @@
 package com.reotyranny.semeru.Model;
 
+public class Account {
 
-
-public abstract class Account {
-    protected String name;
-    protected String username;
-    protected String password;
-    protected String email;
-    protected boolean locked ;
+    private String name;
+    private String username;
+    private String email;
+    private AccountType acctType;
+    private String location;
+    boolean locked;
 
     public String getName() {
         return name;
@@ -25,14 +25,6 @@ public abstract class Account {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -41,15 +33,35 @@ public abstract class Account {
         this.email = email;
     }
 
-    public Account(String name, String username, String password, String email ){
-        this(name,username,password,email,false);
+    public AccountType getAcctType() {
+        return acctType;
     }
-    public Account(String name, String username, String password, String email, boolean locked)
-    {
+
+    public void setAcctType(AccountType acctType) {
+        this.acctType = acctType;
+    }
+
+    public Account(String name, String email, AccountType acctType) {
         this.name = name;
-        this.username = username;
-        this.password = password;
         this.email = email;
-        this.locked = locked;
+        this.acctType = acctType;
+        this.locked = false;
     }
+
+    public Account(String name, String email, AccountType acctType, String location) {
+        this.name = name;
+        this.email = email;
+        this.acctType = acctType;
+        this.location = location;
+        this.locked = false;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
 }

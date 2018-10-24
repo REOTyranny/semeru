@@ -33,7 +33,7 @@
             android:name=".Controller.HomeScreenActivity"
             android:label="HomeScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Controller.EmployeeRegistationScreenActivity" />
+        <activity android:name=".Controller.EmployeeRegistrationScreenActivity" />
         <activity android:name=".Controller.AccountTypeActivity" />
         <activity android:name=".Controller.LocationListActivity"
             android:windowSoftInputMode="adjustPan"
@@ -42,7 +42,7 @@
         <activity android:name=".Controller.LocationDetailsActivity" />
         <activity android:name=".Controller.AddItemActivity" />
         <activity android:name=".Controller.ItemListActivity" />
-        <activity android:name=".Controller.SpecificItemActivity"></activity>
+        <activity android:name=".Controller.SpecificItemActivity" />
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
@@ -14,12 +15,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.reotyranny.semeru.Model.FirebaseModel;
+import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    
+    FirebaseModel FirebaseInstance = FirebaseModel.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +36,6 @@ public class LoginScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // email, password, incorrect login text
                 String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
 
@@ -43,12 +46,23 @@ public class LoginScreenActivity extends AppCompatActivity {
                             new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginScreenActivity.this,
                                         "Sign in error", Toast.LENGTH_SHORT).show();
-                            } else
-                                startActivity(new Intent(
-                                        LoginScreenActivity.this, HomeScreenActivity.class));
+                            } else {
+                                Toast.makeText(LoginScreenActivity.this,
+                                        "Login Successful", Toast.LENGTH_SHORT).show();
+                                FirebaseInstance.storeUser(email, new FirebaseModel.FireBaseCallback2() {
+                                            @Override
+                                            public void onCallback(String location) {
+                                                FirebaseModel.getInstance().userLocation = location;
+                                                startActivity(new Intent(
+                                                        LoginScreenActivity.this, HomeScreenActivity.class));
+                                            }
+                                        });
+
+                            }
                         }
                     });
                 }
