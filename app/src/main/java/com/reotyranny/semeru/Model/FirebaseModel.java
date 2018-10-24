@@ -18,6 +18,7 @@ public class FirebaseModel {
     public static FirebaseModel getInstance() { return _instance; }
 
     public boolean correctLocation = false;
+    public String userLocation = "";
 
     public DatabaseReference getDatabaseReference() {
         return FirebaseDatabase.getInstance().getReference();
@@ -45,8 +46,12 @@ public class FirebaseModel {
         void onCallback(boolean isValid);
     }
 
+    public interface FireBaseCallback2 {
+        void onCallback(String locationName);
+    }
+
     public void checkLocation (String location, final FireBaseCallback fireBaseCallback) {
-        Query query = getDatabaseReference().child("locations").orderByChild("City").equalTo(location);
+        Query query = getDatabaseReference().child("locations").orderByChild("Name").equalTo(location);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -58,6 +63,30 @@ public class FirebaseModel {
             }
         });
     }
+
+    public void storeUser (String email, final FireBaseCallback2 fireBaseCallback) {
+        Query query = getDatabaseReference().child("users").orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        fireBaseCallback.onCallback(issue.child("location").getValue().toString());
+                        //fireBaseCallback.onCallback(issue.getKey());
+                        break;
+                    }
+                }
+                else {
+                    Log.d("zzz", "nope");
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Database-Error", databaseError.getMessage());
+            }
+        });
+    }
+
 
     public void pushDummyDonationData(){
         Location atlanta = new Location(1, "AFD Station 4", 33.75416f, -84.37742f,

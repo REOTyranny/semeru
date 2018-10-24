@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
@@ -14,12 +15,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    
+    FirebaseModel FirebaseInstance = FirebaseModel.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +45,22 @@ public class LoginScreenActivity extends AppCompatActivity {
                             new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginScreenActivity.this,
                                         "Sign in error", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(LoginScreenActivity.this,
                                         "Login Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(
-                                        LoginScreenActivity.this, HomeScreenActivity.class));
+                                FirebaseInstance.storeUser(email, new FirebaseModel.FireBaseCallback2() {
+                                            @Override
+                                            public void onCallback(String locationName) {
+                                                FirebaseModel.getInstance().userLocation = locationName;
+                                                startActivity(new Intent(
+                                                        LoginScreenActivity.this, HomeScreenActivity.class));
+                                            }
+                                        });
+
                             }
                         }
                     });

@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
@@ -26,6 +27,9 @@ public class LocationSpecificActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_specific);
        final int key = (int) getIntent().getSerializableExtra("key");
+
+       //Log.d("fff", "user location " + FirebaseModel.getInstance().userLocation + " key " + key);
+
         //Model model = Model.getInstance();
 
         //TODO: Integrate with Firebase
@@ -36,7 +40,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final String key = getIntent().getSerializableExtra("key").toString();
                 if (dataSnapshot.exists()) {
-                    // dataSnapshot is the "issue" node with all children with id 0
+                    // dataSnapshot is the "issue" node with all children with;id 0
                     // user iterator instead (increment instead of getting each result
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         // do something with the individual "issues"
@@ -59,6 +63,12 @@ public class LocationSpecificActivity extends AppCompatActivity {
 
                             TextView phone = findViewById(R.id.text_Phone);
                             phone.setText(issue.child("Phone").getValue().toString());
+
+                            String f = issue.child("Name").getValue().toString();
+                            if ( FirebaseModel.getInstance().userLocation.equals(f)) {
+                                Button seeItems = findViewById(R.id.button_SeeItems);
+                                seeItems.setVisibility(View.VISIBLE); //To set visible
+                            }
                         }
                     }
                 }

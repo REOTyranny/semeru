@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.R;
 
 public class HomeScreenActivity extends AppCompatActivity {
@@ -24,6 +25,9 @@ public class HomeScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        FirebaseModel FirebaseInstance = FirebaseModel.getInstance();
+        Log.d("zzz", "location is hm? " + FirebaseModel.getInstance().userLocation);
 
         Button signOutButton =  findViewById(R.id.button_SignOut);
         signOutButton.setOnClickListener( new View.OnClickListener() {
