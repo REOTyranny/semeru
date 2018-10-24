@@ -28,10 +28,6 @@ public class LocationSpecificActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_specific);
        final int key = (int) getIntent().getSerializableExtra("key");
 
-       //Log.d("fff", "user location " + FirebaseModel.getInstance().userLocation + " key " + key);
-
-        //Model model = Model.getInstance();
-
         //TODO: Integrate with Firebase
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child("locations").orderByKey();

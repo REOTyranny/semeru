@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.reotyranny.semeru.Model.FirebaseModel;
+import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
@@ -54,8 +55,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                                         "Login Successful", Toast.LENGTH_SHORT).show();
                                 FirebaseInstance.storeUser(email, new FirebaseModel.FireBaseCallback2() {
                                             @Override
-                                            public void onCallback(String locationName) {
-                                                FirebaseModel.getInstance().userLocation = locationName;
+                                            public void onCallback(String location) {
+                                                FirebaseModel.getInstance().userLocation = location;
                                                 startActivity(new Intent(
                                                         LoginScreenActivity.this, HomeScreenActivity.class));
                                             }
