@@ -36,7 +36,8 @@ public class SpecificItemActivity extends AppCompatActivity {
                 final int itemID = (int) getIntent().getSerializableExtra("itemKey");
                 if (dataSnapshot.exists()) {
                     Iterator snapshot = dataSnapshot.getChildren().iterator();
-                    for(int i = -1; i != itemID; i++) snapshot.next();
+                    Log.d("fab", "itemID: " + itemID);
+                    for(int i = 0; i != itemID; i++) snapshot.next();
                     Donation donation = ((DataSnapshot) snapshot.next()).getValue(Donation.class);
                     populateFields(donation);
                 }

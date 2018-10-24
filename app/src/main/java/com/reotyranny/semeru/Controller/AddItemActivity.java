@@ -30,18 +30,10 @@ public class AddItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_item);
         FirebaseModel Model = FirebaseModel.getInstance();
 
-
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                        R.array.category_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-
         TextView locationText = findViewById(R.id.locationText);
         locationText.setText(Model.userLocation);
+
+        constructSpinnner();
 
         Button cancelBtn = findViewById(R.id.button_Cancel);
         cancelBtn.setOnClickListener(new View.OnClickListener(){
@@ -56,42 +48,51 @@ public class AddItemActivity extends AppCompatActivity {
             FirebaseModel Model = FirebaseModel.getInstance();
             @Override
             public void onClick(View v) {
-
-
-                Query query = Model.getDatabaseReference().child("locations").orderByChild("Name");
+                Query query = Model.getDatabaseReference().child("locations").orderByChild("Name").
+                        equalTo(Model.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    String shortDes = ((EditText)findViewById(R.id.editText_Short)).getText().toString();
-                    String longDes = ((EditText)findViewById(R.id.editText_Full)).getText().toString();
-                    String value = ((EditText)findViewById(R.id.editText_Value)).getText().toString();
-                    String comments = ((EditText)findViewById(R.id.editText_Comments)).getText().toString();
-                    Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
-                    String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-                    String location = Model.userLocation;
-//                    Location location = new Location(12, Model.userLocation, 1.0f, 2.0f, "test address",
-//                            "test-city", "test-state", "102", "Some type", "404 1234 123", "www.test.com");
-
-                    Donation donation = new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments);
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                                if (issue.child("Name").getValue().toString().equals(Model.userLocation)) {
-                                    Model.getDatabaseReference().child("locations").child(issue.getKey()).child("Donations").push().setValue(donation);
-                                    break;
-                                }
-                            }
+                            // query only returns item (just iterate to it using next())
+                            DataSnapshot item = dataSnapshot.getChildren().iterator().next();
+                            Donation donation = constructDonationObject();
+                            Model.getDatabaseReference().child("locations").child(item.getKey()).
+                                    child("Donations").push().setValue(donation);
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        Log.d("Database-Error", databaseError.getMessage());
                     }
                 });
-
                 startActivity(new Intent(AddItemActivity.this, HomeScreenActivity.class));
             }
         });
+    }
+
+    private Donation constructDonationObject(){
+        FirebaseModel Model = FirebaseModel.getInstance();
+        String shortDes = ((EditText)findViewById(R.id.editText_Short)).getText().toString();
+        String longDes = ((EditText)findViewById(R.id.editText_Full)).getText().toString();
+        String value = ((EditText)findViewById(R.id.editText_Value)).getText().toString();
+        String comments = ((EditText)findViewById(R.id.editText_Comments)).getText().toString();
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
+        String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+        String location = Model.userLocation;
+        Donation donation = new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments);
+        return donation;
+    }
+
+    private void constructSpinnner(){
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
     }
 }
 
