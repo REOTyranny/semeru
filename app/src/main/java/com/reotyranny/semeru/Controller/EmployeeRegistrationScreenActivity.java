@@ -27,11 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase firebaseDB;
-    DatabaseReference mDatabase;
-
-    FirebaseModel FirebaseInstance = FirebaseModel.getInstance();
+    FirebaseModel FB = FirebaseModel.getInstance();
 
     //TODO: Avoid code repetition (DRY) from the other Registration Activity
     @Override
@@ -39,9 +35,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_registration_screen);
         final AccountType acctType = (AccountType) getIntent().getSerializableExtra("type");
-        mAuth = FirebaseAuth.getInstance();
-        firebaseDB = FirebaseDatabase.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         Button registerButton = findViewById(R.id.button_Register);
 
         registerButton.setOnClickListener( new View.OnClickListener() {
@@ -54,11 +48,11 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
                 final String location = ((EditText) findViewById(R.id.editText_Location)).getText().toString();
 
                 // check firebase DB for location
-                FirebaseInstance.checkLocation(location, new FirebaseModel.FireBaseCallback() {
+                FB.checkLocation(location, new FirebaseModel.FireBaseCallback() {
                     @Override
                     public void onCallback(boolean isValid) {
                         if (isValid) {
-                            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+                            FB.getAuthInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(
                                     EmployeeRegistrationScreenActivity.this,
                                     new OnCompleteListener<AuthResult>() {
                                         @Override
@@ -100,9 +94,8 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
 
     private void addDetails(String name, String email, AccountType acctType, String location) {
         Account account = new Account(name, email, acctType, location);
-        DatabaseReference ref = firebaseDB.getReference();
-        ref.child("users").push().setValue(account);
-        FirebaseInstance.storeUser(email, new FirebaseModel.FireBaseCallback2() {
+        FB.getDatabaseReference().child("users").push().setValue(account);
+        FB.storeUser(email, new FirebaseModel.FireBaseCallback2() {
             @Override
             public void onCallback(String location) {
                 FirebaseModel.getInstance().userLocation = location;

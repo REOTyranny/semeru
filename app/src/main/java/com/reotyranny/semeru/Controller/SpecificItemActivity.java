@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Donation;
+import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
@@ -27,9 +28,11 @@ public class SpecificItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_specific_item);
 
         final int locationID = (int) getIntent().getSerializableExtra("locationKey");
+        FirebaseModel FB = FirebaseModel.getInstance();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child("locations").child(((Integer)locationID).toString()).child("Donations").orderByKey();
+        DatabaseReference ref = FB.getDatabaseReference();
+        Query query = ref.child("locations").child(((Integer)locationID).toString()).
+                child("Donations").orderByKey();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -20,18 +20,17 @@ public class FirebaseModel {
     public boolean correctLocation = false;
     public String userLocation = "";
 
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
     public DatabaseReference getDatabaseReference() {
-        return ref;
+        return FirebaseDatabase.getInstance().getReference();
     }
 
-    public FirebaseAuth getFirebaseAuthInstance() {
+    public FirebaseAuth getAuthInstance() {
         return FirebaseAuth.getInstance();
     }
 
     public FirebaseUser getCurrentUser() {
-        return  getFirebaseAuthInstance().getCurrentUser();
+        return getAuthInstance().getCurrentUser();
     }
 
     // make it public boolean (to check valid add)

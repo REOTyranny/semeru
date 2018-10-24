@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
@@ -35,19 +36,19 @@ public class LocationListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_list);
         mRecyclerView = findViewById(R.id.rvLocation);
 
-
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //TODO: Restore the way locations are pulled from Firebase
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child("locations").orderByChild("Key");
+        FirebaseModel FB = FirebaseModel.getInstance();
+        Query query = FB.getDatabaseReference().child("locations").orderByChild("Key");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Location> locations = new ArrayList<>();
                 if (dataSnapshot.exists()) {
+                    // TODO FIX this
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         // Should be able to do this :

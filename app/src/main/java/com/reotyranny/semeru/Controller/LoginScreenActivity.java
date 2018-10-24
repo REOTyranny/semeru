@@ -21,14 +21,13 @@ import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-    FirebaseModel FirebaseInstance = FirebaseModel.getInstance();
+    FirebaseModel FB = FirebaseModel.getInstance();
+    FirebaseAuth mAuth = FB.getAuthInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
-        mAuth = FirebaseAuth.getInstance();
 
         Button confirmButton = findViewById(R.id.button_Confirm);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +52,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(LoginScreenActivity.this,
                                         "Login Successful", Toast.LENGTH_SHORT).show();
-                                FirebaseInstance.storeUser(email, new FirebaseModel.FireBaseCallback2() {
+                                FB.storeUser(email, new FirebaseModel.FireBaseCallback2() {
                                             @Override
                                             public void onCallback(String location) {
                                                 FirebaseModel.getInstance().userLocation = location;

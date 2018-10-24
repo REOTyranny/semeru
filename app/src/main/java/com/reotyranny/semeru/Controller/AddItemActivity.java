@@ -28,10 +28,10 @@ public class AddItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-        FirebaseModel Model = FirebaseModel.getInstance();
+        FirebaseModel FB = FirebaseModel.getInstance();
 
         TextView locationText = findViewById(R.id.locationText);
-        locationText.setText(Model.userLocation);
+        locationText.setText(FB.userLocation);
 
         constructSpinnner();
 
@@ -45,11 +45,11 @@ public class AddItemActivity extends AppCompatActivity {
 
         Button confirmDonation =  findViewById(R.id.button_Confirm);
         confirmDonation.setOnClickListener( new View.OnClickListener() {
-            FirebaseModel Model = FirebaseModel.getInstance();
+            FirebaseModel FB = FirebaseModel.getInstance();
             @Override
             public void onClick(View v) {
-                Query query = Model.getDatabaseReference().child("locations").orderByChild("Name").
-                        equalTo(Model.userLocation);
+                Query query = FB.getDatabaseReference().child("locations").orderByChild("Name").
+                        equalTo(FB.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -57,7 +57,7 @@ public class AddItemActivity extends AppCompatActivity {
                             // query only returns item (just iterate to it using next())
                             DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                             Donation donation = constructDonationObject();
-                            Model.getDatabaseReference().child("locations").child(item.getKey()).
+                            FB.getDatabaseReference().child("locations").child(item.getKey()).
                                     child("Donations").push().setValue(donation);
                         }
                     }

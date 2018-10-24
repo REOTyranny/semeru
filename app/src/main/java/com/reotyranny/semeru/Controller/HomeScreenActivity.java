@@ -26,8 +26,8 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        FirebaseModel FirebaseInstance = FirebaseModel.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseModel FB = FirebaseModel.getInstance();
+        FirebaseUser user = FB.getCurrentUser();
 
         Button signOutButton =  findViewById(R.id.button_SignOut);
         signOutButton.setOnClickListener( new View.OnClickListener() {

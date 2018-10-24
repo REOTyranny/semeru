@@ -23,23 +23,18 @@ public class LocationSpecificActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // need to do
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_specific);
-       final int key = (int) getIntent().getSerializableExtra("key");
+        final int key = (int) getIntent().getSerializableExtra("key");
 
-        //TODO: Integrate with Firebase
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child("locations").orderByKey();
+        FirebaseModel FB = FirebaseModel.getInstance();
+        Query query = FB.getDatabaseReference().child("locations").orderByKey();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final String key = getIntent().getSerializableExtra("key").toString();
                 if (dataSnapshot.exists()) {
-                    // dataSnapshot is the "issue" node with all children with;id 0
-                    // user iterator instead (increment instead of getting each result
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        // do something with the individual "issues"
                         if (issue.getKey().equals(key)) {
                             Log.d("abc", issue.toString());
                             TextView name = findViewById(R.id.text_LocName);
@@ -72,7 +67,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("Database-Error", databaseError.getMessage());
             }
         });
 
