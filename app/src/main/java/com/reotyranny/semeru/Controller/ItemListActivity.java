@@ -36,7 +36,7 @@ public class ItemListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
         mRecyclerView = findViewById(R.id.rvItems);
-        
+
         final String keyS = getIntent().getSerializableExtra("key").toString();
 
         // use a linear layout manager
