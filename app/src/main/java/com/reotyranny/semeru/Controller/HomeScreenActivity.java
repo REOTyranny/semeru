@@ -57,6 +57,8 @@ public class HomeScreenActivity extends AppCompatActivity {
         });
 
         final TextView currentUserText = findViewById(R.id.currentUser_TextView);
+        final TextView welcomeUserText = findViewById(R.id.text_Welcome);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null && user.getEmail() != null) {
@@ -72,6 +74,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                             // do something with the individual "issues"
                             String name = (String) issue.child("name").getValue();
                             currentUserText.setText(name);
+                            welcomeUserText.setText(name);
                         }
                     }
                 }
