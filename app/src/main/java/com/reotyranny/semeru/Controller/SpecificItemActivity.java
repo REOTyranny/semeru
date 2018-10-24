@@ -18,6 +18,8 @@ import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
+import java.util.Iterator;
+
 public class SpecificItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +27,6 @@ public class SpecificItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_specific_item);
 
         final int locationID = (int) getIntent().getSerializableExtra("locationKey");
-        final int itemIDz = (int) getIntent().getSerializableExtra("itemKey");
-
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child("locations").child(((Integer)locationID).toString()).child("Donations").orderByKey();
@@ -34,69 +34,46 @@ public class SpecificItemActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final int itemID = (int) getIntent().getSerializableExtra("itemKey");
-                Log.d("item-key", ""+ itemID);
-                int i = 0;
                 if (dataSnapshot.exists()) {
-                    // dataSnapshot is the "issue" node with all children with id 0
-                    // user iterator instead (increment instead of getting each result
-                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        // do something with the individual "issues"
-                        Log.d("item-key", "index: " + i);
-                        if ( i == itemID) {
-                            Donation d = issue.getValue(Donation.class);
-//                            Log.d("fab", test.getShortDes());
-//                            Log.d("abcde", issue.toString());
-//                            String shortDes = issue.child("shortDes").getValue().toString();
-//                            String longDes = issue.child("longDes").getValue().toString();
-//                            float value = ((Number) issue.child("value").getValue()).floatValue();
-//                            String category = issue.child("category").getValue().toString();
-//                            String comments = issue.child("comments").getValue().toString();
-//                            String location = issue.child("place").getValue().toString();
-
-                            //Donation item = new Donation(d.getPlace(), d.gets, longDes, value, category, comments);
-
-                            TextView shortDesView = findViewById(R.id.text_Short);
-                            shortDesView.setText(d.getShortDes());
-                            TextView time = findViewById(R.id.text_Full);
-                            time.setText(d.getFulltime());
-                            TextView valueView = findViewById(R.id.text_Value);
-                            valueView.setText(""+d.getValue());
-                            TextView loc = findViewById(R.id.text_Location);
-                            loc.setText(""+d.getPlace());
-                            TextView categoryView = findViewById(R.id.text_Category);
-                            categoryView.setText(d.getCategory());
-                            TextView commentsView = findViewById(R.id.text_Comments);
-                            commentsView.setText(d.getComments());
-                            TextView Timestamp = findViewById(R.id.text_Timestamp);
-                            Timestamp.setText(d.getTimeStamp());
-
-                            break;
-                        }
-                        else {
-                            i = i + 1;
-                        }
-                    }
+                    Iterator snapshot = dataSnapshot.getChildren().iterator();
+                    for(int i = -1; i != itemID; i++) snapshot.next();
+                    Donation donation = ((DataSnapshot) snapshot.next()).getValue(Donation.class);
+                    populateFields(donation);
                 }
 
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("Database-Error", databaseError.getMessage());
             }
         });
 
 
         Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener( new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(SpecificItemActivity.this, ItemListActivity.class));
                 Intent intent = new Intent (SpecificItemActivity.this, ItemListActivity.class);
                 intent.putExtra("key", locationID);
                 v.getContext().startActivity(intent);
             }
         });
+    }
+
+    public void populateFields(Donation d) {
+        TextView shortDesView = findViewById(R.id.text_Short);
+        shortDesView.setText(d.getShortDes());
+        TextView time = findViewById(R.id.text_Full);
+        time.setText(d.getFulltime());
+        TextView valueView = findViewById(R.id.text_Value);
+        valueView.setText("" + d.getValue());
+        TextView loc = findViewById(R.id.text_Location);
+        loc.setText("" + d.getPlace());
+        TextView categoryView = findViewById(R.id.text_Category);
+        categoryView.setText(d.getCategory());
+        TextView commentsView = findViewById(R.id.text_Comments);
+        commentsView.setText(d.getComments());
+        TextView Timestamp = findViewById(R.id.text_Timestamp);
+        Timestamp.setText(d.getTimeStamp());
     }
 }

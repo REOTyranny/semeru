@@ -14,6 +14,7 @@ public class Donation {
     private String category;
     private List<String> categoryChoices = new LinkedList<>();
 
+    // this empty constructor is required for firebase!! do not remove !
     public Donation() {}
 
     public Donation ( String place, String shortDes, String longDes,
