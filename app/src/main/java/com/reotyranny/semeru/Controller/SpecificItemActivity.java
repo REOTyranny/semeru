@@ -43,30 +43,32 @@ public class SpecificItemActivity extends AppCompatActivity {
                         // do something with the individual "issues"
                         Log.d("item-key", "index: " + i);
                         if ( i == itemID) {
-                            Log.d("abcde", issue.toString());
-                            String shortDes = issue.child("shortDes").getValue().toString();
-                            String longDes = issue.child("longDes").getValue().toString();
-                            float value = ((Number) issue.child("value").getValue()).floatValue();
-                            String category = issue.child("category").getValue().toString();
-                            String comments = issue.child("comments").getValue().toString();
-                            String location = issue.child("place").getValue().toString();
+                            Donation d = issue.getValue(Donation.class);
+//                            Log.d("fab", test.getShortDes());
+//                            Log.d("abcde", issue.toString());
+//                            String shortDes = issue.child("shortDes").getValue().toString();
+//                            String longDes = issue.child("longDes").getValue().toString();
+//                            float value = ((Number) issue.child("value").getValue()).floatValue();
+//                            String category = issue.child("category").getValue().toString();
+//                            String comments = issue.child("comments").getValue().toString();
+//                            String location = issue.child("place").getValue().toString();
 
-                            Donation item = new Donation(location, shortDes, longDes, value, category, comments);
+                            //Donation item = new Donation(d.getPlace(), d.gets, longDes, value, category, comments);
 
                             TextView shortDesView = findViewById(R.id.text_Short);
-                            shortDesView.setText(shortDes);
+                            shortDesView.setText(d.getShortDes());
                             TextView time = findViewById(R.id.text_Full);
-                            time.setText(item.getFulltime());
+                            time.setText(d.getFulltime());
                             TextView valueView = findViewById(R.id.text_Value);
-                            valueView.setText(""+item.getValue());
+                            valueView.setText(""+d.getValue());
                             TextView loc = findViewById(R.id.text_Location);
-                            loc.setText(""+location);
+                            loc.setText(""+d.getPlace());
                             TextView categoryView = findViewById(R.id.text_Category);
-                            categoryView.setText(item.getCategory());
+                            categoryView.setText(d.getCategory());
                             TextView commentsView = findViewById(R.id.text_Comments);
-                            commentsView.setText(item.getComments());
+                            commentsView.setText(d.getComments());
                             TextView Timestamp = findViewById(R.id.text_Timestamp);
-                            Timestamp.setText(item.getTimeStamp());
+                            Timestamp.setText(d.getTimeStamp());
 
                             break;
                         }

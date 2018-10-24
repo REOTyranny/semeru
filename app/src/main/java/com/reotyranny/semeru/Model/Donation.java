@@ -14,6 +14,8 @@ public class Donation {
     private String category;
     private List<String> categoryChoices = new LinkedList<>();
 
+    public Donation() {}
+
     public Donation ( String place, String shortDes, String longDes,
                       float value, String category, String comments){
         this.fulltime = getTimeStamp();
