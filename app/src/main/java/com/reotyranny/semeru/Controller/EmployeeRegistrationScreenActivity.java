@@ -6,8 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,11 +27,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
 
     FirebaseModel FB = FirebaseModel.getInstance();
-
-    //TODO: Avoid code repetition (DRY) from the other Registration Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,31 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         final AccountType acctType = (AccountType) getIntent().getSerializableExtra("type");
 
         Button registerButton = findViewById(R.id.button_Register);
+        final Spinner spinner = (Spinner) findViewById(R.id.locationSpinner);
+
+        // populate spinner with locations in firebase db
+        FB.getDatabaseReference().child("locations").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final ArrayList<String> locations = new ArrayList<String>();
+
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String locationName = snapshot.child("Name").getValue().toString();
+                    locations.add(locationName);
+                }
+
+
+                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(EmployeeRegistrationScreenActivity.this,
+                        android.R.layout.simple_spinner_item, locations);
+                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(areasAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Database-Error", databaseError.getMessage());
+            }
+        });
 
         registerButton.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -45,40 +72,30 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
                 final String name = ((EditText)findViewById(R.id.editText_Name)).getText().toString();
                 final String email = ((EditText)findViewById(R.id.editText_Email)).getText().toString();
                 final String password = ((EditText)findViewById(R.id.editText_Password)).getText().toString();
-                final String location = ((EditText) findViewById(R.id.editText_Location)).getText().toString();
+                final String location = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
-                // check firebase DB for location
-                FB.checkLocation(location, new FirebaseModel.FireBaseCallback() {
-                    @Override
-                    public void onCallback(boolean isValid) {
-                        if (isValid) {
-                            FB.getAuthInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(
-                                    EmployeeRegistrationScreenActivity.this,
-                                    new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (!task.isSuccessful()) {
-                                                //TODO: Handle each type of login error
-                                                Toast.makeText(EmployeeRegistrationScreenActivity.this,
-                                                        "Login error - see log", Toast.LENGTH_LONG).show();
-                                                Log.w("registration-errors", "signInWithEmail:failure", task.getException());
-                                            } else {
-                                                addDetails(name, email, acctType, location);
-                                                Toast.makeText(EmployeeRegistrationScreenActivity.this,
-                                                        "Registered successfully", Toast.LENGTH_LONG).show();
 
-                                                startActivity(new Intent(
-                                                        EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
-                                            }
-                                        }
-                                    });
-                        }
-                        else {
-                            Toast.makeText(EmployeeRegistrationScreenActivity.this,
-                                    "Invalid Location", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                FB.getAuthInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+                        EmployeeRegistrationScreenActivity.this,
+                        new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful()) {
+                                    //TODO: Handle each type of login error
+                                    Toast.makeText(EmployeeRegistrationScreenActivity.this,
+                                            "Login error - see log", Toast.LENGTH_LONG).show();
+                                    Log.w("registration-errors", "signInWithEmail:failure", task.getException());
+                                } else {
+
+                                    addDetails(name, email, acctType, location);
+                                    Toast.makeText(EmployeeRegistrationScreenActivity.this,
+                                            "Registered successfully", Toast.LENGTH_LONG).show();
+
+                                    startActivity(new Intent(
+                                            EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
+                                }
+                            }
+                        });
             }
         });
 
@@ -104,7 +121,6 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }

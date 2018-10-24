@@ -53,6 +53,8 @@ public class FirebaseModel {
         void onCallback(String locationName);
     }
 
+
+    // instead restrict user create to a list of locations
     public void checkLocation (String location, final FireBaseCallback fireBaseCallback) {
         Query query = getDatabaseReference().child("locations").orderByChild("Name").equalTo(location);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
