@@ -66,9 +66,9 @@ public class AddItemActivity extends AppCompatActivity {
                     String comments = ((EditText)findViewById(R.id.editText_Comments)).getText().toString();
                     Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
                     String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-
-                    Location location = new Location(12, Model.userLocation, 1.0f, 2.0f, "test address",
-                            "test-city", "test-state", "102", "Some type", "404 1234 123", "www.test.com");
+                    String location = Model.userLocation;
+//                    Location location = new Location(12, Model.userLocation, 1.0f, 2.0f, "test address",
+//                            "test-city", "test-state", "102", "Some type", "404 1234 123", "www.test.com");
 
                     Donation donation = new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments);
                     @Override
