@@ -40,32 +40,16 @@ public class LocationListActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //TODO: Restore the way locations are pulled from Firebase
         FirebaseModel FB = FirebaseModel.getInstance();
-        Query query = FB.getDatabaseReference().child("locations").orderByChild("Key");
+        Query query = FB.getDatabaseReference().child("locations2").orderByChild("key");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Location> locations = new ArrayList<>();
                 if (dataSnapshot.exists()) {
-                    // TODO FIX this
-                    // dataSnapshot is the "issue" node with all children with id 0
-                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        // Should be able to do this :
-                        // Location l = issue.getValue(Location.class);
-                        long key = (long) issue.child("Key").getValue();
-                        String name = (String) issue.child("Name").getValue();
-                        float longitude = ((Number) issue.child("Longitude").getValue()).floatValue();
-                        float latitude = ((Number) issue.child("Latitude").getValue()).floatValue();
-                        String address = (String) issue.child("Address").getValue();
-                        String city = (String) issue.child("City").getValue();
-                        String state = (String) issue.child("State").getValue();
-                        String zip = issue.child("Zip").getValue().toString();
-                        String type = (String) issue.child("Type").getValue();
-                        String phone = (String) issue.child("Phone").getValue();
-                        String website = (String) issue.child("Website").getValue();
-                        locations.add(new Location(key, name, longitude, latitude, address,
-                                city, state, zip, type, phone, website));
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Location l = snapshot.getValue(Location.class);
+                        locations.add(l);
                     }
                 }
                 // specify an adapter (see also next example)
@@ -75,7 +59,7 @@ public class LocationListActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("Databaser-Error", databaseError.getMessage());
             }
         });
 

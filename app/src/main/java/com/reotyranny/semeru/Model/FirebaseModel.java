@@ -38,7 +38,7 @@ public class FirebaseModel {
     // make it public boolean (to check valid add)
     public void addAccount(String name, String email, AccountType acctType, String location){
         Account account = new Account(name, email, acctType, location);
-        getDatabaseReference().child("users").push().setValue(account);
+        getDatabaseReference().child("users2").push().setValue(account);
     }
 
     // TODO
@@ -51,7 +51,7 @@ public class FirebaseModel {
     }
 
     public void storeUser (String email, final FireBaseCallback2 fireBaseCallback) {
-        Query query = getDatabaseReference().child("users").orderByChild("email").equalTo(email);
+        Query query = getDatabaseReference().child("users2").orderByChild("email").equalTo(email);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

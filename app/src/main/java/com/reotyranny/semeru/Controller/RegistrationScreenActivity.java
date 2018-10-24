@@ -77,7 +77,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
 
         private void addDetails(String name, String email, AccountType acctType) {
             Account account = new Account(name, email, acctType);
-            mDatabase.child("users").push().setValue(account);
+            mDatabase.child("users2").push().setValue(account);
         }
 
 

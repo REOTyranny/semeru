@@ -42,7 +42,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         final Spinner spinner = (Spinner) findViewById(R.id.locationSpinner);
 
         // populate spinner with locations in firebase db
-        FB.getDatabaseReference().child("locations").addValueEventListener(new ValueEventListener() {
+        FB.getDatabaseReference().child("locations2").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final ArrayList<String> locations = new ArrayList<String>();
@@ -111,7 +111,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
 
     private void addDetails(String name, String email, AccountType acctType, String location) {
         Account account = new Account(name, email, acctType, location);
-        FB.getDatabaseReference().child("users").push().setValue(account);
+        FB.getDatabaseReference().child("users2").push().setValue(account);
         FB.storeUser(email, new FirebaseModel.FireBaseCallback2() {
             @Override
             public void onCallback(String location) {

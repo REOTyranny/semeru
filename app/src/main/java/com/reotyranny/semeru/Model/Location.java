@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 public class Location {
     //TODO: Integrate with Firebase
-    private long key;
+    private int key;
     private String name;
     private float longitude;
     private float latitude;
@@ -15,11 +15,15 @@ public class Location {
     private String phone;
     private String website;
 
-    private List<Account> employeeRoster = new LinkedList<>();
-    private List<Donation> donationHistory = new LinkedList<>();
-    public List<Donation> inventory = new LinkedList<>();
+//    private List<Account> employeeRoster = new LinkedList<>();
+//    private List<Donation> donationHistory = new LinkedList<>();
+//    public List<Donation> inventory = new LinkedList<>();
 
-    public Location( long key, String name, float longitude, float latitude, String address,
+    public Location() {
+        // empty constructor required for firebase!
+    }
+
+    public Location( int key, String name, float longitude, float latitude, String address,
                      String city, String state, String zip, String type, String phone, String website){
 
         this.key = key;
@@ -35,33 +39,33 @@ public class Location {
         this.website = website;
     }
 
-    private void setAll(long key, String name, float longitude, float latitude, String address,
-                        String city, String state, String zip, String type, String phone, String website){
-        this.key = key;
-        this.name = name;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.type = type;
-        this.phone = phone;
-        this.website = website;
-    }
+//    private void setAll(long key, String name, float longitude, float latitude, String address,
+//                        String city, String state, String zip, String type, String phone, String website){
+//        this.key = key;
+//        this.name = name;
+//        this.longitude = longitude;
+//        this.latitude = latitude;
+//        this.address = address;
+//        this.city = city;
+//        this.state = state;
+//        this.zip = zip;
+//        this.type = type;
+//        this.phone = phone;
+//        this.website = website;
+//    }
 
-    public void addDonation(Donation stuff) {
-        this.donationHistory.add(stuff);
-        this.inventory.add(stuff);
-    }
+//    public void addDonation(Donation stuff) {
+//        this.donationHistory.add(stuff);
+//        this.inventory.add(stuff);
+//    }
 
-    public void removeDonation(Donation stuff) {
-        this.inventory.remove(stuff);
-    }
+//    public void removeDonation(Donation stuff) {
+//        this.inventory.remove(stuff);
+//    }
 
-    public List<Donation> getDonationHistory() {
-        return this.donationHistory;
-    }
+//    public List<Donation> getDonationHistory() {
+//        return this.donationHistory;
+//    }
 
     public String getWebsite() {
         return website;
@@ -143,18 +147,18 @@ public class Location {
         this.name = name;
     }
 
-    public long getKey() {
+    public int getKey() {
         return key;
     }
 
-    public void addEmployee(Account emp){
-        this.employeeRoster.add(emp);
-    }
+//    public void addEmployee(Account emp){
+//        this.employeeRoster.add(emp);
+//    }
 
-    public void removeEmployee(Account emp) { this.employeeRoster.remove(emp);}
+//    public void removeEmployee(Account emp) { this.employeeRoster.remove(emp);}
 
-    public List<Account> getEmployeeRoster(){
-        return employeeRoster;
-    }
+//    public List<Account> getEmployeeRoster(){
+//        return employeeRoster;
+//    }
 
 }

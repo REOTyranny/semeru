@@ -31,7 +31,7 @@ public class SpecificItemActivity extends AppCompatActivity {
         FirebaseModel FB = FirebaseModel.getInstance();
 
         DatabaseReference ref = FB.getDatabaseReference();
-        Query query = ref.child("locations").child(((Integer)locationID).toString()).
+        Query query = ref.child("locations2").child(((Integer)locationID).toString()).
                 child("Donations").orderByKey();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

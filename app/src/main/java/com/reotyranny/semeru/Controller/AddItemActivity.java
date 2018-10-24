@@ -48,7 +48,7 @@ public class AddItemActivity extends AppCompatActivity {
             FirebaseModel FB = FirebaseModel.getInstance();
             @Override
             public void onClick(View v) {
-                Query query = FB.getDatabaseReference().child("locations").orderByChild("Name").
+                Query query = FB.getDatabaseReference().child("locations2").orderByChild("Name").
                         equalTo(FB.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -57,7 +57,7 @@ public class AddItemActivity extends AppCompatActivity {
                             // query only returns item (just iterate to it using next())
                             DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                             Donation donation = constructDonationObject();
-                            FB.getDatabaseReference().child("locations").child(item.getKey()).
+                            FB.getDatabaseReference().child("locations2").child(item.getKey()).
                                     child("Donations").push().setValue(donation);
                         }
                     }

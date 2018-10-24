@@ -28,7 +28,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
         final int key = (int) getIntent().getSerializableExtra("key");
 
         FirebaseModel FB = FirebaseModel.getInstance();
-        Query query = FB.getDatabaseReference().child("locations").orderByKey();
+        Query query = FB.getDatabaseReference().child("locations2").orderByKey();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -38,28 +38,31 @@ public class LocationSpecificActivity extends AppCompatActivity {
                         if (issue.getKey().equals(key)) {
                             Log.d("abc", issue.toString());
                             TextView name = findViewById(R.id.text_LocName);
-                            name.setText(issue.child("Name").getValue().toString());
+                            name.setText(issue.child("name").getValue().toString());
 
                             TextView type = findViewById(R.id.text_LocType);
-                            type.setText(issue.child("Type").getValue().toString());
+                            type.setText(issue.child("type").getValue().toString());
 
                             TextView longe = findViewById(R.id.text_Long);
-                            longe.setText(issue.child("Longitude").getValue().toString());
+                            longe.setText(issue.child("longitude").getValue().toString());
 
                             TextView lati = findViewById(R.id.text_Lat);
-                            lati.setText(issue.child("Latitude").getValue().toString());
+                            lati.setText(issue.child("latitude").getValue().toString());
 
                             TextView address = findViewById(R.id.text_Address);
-                            address.setText(issue.child("Street Address").getValue().toString());
+                            address.setText(issue.child("address").getValue().toString());
 
                             TextView phone = findViewById(R.id.text_Phone);
-                            phone.setText(issue.child("Phone").getValue().toString());
+                            phone.setText(issue.child("phone").getValue().toString());
 
-                            String f = issue.child("Name").getValue().toString();
+                            String f = issue.child("name").getValue().toString();
                             if ( FirebaseModel.getInstance().userLocation.equals(f)) {
                                 Button seeItems = findViewById(R.id.button_SeeItems);
                                 seeItems.setVisibility(View.VISIBLE); //To set visible
                             }
+                        }
+                        else {
+                            Log.d("abc", "nope!");
                         }
                     }
                 }
