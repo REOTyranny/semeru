@@ -13,13 +13,10 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Donation;
-import com.reotyranny.semeru.Model.FirebaseModel;
-import com.reotyranny.semeru.Model.Location;
+import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
 import java.util.HashMap;
@@ -31,10 +28,10 @@ public class AddItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-        FirebaseModel FB = FirebaseModel.getInstance();
+        final Model model = Model.getInstance();
 
         TextView locationText = findViewById(R.id.locationText);
-        locationText.setText(FB.userLocation);
+        locationText.setText(model.userLocation);
 
         constructSpinner();
 
@@ -48,11 +45,10 @@ public class AddItemActivity extends AppCompatActivity {
 
         Button confirmDonation =  findViewById(R.id.button_Confirm);
         confirmDonation.setOnClickListener( new View.OnClickListener() {
-            FirebaseModel FB = FirebaseModel.getInstance();
             @Override
             public void onClick(View v) {
-                Query query = FB.getDatabaseReference().child("locations2").orderByChild("name").
-                        equalTo(FB.userLocation);
+                Query query = model.getRef().child("locations2").orderByChild("name").
+                        equalTo(model.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -60,15 +56,15 @@ public class AddItemActivity extends AppCompatActivity {
                             Log.d("wtf", dataSnapshot.toString());
                             DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                             Donation donation = constructDonationObject();
-                            String uid = FB.getDatabaseReference().child("locations2").child(item.getKey()).
+                            String uid = model.getRef().child("locations2").child(item.getKey()).
                                     child("donations").push().getKey();
 
                             Map<String, Object> childUpdates = new HashMap<>();
                             childUpdates.put("/locations2/" + item.getKey() + "/donations/" + uid, donation);
                             childUpdates.put("/donations/" + uid, donation);
-                            FB.getDatabaseReference().updateChildren(childUpdates);
+                            model.getRef().updateChildren(childUpdates);
                         }
-                        else Log.d("whatz", "nope location is currently" + FB.userLocation);
+                        else Log.d("whatz", "nope location is currently" + model.userLocation);
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -81,7 +77,7 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private Donation constructDonationObject(){
-        FirebaseModel Model = FirebaseModel.getInstance();
+        Model Model = com.reotyranny.semeru.Model.Model.getInstance();
         String shortDes = ((EditText)findViewById(R.id.editText_Short)).getText().toString();
         String longDes = ((EditText)findViewById(R.id.editText_Full)).getText().toString();
         String value = ((EditText)findViewById(R.id.editText_Value)).getText().toString();

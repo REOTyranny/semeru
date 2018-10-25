@@ -10,11 +10,9 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.reotyranny.semeru.Model.FirebaseModel;
+import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
@@ -27,8 +25,8 @@ public class LocationSpecificActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_specific);
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
-        FirebaseModel FB = FirebaseModel.getInstance();
-        Query query = FB.getDatabaseReference().child("locations2").child(""+locationKey);
+        Model FB = Model.getInstance();
+        Query query = FB.getRef().child("locations2").child(""+locationKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -36,7 +34,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
                     Location l = dataSnapshot.getValue(Location.class);
                     populateFields(l);
                     String specificLocation = l.getName();
-                    if ( FirebaseModel.getInstance().userLocation.equals(specificLocation)) {
+                    if ( Model.getInstance().userLocation.equals(specificLocation)) {
                                 Button seeItems = findViewById(R.id.button_SeeItems);
                                 seeItems.setVisibility(View.VISIBLE); //To set visible
                     }

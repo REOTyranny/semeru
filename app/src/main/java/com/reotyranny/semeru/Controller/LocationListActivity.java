@@ -11,11 +11,9 @@ import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.reotyranny.semeru.Model.FirebaseModel;
+import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
@@ -40,8 +38,8 @@ public class LocationListActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        FirebaseModel FB = FirebaseModel.getInstance();
-        Query query = FB.getDatabaseReference().child("locations2").orderByChild("key");
+        Model model = Model.getInstance();
+        Query query = model.getRef().child("locations2").orderByChild("key");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

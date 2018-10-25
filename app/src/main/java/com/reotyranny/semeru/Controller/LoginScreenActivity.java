@@ -15,14 +15,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.reotyranny.semeru.Model.FirebaseModel;
-import com.reotyranny.semeru.Model.Location;
+import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
-    FirebaseModel FB = FirebaseModel.getInstance();
-    FirebaseAuth mAuth = FB.getAuthInstance();
+    Model model = Model.getInstance();
+    FirebaseAuth mAuth = model.getAuth();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +51,11 @@ public class LoginScreenActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(LoginScreenActivity.this,
                                         "Login Successful", Toast.LENGTH_SHORT).show();
-                                FB.storeUser(email, new FirebaseModel.FireBaseCallback2() {
+                                String uid = model.getUser().getUid();
+                                model.storeUser(uid, new Model.FireBaseCallback() {
                                             @Override
                                             public void onCallback(String location) {
-                                                FirebaseModel.getInstance().userLocation = location;
+                                                Model.getInstance().userLocation = location;
                                                 Log.d("fff", "location is " + location);
                                                 startActivity(new Intent(
                                                         LoginScreenActivity.this, HomeScreenActivity.class));

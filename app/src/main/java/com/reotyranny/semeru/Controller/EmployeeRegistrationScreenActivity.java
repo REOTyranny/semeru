@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Account;
 import com.reotyranny.semeru.Model.AccountType;
-import com.reotyranny.semeru.Model.FirebaseModel;
+import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
 
-    FirebaseModel FB = FirebaseModel.getInstance();
+    Model model = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         final Spinner spinner = (Spinner) findViewById(R.id.locationSpinner);
 
         // populate spinner with locations in firebase db
-        FB.getDatabaseReference().child("locations2").addValueEventListener(new ValueEventListener() {
+        model.getRef().child("locations2").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final ArrayList<String> locations = new ArrayList<String>();
@@ -68,8 +68,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
                 final String password = ((EditText)findViewById(R.id.editText_Password)).getText().toString();
                 final String location = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
-
-                FB.getAuthInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+                model.getAuth().createUserWithEmailAndPassword(email, password).addOnCompleteListener(
                         EmployeeRegistrationScreenActivity.this,
                         new OnCompleteListener<AuthResult>() {
                             @Override
@@ -105,12 +104,12 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
 
     private void addDetails(String name, String email, AccountType acctType, String location) {
         Account account = new Account(name, email, acctType, location);
-        String userID = FB.getCurrentUser().getUid();
-        FB.getDatabaseReference().child("users2").child(userID).setValue(account);
-        FB.storeUser(email, new FirebaseModel.FireBaseCallback2() {
+        String uID = model.getUser().getUid();
+        model.getRef().child("users2").child(uID).setValue(account);
+        model.storeUser(uID, new Model.FireBaseCallback() {
             @Override
             public void onCallback(String location) {
-                FirebaseModel.getInstance().userLocation = location;
+                Model.getInstance().userLocation = location;
                 startActivity(new Intent(
                         EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
             }
