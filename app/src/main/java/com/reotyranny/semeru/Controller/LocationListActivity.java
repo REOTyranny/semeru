@@ -39,7 +39,7 @@ public class LocationListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         Model model = Model.getInstance();
-        Query query = model.getRef().child("locations2").orderByChild("key");
+        Query query = model.getRef().child("locations").orderByChild("key");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

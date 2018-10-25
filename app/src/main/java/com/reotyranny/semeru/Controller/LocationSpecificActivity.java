@@ -26,7 +26,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
         Model FB = Model.getInstance();
-        Query query = FB.getRef().child("locations2").child(""+locationKey);
+        Query query = FB.getRef().child("locations").child(""+locationKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

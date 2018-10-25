@@ -44,7 +44,7 @@ public class ItemListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child("locations2/" + locationKey + "/donations").orderByKey();
+        Query query = reference.child("locations/" + locationKey + "/donations").orderByKey();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -39,7 +39,7 @@ public class Model {
     }
 
     public void storeUser (String uid, final FireBaseCallback fireBaseCallback) {
-        Query query = getRef().child("users2/" + uid);
+        Query query = getRef().child("users/" + uid);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

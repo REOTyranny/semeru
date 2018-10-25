@@ -47,7 +47,7 @@ public class AddItemActivity extends AppCompatActivity {
         confirmDonation.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Query query = model.getRef().child("locations2").orderByChild("name").
+                Query query = model.getRef().child("locations").orderByChild("name").
                         equalTo(model.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -56,11 +56,11 @@ public class AddItemActivity extends AppCompatActivity {
                             Log.d("wtf", dataSnapshot.toString());
                             DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                             Donation donation = constructDonationObject();
-                            String uid = model.getRef().child("locations2").child(item.getKey()).
+                            String uid = model.getRef().child("locations").child(item.getKey()).
                                     child("donations").push().getKey();
 
                             Map<String, Object> childUpdates = new HashMap<>();
-                            childUpdates.put("/locations2/" + item.getKey() + "/donations/" + uid, donation);
+                            childUpdates.put("/locations/" + item.getKey() + "/donations/" + uid, donation);
                             childUpdates.put("/donations/" + uid, donation);
                             model.getRef().updateChildren(childUpdates);
                         }

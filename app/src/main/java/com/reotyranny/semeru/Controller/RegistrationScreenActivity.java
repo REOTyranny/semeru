@@ -77,7 +77,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
         private void addDetails(String name, String email, AccountType acctType) {
             Account account = new Account(name, email, acctType);
             String userID = FB.getUser().getUid();
-            FB.getRef().child("users2").child(userID).setValue(account);
+            FB.getRef().child("users").child(userID).setValue(account);
         }
 
 

@@ -52,7 +52,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         if (user != null && user.getEmail() != null) {
             // User is signed in
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            Query query = reference.child("users2").orderByChild("email").equalTo(user.getEmail());
+            Query query = reference.child("users").orderByChild("email").equalTo(user.getEmail());
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
