@@ -6,14 +6,15 @@ import java.util.List;
 
 
 public class Donation {
+    //TODO: Integrate with Firebase
     private String shortDes, longDes,fulltime;
-    private Location place ;
+    private String place ;
     private float value;
     private String comments;
     private String category;
     private List<String> categoryChoices = new LinkedList<>();
 
-    public Donation ( Location place, String shortDes, String longDes,
+    public Donation ( String place, String shortDes, String longDes,
                       float value, String category, String comments){
         this.fulltime = getTimeStamp();
         this.place = place;
@@ -47,13 +48,9 @@ public class Donation {
         this.comments = comments;
     }
 
-    public String getfullTime() {
-        return fulltime;
-    }
-
-    public void setfullTime(String time) {
-        this.fulltime = time;
-    }
+//    public void setfullTime(String time) {
+//        this.fulltime = time;
+//    }
 
     public String getCategory() {
         return category;
@@ -89,11 +86,11 @@ public class Donation {
         this.shortDes = shortDes;
     }
 
-    public Location getPlace() {
+    public String getPlace() {
         return place;
     }
 
-    public void setPlace(Location place) {
+    public void setPlace(String place) {
         this.place = place;
     }
 

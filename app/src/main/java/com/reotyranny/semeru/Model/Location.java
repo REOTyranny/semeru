@@ -2,8 +2,8 @@ package com.reotyranny.semeru.Model;
 import java.util.LinkedList;
 import java.util.List;
 public class Location {
-
-    private int key;
+    //TODO: Integrate with Firebase
+    private long key;
     private String name;
     private float longitude;
     private float latitude;
@@ -15,11 +15,11 @@ public class Location {
     private String phone;
     private String website;
 
-    private List<Employee> employeeRoster = new LinkedList<>();
+    private List<Account> employeeRoster = new LinkedList<>();
     private List<Donation> donationHistory = new LinkedList<>();
     public List<Donation> inventory = new LinkedList<>();
 
-    public Location( int key, String name, float longitude, float latitude, String address,
+    public Location( long key, String name, float longitude, float latitude, String address,
                      String city, String state, String zip, String type, String phone, String website){
 
         this.key = key;
@@ -35,7 +35,7 @@ public class Location {
         this.website = website;
     }
 
-    private void setAll(int key, String name, float longitude, float latitude, String address,
+    private void setAll(long key, String name, float longitude, float latitude, String address,
                         String city, String state, String zip, String type, String phone, String website){
         this.key = key;
         this.name = name;
@@ -50,14 +50,13 @@ public class Location {
         this.website = website;
     }
 
-    public void addDonation(Donation stuff){
+    public void addDonation(Donation stuff) {
         this.donationHistory.add(stuff);
         this.inventory.add(stuff);
     }
 
-    public void removeDonation(Donation stuff){
+    public void removeDonation(Donation stuff) {
         this.inventory.remove(stuff);
-
     }
 
     public List<Donation> getDonationHistory() {
@@ -144,17 +143,17 @@ public class Location {
         this.name = name;
     }
 
-    public int getKey() {
+    public long getKey() {
         return key;
     }
 
-    public void addEmployee(Employee emp){
+    public void addEmployee(Account emp){
         this.employeeRoster.add(emp);
     }
 
-    public void removeEmployee(Employee emp) { this.employeeRoster.remove(emp);}
+    public void removeEmployee(Account emp) { this.employeeRoster.remove(emp);}
 
-    public List<Employee> getEmployeeRoster(){
+    public List<Account> getEmployeeRoster(){
         return employeeRoster;
     }
 

@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.reotyranny.semeru.Model.Donation;
+import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.Model.Location;
-import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
 import java.io.BufferedReader;
@@ -25,9 +25,10 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
-        Model mo = Model.getInstance();
-        if (mo.places.isEmpty())
-            readSDFile();
+        // only run this once
+//        FirebaseModel firebaseModel = FirebaseModel.getInstance();
+//        firebaseModel.pushDummyDonationData();
+
 
         Button signUpButton = findViewById(R.id.button_SignUp);
         signUpButton.setOnClickListener( new View.OnClickListener() {
@@ -45,6 +46,14 @@ public class WelcomeScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(WelcomeScreenActivity.this, LoginScreenActivity.class));
             }
         });
+
+//        Button viewDonationsButton = findViewById(R.id.button_viewDonations);
+//        viewDonationsButton.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(WelcomeScreenActivity.this, AccountTypeActivity.class));
+//            }
+//        });
     }
 
     public static final int KEY = 0;
@@ -60,8 +69,9 @@ public class WelcomeScreenActivity extends AppCompatActivity {
     public static final int WEBSITE = 10;
 
     private void readSDFile() {
-
-        Model model = Model.getInstance();
+        //TODO: This will no longer use a CSV, but will read from Firebase.
+        //The Model singleton is no more as well.
+        //Model model = Model.getInstance();
 
         try {
             //Open a stream on the raw file
@@ -78,17 +88,14 @@ public class WelcomeScreenActivity extends AppCompatActivity {
                 int key = Integer.parseInt(tokens[KEY]);
                 float latitude = Float.parseFloat(tokens[LATITUDE]);
                 float longitude = Float.parseFloat(tokens[LONGITUDE]);
-                model.addLocation(new Location(key, tokens[NAME], longitude, latitude, tokens[STREET_ADDRESS],
-                        tokens[CITY], tokens[STATE], tokens[ZIP], tokens[TYPE], tokens[PHONE], tokens[WEBSITE]));
+                //model.addLocation(new Location(key, tokens[NAME], longitude, latitude, tokens[STREET_ADDRESS],
+                //        tokens[CITY], tokens[STATE], tokens[ZIP], tokens[TYPE], tokens[PHONE], tokens[WEBSITE]));
             }
             br.close();
         } catch (IOException e) {
             Log.e("test-location", "error reading assets", e);
         }
 
-        //Dummy Data Delete Later
-        model.places.get(0).addDonation(new Donation(model.places.get(0), "soap", "Bar of Soap", 112, "Personal", "Has been the cause of much unrest in prison"));
-        model.places.get(0).addDonation(new Donation(model.places.get(0), "socks", "3 pack of socks", 2000, "Personal", "Minimal number of holes"));
     }
 
 }
