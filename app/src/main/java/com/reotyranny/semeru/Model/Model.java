@@ -43,8 +43,13 @@ public class Model {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists())
-                    fireBaseCallback.onCallback(dataSnapshot.child("location").getValue().toString());
+                if (dataSnapshot.exists()) {
+                    if (dataSnapshot.hasChild("location"))
+                        fireBaseCallback.onCallback(dataSnapshot.child("location").getValue().toString());
+                    else
+                        fireBaseCallback.onCallback("");
+
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
