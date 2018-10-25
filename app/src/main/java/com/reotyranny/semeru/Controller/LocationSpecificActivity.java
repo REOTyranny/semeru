@@ -62,7 +62,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
 
                             String f = issue.child("Name").getValue().toString();
                             if ( FirebaseModel.getInstance().userLocation.equals(f)) {
-                                Button seeItems = findViewById(R.id.button_SeeItems);
+                                Button seeItems = findViewById(R.id.button_ItemsList);
                                 seeItems.setVisibility(View.VISIBLE); //To set visible
                             }
                         }
@@ -78,7 +78,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
 
 
 
-        Button itemListButton = findViewById(R.id.button_SeeItems);
+        Button itemListButton = findViewById(R.id.button_ItemsList);
         itemListButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
