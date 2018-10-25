@@ -43,7 +43,8 @@
         <activity android:name=".Controller.AddItemActivity" />
         <activity android:name=".Controller.ItemListActivity" />
         <activity android:name=".Controller.SpecificItemActivity" />
-        <activity android:name=".Query"></activity>
+        <activity android:name=".Query" />
+        <activity android:name=".Results"></activity>
     </application>
 
 </manifest>
