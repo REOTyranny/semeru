@@ -22,6 +22,9 @@ import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AddItemActivity extends AppCompatActivity {
 
     @Override
@@ -33,7 +36,7 @@ public class AddItemActivity extends AppCompatActivity {
         TextView locationText = findViewById(R.id.locationText);
         locationText.setText(FB.userLocation);
 
-        constructSpinnner();
+        constructSpinner();
 
         Button cancelBtn = findViewById(R.id.button_Cancel);
         cancelBtn.setOnClickListener(new View.OnClickListener(){
@@ -48,18 +51,24 @@ public class AddItemActivity extends AppCompatActivity {
             FirebaseModel FB = FirebaseModel.getInstance();
             @Override
             public void onClick(View v) {
-                Query query = FB.getDatabaseReference().child("locations2").orderByChild("Name").
+                Query query = FB.getDatabaseReference().child("locations2").orderByChild("name").
                         equalTo(FB.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            // query only returns item (just iterate to it using next())
+                            Log.d("wtf", dataSnapshot.toString());
                             DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                             Donation donation = constructDonationObject();
-                            FB.getDatabaseReference().child("locations2").child(item.getKey()).
-                                    child("Donations").push().setValue(donation);
+                            String uid = FB.getDatabaseReference().child("locations2").child(item.getKey()).
+                                    child("donations").push().getKey();
+
+                            Map<String, Object> childUpdates = new HashMap<>();
+                            childUpdates.put("/locations2/" + item.getKey() + "/donations/" + uid, donation);
+                            childUpdates.put("/donations/" + uid, donation);
+                            FB.getDatabaseReference().updateChildren(childUpdates);
                         }
+                        else Log.d("whatz", "nope location is currently" + FB.userLocation);
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -84,7 +93,7 @@ public class AddItemActivity extends AppCompatActivity {
         return donation;
     }
 
-    private void constructSpinnner(){
+    private void constructSpinner(){
         Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

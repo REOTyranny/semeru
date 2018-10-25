@@ -20,68 +20,40 @@ import com.reotyranny.semeru.R;
 
 public class LocationSpecificActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_specific);
-        final int key = (int) getIntent().getSerializableExtra("key");
+        final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
         FirebaseModel FB = FirebaseModel.getInstance();
-        Query query = FB.getDatabaseReference().child("locations2").orderByKey();
+        Query query = FB.getDatabaseReference().child("locations2").child(""+locationKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final String key = getIntent().getSerializableExtra("key").toString();
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        if (issue.getKey().equals(key)) {
-                            Log.d("abc", issue.toString());
-                            TextView name = findViewById(R.id.text_LocName);
-                            name.setText(issue.child("name").getValue().toString());
-
-                            TextView type = findViewById(R.id.text_LocType);
-                            type.setText(issue.child("type").getValue().toString());
-
-                            TextView longe = findViewById(R.id.text_Long);
-                            longe.setText(issue.child("longitude").getValue().toString());
-
-                            TextView lati = findViewById(R.id.text_Lat);
-                            lati.setText(issue.child("latitude").getValue().toString());
-
-                            TextView address = findViewById(R.id.text_Address);
-                            address.setText(issue.child("address").getValue().toString());
-
-                            TextView phone = findViewById(R.id.text_Phone);
-                            phone.setText(issue.child("phone").getValue().toString());
-
-                            String f = issue.child("name").getValue().toString();
-                            if ( FirebaseModel.getInstance().userLocation.equals(f)) {
+                    Location l = dataSnapshot.getValue(Location.class);
+                    populateFields(l);
+                    String specificLocation = l.getName();
+                    if ( FirebaseModel.getInstance().userLocation.equals(specificLocation)) {
                                 Button seeItems = findViewById(R.id.button_SeeItems);
                                 seeItems.setVisibility(View.VISIBLE); //To set visible
-                            }
-                        }
-                        else {
-                            Log.d("abc", "nope!");
-                        }
                     }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
             }
         });
-
-
-
+        
         Button itemListButton = findViewById(R.id.button_SeeItems);
         itemListButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (LocationSpecificActivity.this, ItemListActivity.class);
-                intent.putExtra("key", key);
+                intent.putExtra("locationKey", locationKey);
                 v.getContext().startActivity(intent);
             }
         });
@@ -95,5 +67,16 @@ public class LocationSpecificActivity extends AppCompatActivity {
                 startActivity(new Intent(LocationSpecificActivity.this, LocationListActivity.class));
             }
         });
+
+
     }
+    public void populateFields(Location l) {
+        ((TextView)findViewById(R.id.text_LocName)).setText(l.getName());
+        ((TextView) findViewById(R.id.text_LocType)).setText(l.getType());
+        ((TextView) findViewById(R.id.text_Long)).setText("" + l.getLongitude());
+        ((TextView) findViewById(R.id.text_Lat)).setText("" + l.getLatitude());
+        ((TextView) findViewById(R.id.text_Address)).setText(l.getAddress());
+        ((TextView) findViewById(R.id.text_Phone)).setText(l.getPhone());
+    }
+
 }

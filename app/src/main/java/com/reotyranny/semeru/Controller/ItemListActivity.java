@@ -1,6 +1,7 @@
 package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,28 +38,24 @@ public class ItemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
         mRecyclerView = findViewById(R.id.rvItems);
 
-        final String keyS = getIntent().getSerializableExtra("key").toString();
-
+        final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child("locations2").child(keyS).child("Donations").orderByKey();
+        Query query = reference.child("locations2/" + locationKey + "/donations").orderByKey();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Donation> items = new ArrayList<>();
-                final int key = (int) getIntent().getSerializableExtra("key");
-
-                if (dataSnapshot.exists()) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final ArrayList<Donation> items = new ArrayList<>();
+                final ArrayList<String> itemKeys = new ArrayList<>();
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         Donation donation = issue.getValue(Donation.class);
                         items.add(donation);
+                        itemKeys.add(issue.getKey());
                     }
-                }
-
-                mAdapter = new ItemAdapter(items, key);
+                mAdapter = new ItemAdapter(items, itemKeys, locationKey);
                 mRecyclerView.setAdapter(mAdapter);
             }
             @Override

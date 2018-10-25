@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.reotyranny.semeru.Model.Account;
 import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.Model.FirebaseModel;
@@ -77,7 +76,8 @@ public class RegistrationScreenActivity extends AppCompatActivity {
 
         private void addDetails(String name, String email, AccountType acctType) {
             Account account = new Account(name, email, acctType);
-            mDatabase.child("users2").push().setValue(account);
+            String userID = FB.getCurrentUser().getUid();
+            FB.getDatabaseReference().child("users2").child(userID).setValue(account);
         }
 
 

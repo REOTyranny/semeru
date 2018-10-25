@@ -7,19 +7,22 @@ import java.util.List;
 
 public class Donation {
     //TODO: Integrate with Firebase
-    private String shortDes, longDes,fulltime;
+    private String shortDes;
+    private String longDes;
+    private String timestamp;
     private String place ;
     private float value;
     private String comments;
     private String category;
     private List<String> categoryChoices = new LinkedList<>();
 
-    // this empty constructor is required for firebase!! do not remove !
-    public Donation() {}
+    public Donation() {
+        // this empty constructor is required for firebase!! do not remove !
+    }
 
     public Donation ( String place, String shortDes, String longDes,
                       float value, String category, String comments){
-        this.fulltime = getTimeStamp();
+        this.timestamp = retrieveTimestamp();
         this.place = place;
         this.shortDes = shortDes;
         this.longDes = longDes;
@@ -34,8 +37,7 @@ public class Donation {
 
     public enum Category{Clothing,Hat,Kitchen,Electronics,Households,Others}
 
-
-    public String getTimeStamp(){
+    public String retrieveTimestamp(){
         String timer;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
@@ -46,24 +48,20 @@ public class Donation {
     public String getComments() {
         return comments;
     }
-
     public void setComments(String comments) {
         this.comments = comments;
     }
 
-//    public void setfullTime(String time) {
-//        this.fulltime = time;
-//    }
-
     public String getCategory() {
         return category;
-    }
-    public void addCategory(String newCat){
-        categoryChoices.add(newCat);
     }
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public void addCategory(String newCat){
+        categoryChoices.add(newCat);
     }
 
     public void initialCategories(){
@@ -105,7 +103,12 @@ public class Donation {
         this.value = value;
     }
 
-    public String getFulltime() {
-        return fulltime;
+    public String getTimestamp() {
+        return timestamp;
     }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
 }

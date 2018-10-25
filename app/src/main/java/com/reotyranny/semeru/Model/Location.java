@@ -1,23 +1,9 @@
 package com.reotyranny.semeru.Model;
-import java.util.LinkedList;
-import java.util.List;
-public class Location {
-    //TODO: Integrate with Firebase
-    private int key;
-    private String name;
-    private float longitude;
-    private float latitude;
-    private String city;
-    private String address;
-    private String state;
-    private String zip;
-    private String type;
-    private String phone;
-    private String website;
 
-//    private List<Account> employeeRoster = new LinkedList<>();
-//    private List<Donation> donationHistory = new LinkedList<>();
-//    public List<Donation> inventory = new LinkedList<>();
+public class Location {
+    private int key;
+    private float longitude, latitude;
+    private String name, city, address, state, zip, type, phone, website;
 
     public Location() {
         // empty constructor required for firebase!
@@ -38,34 +24,6 @@ public class Location {
         this.phone = phone;
         this.website = website;
     }
-
-//    private void setAll(long key, String name, float longitude, float latitude, String address,
-//                        String city, String state, String zip, String type, String phone, String website){
-//        this.key = key;
-//        this.name = name;
-//        this.longitude = longitude;
-//        this.latitude = latitude;
-//        this.address = address;
-//        this.city = city;
-//        this.state = state;
-//        this.zip = zip;
-//        this.type = type;
-//        this.phone = phone;
-//        this.website = website;
-//    }
-
-//    public void addDonation(Donation stuff) {
-//        this.donationHistory.add(stuff);
-//        this.inventory.add(stuff);
-//    }
-
-//    public void removeDonation(Donation stuff) {
-//        this.inventory.remove(stuff);
-//    }
-
-//    public List<Donation> getDonationHistory() {
-//        return this.donationHistory;
-//    }
 
     public String getWebsite() {
         return website;
@@ -150,15 +108,5 @@ public class Location {
     public int getKey() {
         return key;
     }
-
-//    public void addEmployee(Account emp){
-//        this.employeeRoster.add(emp);
-//    }
-
-//    public void removeEmployee(Account emp) { this.employeeRoster.remove(emp);}
-
-//    public List<Account> getEmployeeRoster(){
-//        return employeeRoster;
-//    }
 
 }

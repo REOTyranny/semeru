@@ -74,7 +74,7 @@ public class LocationAdapter extends
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), LocationSpecificActivity.class);
-                intent.putExtra("key", viewHolder.getAdapterPosition());
+                intent.putExtra("locationKey", viewHolder.getAdapterPosition());
                 v.getContext().startActivity(intent);
             }
         });

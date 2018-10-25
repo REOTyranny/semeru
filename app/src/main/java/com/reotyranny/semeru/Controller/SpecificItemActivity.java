@@ -19,6 +19,7 @@ import com.reotyranny.semeru.Model.FirebaseModel;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class SpecificItemActivity extends AppCompatActivity {
@@ -27,24 +28,22 @@ public class SpecificItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_item);
 
-        final int locationID = (int) getIntent().getSerializableExtra("locationKey");
+        final String itemKey = (String) getIntent().getSerializableExtra("itemKey");
+        final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
+
+
         FirebaseModel FB = FirebaseModel.getInstance();
 
         DatabaseReference ref = FB.getDatabaseReference();
-        Query query = ref.child("locations2").child(((Integer)locationID).toString()).
-                child("Donations").orderByKey();
+        Query query = ref.child("donations").child("" + itemKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final int itemID = (int) getIntent().getSerializableExtra("itemKey");
+                Log.d("wtf",dataSnapshot.toString());
                 if (dataSnapshot.exists()) {
-                    Iterator snapshot = dataSnapshot.getChildren().iterator();
-                    Log.d("fab", "itemID: " + itemID);
-                    for(int i = 0; i != itemID; i++) snapshot.next();
-                    Donation donation = ((DataSnapshot) snapshot.next()).getValue(Donation.class);
+                    Donation donation = dataSnapshot.getValue(Donation.class);
                     populateFields(donation);
                 }
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -58,7 +57,7 @@ public class SpecificItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (SpecificItemActivity.this, ItemListActivity.class);
-                intent.putExtra("key", locationID);
+                intent.putExtra("locationKey", locationKey);
                 v.getContext().startActivity(intent);
             }
         });
@@ -68,7 +67,7 @@ public class SpecificItemActivity extends AppCompatActivity {
         TextView shortDesView = findViewById(R.id.text_Short);
         shortDesView.setText(d.getShortDes());
         TextView time = findViewById(R.id.text_Full);
-        time.setText(d.getFulltime());
+        time.setText(d.getTimestamp());
         TextView valueView = findViewById(R.id.text_Value);
         valueView.setText("" + d.getValue());
         TextView loc = findViewById(R.id.text_Location);
@@ -78,6 +77,6 @@ public class SpecificItemActivity extends AppCompatActivity {
         TextView commentsView = findViewById(R.id.text_Comments);
         commentsView.setText(d.getComments());
         TextView Timestamp = findViewById(R.id.text_Timestamp);
-        Timestamp.setText(d.getTimeStamp());
+        Timestamp.setText(d.getTimestamp());
     }
 }

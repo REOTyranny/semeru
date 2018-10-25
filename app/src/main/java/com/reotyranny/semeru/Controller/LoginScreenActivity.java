@@ -56,6 +56,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                                             @Override
                                             public void onCallback(String location) {
                                                 FirebaseModel.getInstance().userLocation = location;
+                                                Log.d("fff", "location is " + location);
                                                 startActivity(new Intent(
                                                         LoginScreenActivity.this, HomeScreenActivity.class));
                                             }

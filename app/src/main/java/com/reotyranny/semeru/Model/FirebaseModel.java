@@ -17,9 +17,7 @@ public class FirebaseModel {
     private static final FirebaseModel _instance = new FirebaseModel();
     public static FirebaseModel getInstance() { return _instance; }
 
-    public boolean correctLocation = false;
     public String userLocation = "";
-
 
     public DatabaseReference getDatabaseReference() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
