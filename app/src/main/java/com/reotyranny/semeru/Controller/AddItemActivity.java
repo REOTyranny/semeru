@@ -82,7 +82,7 @@ public class AddItemActivity extends AppCompatActivity {
         String longDes = ((EditText)findViewById(R.id.editText_Full)).getText().toString();
         String value = ((EditText)findViewById(R.id.editText_Value)).getText().toString();
         String comments = ((EditText)findViewById(R.id.editText_Comments)).getText().toString();
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
+        Spinner spinner = findViewById(R.id.spinner_Category);
         String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
         String location = Model.userLocation;
         Donation donation = new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments);
@@ -90,7 +90,7 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private void constructSpinner(){
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
+        Spinner spinner = findViewById(R.id.spinner_Category);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);

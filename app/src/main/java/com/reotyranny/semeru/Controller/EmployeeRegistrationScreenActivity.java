@@ -34,7 +34,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         final AccountType acctType = (AccountType) getIntent().getSerializableExtra("type");
 
         Button registerButton = findViewById(R.id.button_Register);
-        final Spinner spinner = (Spinner) findViewById(R.id.locationSpinner);
+        final Spinner spinner = findViewById(R.id.locationSpinner);
 
         // populate spinner with locations in firebase db
         model.getRef().child("locations").addValueEventListener(new ValueEventListener() {
