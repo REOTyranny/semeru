@@ -16,7 +16,6 @@ import java.util.List;
 
 public class LocationAdapter extends
         RecyclerView.Adapter<LocationAdapter.ViewHolder> {
-    //TODO: Integrate with Firebase
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -75,7 +74,7 @@ public class LocationAdapter extends
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), LocationSpecificActivity.class);
-                intent.putExtra("key", viewHolder.getAdapterPosition());
+                intent.putExtra("locationKey", viewHolder.getAdapterPosition());
                 v.getContext().startActivity(intent);
             }
         });

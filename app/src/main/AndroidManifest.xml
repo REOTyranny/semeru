@@ -39,7 +39,6 @@
             android:name=".Controller.LocationListActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Controller.LocationSpecificActivity" />
-        <activity android:name=".Controller.LocationDetailsActivity" />
         <activity android:name=".Controller.AddItemActivity" />
         <activity android:name=".Controller.ItemListActivity" />
         <activity android:name=".Controller.SpecificItemActivity" />

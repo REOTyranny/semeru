@@ -3,7 +3,6 @@ package com.reotyranny.semeru.Controller;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.reotyranny.semeru.Model.Donation;
-import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
 import java.util.ArrayList;
@@ -20,7 +18,8 @@ import java.util.List;
 public class ItemAdapter extends
         RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    final int locationKey;
+    final ArrayList<String> mItemKeys;
+    private int mLocationKey;
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -54,8 +53,9 @@ public class ItemAdapter extends
     }
     private List<Donation> mItem;
     // Pass in the contact array into the constructor
-    public ItemAdapter(List<Donation> donation, int key) {
-        locationKey = key;
+    public ItemAdapter(List<Donation> donation, ArrayList<String> keys, int locationKey) {
+        mItemKeys = keys;
+        mLocationKey = locationKey;
         if(donation == null){
             mItem = new ArrayList<>();
         }else {
@@ -75,10 +75,12 @@ public class ItemAdapter extends
         moreInfoButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("hmm", "clicked item " + viewHolder.getAdapterPosition());
                 Intent intent = new Intent (v.getContext(), SpecificItemActivity.class);
-                intent.putExtra("itemKey", viewHolder.getAdapterPosition());
-                intent.putExtra("locationKey", locationKey);
+                int itemIndex = viewHolder.getAdapterPosition();
+                intent.putExtra("itemKey", mItemKeys.get(itemIndex));
+                // locationKey required so SpecificItemActivity can return to screen with
+                // list of donations at said location
+                intent.putExtra("locationKey", mLocationKey);
                 v.getContext().startActivity(intent);
             }
         });

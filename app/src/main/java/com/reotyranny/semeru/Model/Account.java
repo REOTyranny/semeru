@@ -41,6 +41,8 @@ public class Account {
         this.acctType = acctType;
     }
 
+    public Account() {}
+
     public Account(String name, String email, AccountType acctType) {
         this.name = name;
         this.email = email;

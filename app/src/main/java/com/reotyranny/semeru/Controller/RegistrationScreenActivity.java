@@ -11,9 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.reotyranny.semeru.Model.Account;
 import com.reotyranny.semeru.Model.AccountType;
+import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,9 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationScreenActivity extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase firebaseDB;
-    DatabaseReference mDatabase;
+    Model FB = Model.getInstance();
+    FirebaseAuth mAuth = FB.getAuth();
+    DatabaseReference mDatabase = FB.getRef();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +33,6 @@ public class RegistrationScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration_screen);
         final AccountType acctType = (AccountType) getIntent().getSerializableExtra("type");
 
-        mAuth = FirebaseAuth.getInstance();
-        firebaseDB = FirebaseDatabase.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         Button registerButton = findViewById(R.id.button_Register);
 
         registerButton.setOnClickListener( new View.OnClickListener() {
@@ -44,7 +42,6 @@ public class RegistrationScreenActivity extends AppCompatActivity {
                 final String name = ((EditText)findViewById(R.id.editText_Name)).getText().toString();
                 final String email = ((EditText)findViewById(R.id.editText_Email)).getText().toString();
                 final String password = ((EditText)findViewById(R.id.editText_Password)).getText().toString();
-                Log.d("test-pass", "password is " + password);
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
                         RegistrationScreenActivity.this,
                         new OnCompleteListener<AuthResult>() {
@@ -79,8 +76,8 @@ public class RegistrationScreenActivity extends AppCompatActivity {
 
         private void addDetails(String name, String email, AccountType acctType) {
             Account account = new Account(name, email, acctType);
-            DatabaseReference ref = firebaseDB.getReference();
-            ref.child("users").push().setValue(account);
+            String userID = FB.getUser().getUid();
+            FB.getRef().child("users").child(userID).setValue(account);
         }
 
 
