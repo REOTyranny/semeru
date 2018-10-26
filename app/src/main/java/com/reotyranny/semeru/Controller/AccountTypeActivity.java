@@ -1,11 +1,11 @@
 package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import com.reotyranny.semeru.Model.*;
+import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.R;
 
 public class AccountTypeActivity extends AppCompatActivity {
@@ -15,8 +15,8 @@ public class AccountTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_type);
 
-        Button userButton =  findViewById(R.id.button_User);
-        userButton.setOnClickListener( new View.OnClickListener() {
+        Button userButton = findViewById(R.id.button_User);
+        userButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -27,8 +27,8 @@ public class AccountTypeActivity extends AppCompatActivity {
             }
         });
 
-        Button employeeButton =  findViewById(R.id.button_Employee);
-        employeeButton.setOnClickListener( new View.OnClickListener() {
+        Button employeeButton = findViewById(R.id.button_Employee);
+        employeeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -38,8 +38,8 @@ public class AccountTypeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Button managerButton =  findViewById(R.id.button_Manager);
-        managerButton.setOnClickListener( new View.OnClickListener() {
+        Button managerButton = findViewById(R.id.button_Manager);
+        managerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -49,8 +49,8 @@ public class AccountTypeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Button adminButton =  findViewById(R.id.button_Admin);
-        adminButton.setOnClickListener( new View.OnClickListener() {
+        Button adminButton = findViewById(R.id.button_Admin);
+        adminButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -61,8 +61,8 @@ public class AccountTypeActivity extends AppCompatActivity {
             }
         });
 
-        Button cancelButton =  findViewById(R.id.button_Cancel);
-        cancelButton.setOnClickListener( new View.OnClickListener() {
+        Button cancelButton = findViewById(R.id.button_Cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

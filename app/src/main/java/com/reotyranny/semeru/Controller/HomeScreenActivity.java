@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,8 +27,8 @@ public class HomeScreenActivity extends AppCompatActivity {
         Model FB = Model.getInstance();
         FirebaseUser user = FB.getUser();
 
-        Button signOutButton =  findViewById(R.id.button_SignOut);
-        signOutButton.setOnClickListener( new View.OnClickListener() {
+        Button signOutButton = findViewById(R.id.button_SignOut);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -37,8 +36,8 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
-        Button loadIn =  findViewById(R.id.button_LoadIn);
-        loadIn.setOnClickListener( new View.OnClickListener() {
+        Button loadIn = findViewById(R.id.button_LoadIn);
+        loadIn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -55,6 +54,11 @@ public class HomeScreenActivity extends AppCompatActivity {
             Query query = reference.child("users").orderByChild("email").equalTo(user.getEmail());
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d("Database-Error", databaseError.getMessage());
+                }
+
+                @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         // query matches exactly to user.getEmail() -- just use 1 iteration
@@ -67,11 +71,6 @@ public class HomeScreenActivity extends AppCompatActivity {
                         currentUserText.setText(currentUserString);
                         welcomeUserText.setText(welcomeString);
                     }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.d("Database-Error", databaseError.getMessage());
                 }
             });
         }

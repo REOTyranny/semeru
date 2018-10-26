@@ -15,7 +15,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_screen);
 
         Button signUpButton = findViewById(R.id.button_SignUp);
-        signUpButton.setOnClickListener( new View.OnClickListener() {
+        signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeScreenActivity.this, AccountTypeActivity.class));
@@ -23,7 +23,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         });
 
         Button loginButton = findViewById(R.id.button_Login);
-        loginButton.setOnClickListener( new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -32,7 +32,6 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         });
 
     }
-
 
 
 }

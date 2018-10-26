@@ -1,13 +1,12 @@
 package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +17,7 @@ import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
 public class SpecificItemActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,32 +26,31 @@ public class SpecificItemActivity extends AppCompatActivity {
         final String itemKey = (String) getIntent().getSerializableExtra("itemKey");
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
-
         Model FB = Model.getInstance();
 
         DatabaseReference ref = FB.getRef();
         Query query = ref.child("donations").child("" + itemKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Database-Error", databaseError.getMessage());
+            }
+
+            @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("wtf",dataSnapshot.toString());
+                Log.d("wtf", dataSnapshot.toString());
                 if (dataSnapshot.exists()) {
                     Donation donation = dataSnapshot.getValue(Donation.class);
                     populateFields(donation);
                 }
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("Database-Error", databaseError.getMessage());
-            }
         });
 
-
         Button backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener( new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (SpecificItemActivity.this, ItemListActivity.class);
+                Intent intent = new Intent(SpecificItemActivity.this, ItemListActivity.class);
                 intent.putExtra("locationKey", locationKey);
                 v.getContext().startActivity(intent);
             }
