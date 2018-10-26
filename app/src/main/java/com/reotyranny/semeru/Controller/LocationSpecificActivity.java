@@ -1,3 +1,4 @@
+
 package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
@@ -10,80 +11,48 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.reotyranny.semeru.Model.FirebaseModel;
+import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.R;
 
 public class LocationSpecificActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // need to do
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_specific);
-       final int key = (int) getIntent().getSerializableExtra("key");
+        final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
-        //TODO: Integrate with Firebase
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child("locations").orderByKey();
+        Model FB = Model.getInstance();
+        Query query = FB.getRef().child("locations").child(""+locationKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final String key = getIntent().getSerializableExtra("key").toString();
                 if (dataSnapshot.exists()) {
-                    // dataSnapshot is the "issue" node with all children with;id 0
-                    // user iterator instead (increment instead of getting each result
-                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        // do something with the individual "issues"
-                        if (issue.getKey().equals(key)) {
-                            Log.d("abc", issue.toString());
-                            TextView name = findViewById(R.id.text_LocName);
-                            name.setText(issue.child("Name").getValue().toString());
-
-                            TextView type = findViewById(R.id.text_LocType);
-                            type.setText(issue.child("Type").getValue().toString());
-
-                            TextView longe = findViewById(R.id.text_Long);
-                            longe.setText(issue.child("Longitude").getValue().toString());
-
-                            TextView lati = findViewById(R.id.text_Lat);
-                            lati.setText(issue.child("Latitude").getValue().toString());
-
-                            TextView address = findViewById(R.id.text_Address);
-                            address.setText(issue.child("Street Address").getValue().toString());
-
-                            TextView phone = findViewById(R.id.text_Phone);
-                            phone.setText(issue.child("Phone").getValue().toString());
-
-                            String f = issue.child("Name").getValue().toString();
-                            if ( FirebaseModel.getInstance().userLocation.equals(f)) {
-                                Button seeItems = findViewById(R.id.button_ItemsList);
-                                seeItems.setVisibility(View.VISIBLE); //To set visible
-                            }
-                        }
+                    Location l = dataSnapshot.getValue(Location.class);
+                    populateFields(l);
+                    String specificLocation = l.getName();
+                    if ( Model.getInstance().userLocation.equals(specificLocation)) {
+                        Button seeItems = findViewById(R.id.button_ItemsList);
+                        seeItems.setVisibility(View.VISIBLE); //To set visible
                     }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("Database-Error", databaseError.getMessage());
             }
         });
-
-
 
         Button itemListButton = findViewById(R.id.button_ItemsList);
         itemListButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (LocationSpecificActivity.this, ItemListActivity.class);
-                intent.putExtra("key", key);
+                intent.putExtra("locationKey", locationKey);
                 v.getContext().startActivity(intent);
             }
         });
@@ -97,5 +66,16 @@ public class LocationSpecificActivity extends AppCompatActivity {
                 startActivity(new Intent(LocationSpecificActivity.this, LocationListActivity.class));
             }
         });
+
+
     }
+    public void populateFields(Location l) {
+        ((TextView)findViewById(R.id.text_LocName)).setText(l.getName());
+        ((TextView) findViewById(R.id.text_LocType)).setText(l.getType());
+        ((TextView) findViewById(R.id.text_Long)).setText("" + l.getLongitude());
+        ((TextView) findViewById(R.id.text_Lat)).setText("" + l.getLatitude());
+        ((TextView) findViewById(R.id.text_Address)).setText(l.getAddress());
+        ((TextView) findViewById(R.id.text_Phone)).setText(l.getPhone());
+    }
+
 }
