@@ -35,14 +35,17 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Controller.EmployeeRegistrationScreenActivity" />
         <activity android:name=".Controller.AccountTypeActivity" />
-        <activity android:name=".Controller.LocationListActivity"
-            android:windowSoftInputMode="adjustPan"
-            />
+        <activity
+            android:name=".Controller.LocationListActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Controller.LocationSpecificActivity" />
         <activity android:name=".Controller.LocationDetailsActivity" />
         <activity android:name=".Controller.AddItemActivity" />
         <activity android:name=".Controller.ItemListActivity" />
         <activity android:name=".Controller.SpecificItemActivity" />
+        <activity android:name=".Query" />
+        <activity android:name=".Results"></activity>
+
     </application>
 
 </manifest>
