@@ -60,8 +60,12 @@ public class HomeScreenActivity extends AppCompatActivity {
                         // query matches exactly to user.getEmail() -- just use 1 iteration
                         DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                         String name = item.child("name").getValue().toString();
-                        currentUserText.setText(name);
-                        welcomeUserText.setText(name);
+                        String currentUserString = String.format(
+                                getResources().getString(R.string.current_user), name);
+                        String welcomeString = String.format(
+                                getResources().getString(R.string.welcome_user), name);
+                        currentUserText.setText(currentUserString);
+                        welcomeUserText.setText(welcomeString);
                     }
                 }
 

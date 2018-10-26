@@ -9,4 +9,6 @@
         <item>Households</item>
         <item>Others</item>
     </string-array>
+    <string name="welcome_user">Welcome, %1$s</string>
+    <string name="current_user">Current user: %1$s</string>
 </resources>
