@@ -9,21 +9,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.reotyranny.semeru.Model.Account;
 import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationScreenActivity extends AppCompatActivity {
 
     Model FB = Model.getInstance();
+
     FirebaseAuth mAuth = FB.getAuth();
+
     DatabaseReference mDatabase = FB.getRef();
 
 
@@ -35,13 +36,13 @@ public class RegistrationScreenActivity extends AppCompatActivity {
 
         Button registerButton = findViewById(R.id.button_Register);
 
-        registerButton.setOnClickListener( new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final String name = ((EditText)findViewById(R.id.editText_Name)).getText().toString();
-                final String email = ((EditText)findViewById(R.id.editText_Email)).getText().toString();
-                final String password = ((EditText)findViewById(R.id.editText_Password)).getText().toString();
+                final String name = ((EditText) findViewById(R.id.editText_Name)).getText().toString();
+                final String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
+                final String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
                         RegistrationScreenActivity.this,
                         new OnCompleteListener<AuthResult>() {
@@ -65,7 +66,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
         });
 
         Button cancelButton = findViewById(R.id.button_Cancel);
-        cancelButton.setOnClickListener( new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -74,11 +75,11 @@ public class RegistrationScreenActivity extends AppCompatActivity {
         });
     }
 
-        private void addDetails(String name, String email, AccountType acctType) {
-            Account account = new Account(name, email, acctType);
-            String userID = FB.getUser().getUid();
-            FB.getRef().child("users").child(userID).setValue(account);
-        }
+    private void addDetails(String name, String email, AccountType acctType) {
+        Account account = new Account(name, email, acctType);
+        String userID = FB.getUser().getUid();
+        FB.getRef().child("users").child(userID).setValue(account);
+    }
 
 
 }

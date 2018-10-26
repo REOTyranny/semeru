@@ -8,25 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends
         RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    final ArrayList<String> mItemKeys;
-    private int mLocationKey;
-
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public TextView descriptionTextView;
+
         public Button specificButton;
 
         public ViewHolder(View itemView) {
@@ -37,6 +34,54 @@ public class ItemAdapter extends
             descriptionTextView = itemView.findViewById(R.id.text_ShortDescription);
             specificButton = itemView.findViewById(R.id.button_Specfic);
         }
+    }
+
+    final ArrayList<String> mItemKeys;
+
+    private List<Donation> mItem;
+
+    private int mLocationKey;
+
+    // Pass in the contact array into the constructor
+    public ItemAdapter(List<Donation> donation, ArrayList<String> keys, int locationKey) {
+        mItemKeys = keys;
+        mLocationKey = locationKey;
+        if (donation == null) {
+            mItem = new ArrayList<>();
+        } else {
+            mItem = donation;
+        }
+    }
+
+    // Returns the total count of items in the list
+    @Override
+    public int getItemCount() {
+        return mItem.size();
+    }
+
+    // Involves populating data into the item through holder
+    @Override
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+        // Get the data model based on position
+        Donation donation = mItem.get(position);
+
+        // Set item views based on your views and data model
+        TextView descriptionTextView = viewHolder.descriptionTextView;
+        descriptionTextView.setText(donation.getShortDes());
+        Button moreInfoButton = viewHolder.specificButton;
+        moreInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SpecificItemActivity.class);
+                int itemIndex = viewHolder.getAdapterPosition();
+                intent.putExtra("itemKey", mItemKeys.get(itemIndex));
+                // locationKey required so SpecificItemActivity can return to screen with
+                // list of donations at said location
+                intent.putExtra("locationKey", mLocationKey);
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -50,46 +95,5 @@ public class ItemAdapter extends
 
         // Return a new holder instance
         return new ViewHolder(item);
-    }
-    private List<Donation> mItem;
-    // Pass in the contact array into the constructor
-    public ItemAdapter(List<Donation> donation, ArrayList<String> keys, int locationKey) {
-        mItemKeys = keys;
-        mLocationKey = locationKey;
-        if(donation == null){
-            mItem = new ArrayList<>();
-        }else {
-            mItem = donation;
-        }
-    }
-    // Involves populating data into the item through holder
-    @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
-        // Get the data model based on position
-        Donation donation = mItem.get(position);
-
-        // Set item views based on your views and data model
-        TextView descriptionTextView = viewHolder.descriptionTextView;
-        descriptionTextView.setText(donation.getShortDes());
-        Button moreInfoButton = viewHolder.specificButton;
-        moreInfoButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), SpecificItemActivity.class);
-                int itemIndex = viewHolder.getAdapterPosition();
-                intent.putExtra("itemKey", mItemKeys.get(itemIndex));
-                // locationKey required so SpecificItemActivity can return to screen with
-                // list of donations at said location
-                intent.putExtra("locationKey", mLocationKey);
-                v.getContext().startActivity(intent);
-            }
-        });
-
-    }
-
-    // Returns the total count of items in the list
-    @Override
-    public int getItemCount() {
-        return mItem.size();
     }
 }

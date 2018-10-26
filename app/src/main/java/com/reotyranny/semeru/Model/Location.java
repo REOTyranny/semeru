@@ -1,16 +1,19 @@
 package com.reotyranny.semeru.Model;
 
 public class Location {
+
     private int key;
+
     private float longitude, latitude;
+
     private String name, city, address, state, zip, type, phone, website;
 
     public Location() {
         // empty constructor required for firebase!
     }
 
-    public Location( int key, String name, float longitude, float latitude, String address,
-                     String city, String state, String zip, String type, String phone, String website){
+    public Location(int key, String name, float longitude, float latitude, String address,
+            String city, String state, String zip, String type, String phone, String website) {
 
         this.key = key;
         this.name = name;
@@ -23,46 +26,6 @@ public class Location {
         this.type = type;
         this.phone = phone;
         this.website = website;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public String getAddress() {
@@ -79,6 +42,10 @@ public class Location {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getKey() {
+        return key;
     }
 
     public float getLatitude() {
@@ -105,8 +72,44 @@ public class Location {
         this.name = name;
     }
 
-    public int getKey() {
-        return key;
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
 }

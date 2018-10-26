@@ -1,7 +1,6 @@
 package com.reotyranny.semeru.Model;
 
 import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -13,11 +12,26 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Model {
 
-    /** Singleton instance */
+    public interface FireBaseCallback {
+
+        // when asynchronous query completes, run the given onCallback() method
+        void onCallback(String locationName);
+    }
+
+    /**
+     * Singleton instance
+     */
     private static final Model _instance = new Model();
-    public static Model getInstance() { return _instance; }
 
     public String userLocation = "";
+
+    public static Model getInstance() {
+        return _instance;
+    }
+
+    public FirebaseAuth getAuth() {
+        return FirebaseAuth.getInstance();
+    }
 
     public DatabaseReference getRef() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -25,35 +39,28 @@ public class Model {
         return ref;
     }
 
-    public FirebaseAuth getAuth() {
-        return FirebaseAuth.getInstance();
-    }
-
     public FirebaseUser getUser() {
         return getAuth().getCurrentUser();
     }
 
-    public interface FireBaseCallback {
-        // when asynchronous query completes, run the given onCallback() method
-        void onCallback(String locationName);
-    }
-
-    public void storeUser (String uid, final FireBaseCallback fireBaseCallback) {
+    public void storeUser(String uid, final FireBaseCallback fireBaseCallback) {
         Query query = getRef().child("users/" + uid);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    if (dataSnapshot.hasChild("location"))
-                        fireBaseCallback.onCallback(dataSnapshot.child("location").getValue().toString());
-                    else
-                        fireBaseCallback.onCallback("");
-
-                }
-            }
-            @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
+            }
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    if (dataSnapshot.hasChild("location")) {
+                        fireBaseCallback.onCallback(dataSnapshot.child("location").getValue().toString());
+                    } else {
+                        fireBaseCallback.onCallback("");
+                    }
+
+                }
             }
         });
     }

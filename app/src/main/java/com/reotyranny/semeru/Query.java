@@ -1,7 +1,7 @@
 package com.reotyranny.semeru;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class Query extends AppCompatActivity {
 
