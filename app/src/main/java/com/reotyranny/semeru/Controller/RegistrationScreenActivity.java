@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -20,10 +19,11 @@ import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
 public class RegistrationScreenActivity extends AppCompatActivity {
-  
+
     Model model = Model.getInstance();
+
     FirebaseAuth mAuth = model.getAuth();
-  
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +71,9 @@ public class RegistrationScreenActivity extends AppCompatActivity {
         });
     }
 
-        private void addDetails(String name, String email, AccountType acctType) {
-            Account account = new Account(name, email, acctType);
-            String userID = model.getUser().getUid();
-            model.getRef().child(model.USERS).child(userID).setValue(account);
-        }
+    private void addDetails(String name, String email, AccountType acctType) {
+        Account account = new Account(name, email, acctType);
+        String userID = model.getUser().getUid();
+        model.getRef().child(model.USERS).child(userID).setValue(account);
+    }
 }

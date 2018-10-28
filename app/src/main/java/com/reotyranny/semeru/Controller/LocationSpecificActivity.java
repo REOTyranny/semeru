@@ -18,13 +18,14 @@ import com.reotyranny.semeru.R;
 public class LocationSpecificActivity extends AppCompatActivity {
 
     Model model = Model.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_specific);
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
-        Query query = model.getRef().child(model.LOCATIONS).child(""+locationKey);
+        Query query = model.getRef().child(model.LOCATIONS).child("" + locationKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onCancelled(DatabaseError databaseError) {

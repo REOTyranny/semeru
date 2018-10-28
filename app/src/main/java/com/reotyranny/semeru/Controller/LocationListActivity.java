@@ -23,11 +23,12 @@ public class LocationListActivity extends AppCompatActivity {
 
     List<Location> location;
 
+    Model model = Model.getInstance();
+
     private RecyclerView.Adapter mAdapter;
 
     private RecyclerView.LayoutManager mLayoutManager;
 
-    Model model = Model.getInstance();
     private RecyclerView mRecyclerView;
 
     @Override
@@ -39,7 +40,6 @@ public class LocationListActivity extends AppCompatActivity {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
 
         Query query = model.getRef().child(model.LOCATIONS).orderByChild("key");
         query.addListenerForSingleValueEvent(new ValueEventListener() {

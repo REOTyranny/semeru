@@ -12,15 +12,21 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Model {
 
-    /** Firebase query paths **/
-    public static final String DONATIONS = "donations";
-    public static final String LOCATIONS = "locations";
-    public static final String USERS = "users";
-  
     public interface FireBaseCallback {
+
         // when asynchronous query completes, run the given onCallback() method
         void onCallback(String locationName);
     }
+
+    /**
+     * Firebase query paths
+     **/
+    public static final String DONATIONS = "donations";
+
+    public static final String LOCATIONS = "locations";
+
+    public static final String USERS = "users";
+
     private static final Model _instance = new Model();
 
     public String userLocation = "";
@@ -43,7 +49,7 @@ public class Model {
         return getAuth().getCurrentUser();
     }
 
-    public void storeUser (String uid, final FireBaseCallback fireBaseCallback) {
+    public void storeUser(String uid, final FireBaseCallback fireBaseCallback) {
         Query query = getRef().child(this.USERS).child(uid);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -21,15 +21,16 @@ import com.reotyranny.semeru.R;
 public class HomeScreenActivity extends AppCompatActivity {
 
     Model model = Model.getInstance();
+
     FirebaseAuth mAuth = model.getAuth();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-
-        Button signOutButton =  findViewById(R.id.button_SignOut);
-        signOutButton.setOnClickListener( new View.OnClickListener() {
+        Button signOutButton = findViewById(R.id.button_SignOut);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 model.userLocation = "";

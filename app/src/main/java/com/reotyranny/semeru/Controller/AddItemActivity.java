@@ -29,7 +29,6 @@ public class AddItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-
         TextView locationText = findViewById(R.id.locationText);
         locationText.setText(model.userLocation);
 
@@ -42,13 +41,18 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
 
-        Button confirmDonation =  findViewById(R.id.button_Confirm);
-        confirmDonation.setOnClickListener( new View.OnClickListener() {
+        Button confirmDonation = findViewById(R.id.button_Confirm);
+        confirmDonation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Query query = model.getRef().child(model.LOCATIONS).orderByChild("name").
                         equalTo(model.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d("Database-Error", databaseError.getMessage());
+                    }
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
@@ -65,10 +69,6 @@ public class AddItemActivity extends AppCompatActivity {
                         } else {
                             Log.d("whatz", "nope location is currently" + model.userLocation);
                         }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d("Database-Error", databaseError.getMessage());
                     }
                 });
                 startActivity(new Intent(AddItemActivity.this, HomeScreenActivity.class));

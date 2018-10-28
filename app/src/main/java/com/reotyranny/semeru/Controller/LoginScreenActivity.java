@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,23 +36,24 @@ public class LoginScreenActivity extends AppCompatActivity {
                 String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
 
-                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+                if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
                             LoginScreenActivity.this,
                             new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(LoginScreenActivity.this,
-                                        "Sign in error", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(LoginScreenActivity.this,
-                                        "Login Successful", Toast.LENGTH_SHORT).show();
-                                String uid = model.getUser().getUid();
-                                // Model.FireBaseCallback is used here instead
-                                // of model.FireBaseCallback because it is an interface!
-                                model.storeUser(uid, new Model.FireBaseCallback() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    String email = ((EditText) findViewById(R.id.editText_Email)).getText()
+                                            .toString();
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(LoginScreenActivity.this,
+                                                "Sign in error", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(LoginScreenActivity.this,
+                                                "Login Successful", Toast.LENGTH_SHORT).show();
+                                        String uid = model.getUser().getUid();
+                                        // Model.FireBaseCallback is used here instead
+                                        // of model.FireBaseCallback because it is an interface!
+                                        model.storeUser(uid, new Model.FireBaseCallback() {
                                             @Override
                                             public void onCallback(String location) {
                                                 model.userLocation = location;
