@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +22,7 @@ import com.reotyranny.semeru.R;
 public class HomeScreenActivity extends AppCompatActivity {
 
     Model model = Model.getInstance();
+    FirebaseAuth mAuth = model.getAuth();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 model.userLocation = "";
+                mAuth.signOut();
                 startActivity(new Intent(HomeScreenActivity.this, WelcomeScreenActivity.class));
             }
         });
