@@ -57,18 +57,18 @@ public class SpecificItemActivity extends AppCompatActivity {
 
     public void populateFields(Donation d) {
         TextView shortDesView = findViewById(R.id.text_Short);
-        shortDesView.setText(d.getShortDes());
+        shortDesView.setText("Short description: " + d.getShortDes());
         TextView time = findViewById(R.id.text_Full);
-        time.setText(d.getTimestamp());
+        time.setText("Time: " + d.getTimestamp());
         TextView valueView = findViewById(R.id.text_Value);
-        valueView.setText("" + d.getValue());
+        valueView.setText("Value: " + d.getValue());
         TextView loc = findViewById(R.id.text_Location);
-        loc.setText("" + d.getPlace());
+        loc.setText("Location: " + d.getPlace());
         TextView categoryView = findViewById(R.id.text_Category);
-        categoryView.setText(d.getCategory());
+        categoryView.setText("Category: " + d.getCategory());
         TextView commentsView = findViewById(R.id.text_Comments);
-        commentsView.setText(d.getComments());
-        TextView Timestamp = findViewById(R.id.text_Timestamp);
-        Timestamp.setText(d.getTimestamp());
+        commentsView.setText("Comments: " + d.getComments());
+//        TextView Timestamp = findViewById(R.id.text_Timestamp);
+//        Timestamp.setText(d.getTimestamp());
     }
 }
