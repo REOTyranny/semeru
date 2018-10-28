@@ -31,6 +31,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                model.userLocation = "";
                 startActivity(new Intent(HomeScreenActivity.this, WelcomeScreenActivity.class));
             }
         });
