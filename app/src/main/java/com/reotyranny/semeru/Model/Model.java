@@ -1,5 +1,6 @@
 package com.reotyranny.semeru.Model;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -9,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import java.util.Objects;
 
 public class Model {
 
@@ -50,18 +52,18 @@ public class Model {
     }
 
     public void storeUser(String uid, final FireBaseCallback fireBaseCallback) {
-        Query query = getRef().child(this.USERS).child(uid);
+        Query query = getRef().child(USERS).child(uid);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
             }
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     if (dataSnapshot.hasChild("location")) {
-                        fireBaseCallback.onCallback(dataSnapshot.child("location").getValue().toString());
+                        fireBaseCallback.onCallback(Objects.requireNonNull(dataSnapshot.child("location").getValue()).toString());
                     } else {
                         fireBaseCallback.onCallback("");
                     }

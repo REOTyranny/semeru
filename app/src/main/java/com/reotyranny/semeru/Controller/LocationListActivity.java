@@ -2,6 +2,7 @@ package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,18 +17,15 @@ import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class LocationListActivity extends AppCompatActivity {
 
-    List<Location> location;
+    // --Commented out by Inspection (10/28/18, 11:29):List<Location> location;
 
-    Model model = Model.getInstance();
+    private final Model model = Model.getInstance();
 
     private RecyclerView.Adapter mAdapter;
-
-    private RecyclerView.LayoutManager mLayoutManager;
 
     private RecyclerView mRecyclerView;
 
@@ -38,18 +36,18 @@ public class LocationListActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.rvLocation);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
 
-        Query query = model.getRef().child(model.LOCATIONS).orderByChild("key");
+        Query query = model.getRef().child(Model.LOCATIONS).orderByChild("key");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("Databaser-Error", databaseError.getMessage());
             }
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Location> locations = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {

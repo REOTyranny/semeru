@@ -2,7 +2,7 @@ package com.reotyranny.semeru.Model;
 
 public class Account {
 
-    boolean locked;
+    private boolean locked;
 
     private AccountType acctType;
 

@@ -2,6 +2,7 @@ package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,10 +20,11 @@ import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AddItemActivity extends AppCompatActivity {
 
-    Model model = Model.getInstance();
+    private final Model model = Model.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,26 +47,27 @@ public class AddItemActivity extends AppCompatActivity {
         confirmDonation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Query query = model.getRef().child(model.LOCATIONS).orderByChild("name").
+                Query query = model.getRef().child(Model.LOCATIONS).orderByChild("name").
                         equalTo(model.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
                         Log.d("Database-Error", databaseError.getMessage());
                     }
 
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                             Donation donation = constructDonationObject();
-                            String uid = model.getRef().child(model.LOCATIONS).child(item.getKey()).
+                            String uid = model.getRef().child(Model.LOCATIONS).child(Objects
+                                    .requireNonNull(item.getKey())).
                                     child("donations").push().getKey();
 
                             Map<String, Object> childUpdates = new HashMap<>();
-                            childUpdates.put("/" + model.LOCATIONS + "/" + item.getKey() +
+                            childUpdates.put("/" + Model.LOCATIONS + "/" + item.getKey() +
                                     "/donations/" + uid, donation);
-                            childUpdates.put("/" + model.DONATIONS + "/" + uid, donation);
+                            childUpdates.put("/" + Model.DONATIONS + "/" + uid, donation);
                             model.getRef().updateChildren(childUpdates);
                         } else {
                             Log.d("whatz", "nope location is currently" + model.userLocation);
@@ -77,7 +80,7 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private Donation constructDonationObject() {
-        Model Model = com.reotyranny.semeru.Model.Model.getInstance();
+        //Model Model = com.reotyranny.semeru.Model.Model.getInstance();
         String shortDes = ((EditText) findViewById(R.id.editText_Short)).getText().toString();
         String longDes = ((EditText) findViewById(R.id.editText_Full)).getText().toString();
         String value = ((EditText) findViewById(R.id.editText_Value)).getText().toString();
@@ -86,8 +89,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
         String location = model.userLocation;
-        Donation donation = new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments);
-        return donation;
+        return new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments);
     }
 
     private void constructSpinner() {

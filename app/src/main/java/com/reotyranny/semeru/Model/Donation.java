@@ -12,7 +12,7 @@ public class Donation {
 
     private String category;
 
-    private List<String> categoryChoices = new LinkedList<>();
+    private final List<String> categoryChoices = new LinkedList<>();
 
     private String comments;
 
@@ -46,9 +46,11 @@ public class Donation {
         }
     }
 
-    public void addCategory(String newCat) {
-        categoryChoices.add(newCat);
-    }
+// --Commented out by Inspection START (10/28/18, 11:29):
+//    public void addCategory(String newCat) {
+//        categoryChoices.add(newCat);
+//    }
+// --Commented out by Inspection STOP (10/28/18, 11:29)
 
     public String getCategory() {
         return category;
@@ -113,7 +115,7 @@ public class Donation {
         categoryChoices.add("Other");
     }
 
-    public String retrieveTimestamp() {
+    private String retrieveTimestamp() {
         String timer;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();

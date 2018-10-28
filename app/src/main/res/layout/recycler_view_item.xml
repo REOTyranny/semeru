@@ -21,7 +21,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_Specfic"
+        android:id="@+id/button_Specific"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -2,6 +2,7 @@ package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,11 +15,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
+import java.util.Objects;
 
 
 public class SpecificItemActivity extends AppCompatActivity {
 
-    Model model = Model.getInstance();
+    private final Model model = Model.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +30,18 @@ public class SpecificItemActivity extends AppCompatActivity {
         final String itemKey = (String) getIntent().getSerializableExtra("itemKey");
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
-        Query query = model.getRef().child(model.DONATIONS).child("" + itemKey);
+        Query query = model.getRef().child(Model.DONATIONS).child("" + itemKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
             }
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     Donation donation = dataSnapshot.getValue(Donation.class);
-                    populateFields(donation);
+                    populateFields(Objects.requireNonNull(donation));
                 }
             }
         });
@@ -55,7 +57,7 @@ public class SpecificItemActivity extends AppCompatActivity {
         });
     }
 
-    public void populateFields(Donation d) {
+    private void populateFields(Donation d) {
         TextView shortDesView = findViewById(R.id.text_Short);
         shortDesView.setText("Short description: " + d.getShortDes());
         TextView time = findViewById(R.id.text_Full);
