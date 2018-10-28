@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,19 +20,21 @@ import com.reotyranny.semeru.R;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
+    Model model = Model.getInstance();
+
+    FirebaseAuth mAuth = model.getAuth();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        Model FB = Model.getInstance();
-        FirebaseUser user = FB.getUser();
-
         Button signOutButton = findViewById(R.id.button_SignOut);
         signOutButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
+                model.userLocation = "";
+                mAuth.signOut();
                 startActivity(new Intent(HomeScreenActivity.this, WelcomeScreenActivity.class));
             }
         });
@@ -48,10 +51,12 @@ public class HomeScreenActivity extends AppCompatActivity {
         final TextView currentUserText = findViewById(R.id.currentUser_TextView);
         final TextView welcomeUserText = findViewById(R.id.text_Welcome);
 
+        FirebaseUser user = model.getUser();
+
         if (user != null && user.getEmail() != null) {
             // User is signed in
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            Query query = reference.child("users").orderByChild("email").equalTo(user.getEmail());
+            Query query = reference.child(model.USERS).orderByChild("email").equalTo(user.getEmail());
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {

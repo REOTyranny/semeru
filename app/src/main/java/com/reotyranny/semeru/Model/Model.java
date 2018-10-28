@@ -19,8 +19,14 @@ public class Model {
     }
 
     /**
-     * Singleton instance
-     */
+     * Firebase query paths
+     **/
+    public static final String DONATIONS = "donations";
+
+    public static final String LOCATIONS = "locations";
+
+    public static final String USERS = "users";
+
     private static final Model _instance = new Model();
 
     public String userLocation = "";
@@ -44,7 +50,7 @@ public class Model {
     }
 
     public void storeUser(String uid, final FireBaseCallback fireBaseCallback) {
-        Query query = getRef().child("users/" + uid);
+        Query query = getRef().child(this.USERS).child(uid);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onCancelled(DatabaseError databaseError) {

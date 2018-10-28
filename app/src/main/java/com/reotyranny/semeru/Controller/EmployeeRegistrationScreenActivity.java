@@ -37,7 +37,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         final Spinner spinner = findViewById(R.id.locationSpinner);
 
         // populate spinner with locations in firebase db
-        model.getRef().child("locations").addValueEventListener(new ValueEventListener() {
+        model.getRef().child(model.LOCATIONS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
@@ -105,11 +105,11 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
     private void addDetails(String name, String email, AccountType acctType, String location) {
         Account account = new Account(name, email, acctType, location);
         String uID = model.getUser().getUid();
-        model.getRef().child("users").child(uID).setValue(account);
+        model.getRef().child(model.USERS).child(uID).setValue(account);
         model.storeUser(uID, new Model.FireBaseCallback() {
             @Override
             public void onCallback(String location) {
-                Model.getInstance().userLocation = location;
+                model.userLocation = location;
                 startActivity(new Intent(
                         EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
             }

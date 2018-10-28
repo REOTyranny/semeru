@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,11 +51,12 @@ public class LoginScreenActivity extends AppCompatActivity {
                                         Toast.makeText(LoginScreenActivity.this,
                                                 "Login Successful", Toast.LENGTH_SHORT).show();
                                         String uid = model.getUser().getUid();
+                                        // Model.FireBaseCallback is used here instead
+                                        // of model.FireBaseCallback because it is an interface!
                                         model.storeUser(uid, new Model.FireBaseCallback() {
                                             @Override
                                             public void onCallback(String location) {
-                                                Model.getInstance().userLocation = location;
-                                                Log.d("fff", "location is " + location);
+                                                model.userLocation = location;
                                                 startActivity(new Intent(
                                                         LoginScreenActivity.this, HomeScreenActivity.class));
                                             }

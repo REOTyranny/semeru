@@ -22,11 +22,12 @@ import java.util.Map;
 
 public class AddItemActivity extends AppCompatActivity {
 
+    Model model = Model.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-        final Model model = Model.getInstance();
 
         TextView locationText = findViewById(R.id.locationText);
         locationText.setText(model.userLocation);
@@ -44,7 +45,7 @@ public class AddItemActivity extends AppCompatActivity {
         confirmDonation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Query query = model.getRef().child("locations").orderByChild("name").
+                Query query = model.getRef().child(model.LOCATIONS).orderByChild("name").
                         equalTo(model.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -55,15 +56,15 @@ public class AddItemActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            Log.d("wtf", dataSnapshot.toString());
                             DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                             Donation donation = constructDonationObject();
-                            String uid = model.getRef().child("locations").child(item.getKey()).
+                            String uid = model.getRef().child(model.LOCATIONS).child(item.getKey()).
                                     child("donations").push().getKey();
 
                             Map<String, Object> childUpdates = new HashMap<>();
-                            childUpdates.put("/locations/" + item.getKey() + "/donations/" + uid, donation);
-                            childUpdates.put("/donations/" + uid, donation);
+                            childUpdates.put("/" + model.LOCATIONS + "/" + item.getKey() +
+                                    "/donations/" + uid, donation);
+                            childUpdates.put("/" + model.DONATIONS + "/" + uid, donation);
                             model.getRef().updateChildren(childUpdates);
                         } else {
                             Log.d("whatz", "nope location is currently" + model.userLocation);
@@ -82,8 +83,9 @@ public class AddItemActivity extends AppCompatActivity {
         String value = ((EditText) findViewById(R.id.editText_Value)).getText().toString();
         String comments = ((EditText) findViewById(R.id.editText_Comments)).getText().toString();
         Spinner spinner = findViewById(R.id.spinner_Category);
+
         String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-        String location = Model.userLocation;
+        String location = model.userLocation;
         Donation donation = new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments);
         return donation;
     }
