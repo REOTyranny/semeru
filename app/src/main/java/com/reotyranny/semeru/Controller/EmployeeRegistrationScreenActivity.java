@@ -22,10 +22,11 @@ import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
 
-    Model model = Model.getInstance();
+    private final Model model = Model.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +38,22 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         final Spinner spinner = findViewById(R.id.locationSpinner);
 
         // populate spinner with locations in firebase db
-        model.getRef().child(model.LOCATIONS).addValueEventListener(new ValueEventListener() {
+        model.getRef().child(Model.LOCATIONS).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
             }
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final ArrayList<String> locations = new ArrayList<String>();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final ArrayList<String> locations = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String locationName = snapshot.child("name").getValue().toString();
+                    String locationName = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
                     locations.add(locationName);
                 }
 
-                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(EmployeeRegistrationScreenActivity.this,
+                ArrayAdapter<String> areasAdapter = new ArrayAdapter<>(EmployeeRegistrationScreenActivity.this,
                         android.R.layout.simple_spinner_item, locations);
                 areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(areasAdapter);
@@ -105,7 +106,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
     private void addDetails(String name, String email, AccountType acctType, String location) {
         Account account = new Account(name, email, acctType, location);
         String uID = model.getUser().getUid();
-        model.getRef().child(model.USERS).child(uID).setValue(account);
+        model.getRef().child(Model.USERS).child(uID).setValue(account);
         model.storeUser(uID, new Model.FireBaseCallback() {
             @Override
             public void onCallback(String location) {

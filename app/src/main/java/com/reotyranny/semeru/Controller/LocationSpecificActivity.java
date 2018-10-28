@@ -2,6 +2,7 @@ package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,10 +15,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
+import java.util.Objects;
 
 public class LocationSpecificActivity extends AppCompatActivity {
 
-    Model model = Model.getInstance();
+    private final Model model = Model.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,20 +27,20 @@ public class LocationSpecificActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_specific);
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
-        Query query = model.getRef().child(model.LOCATIONS).child("" + locationKey);
+        Query query = model.getRef().child(Model.LOCATIONS).child("" + locationKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
             }
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     Location l = dataSnapshot.getValue(Location.class);
-                    populateFields(l);
+                    populateFields(Objects.requireNonNull(l));
                     String specificLocation = l.getName();
-                    if (Model.getInstance().userLocation.equals(specificLocation)) {
+                    if (model.userLocation.equals(specificLocation)) {
                         Button seeItems = findViewById(R.id.button_ItemsList);
                         seeItems.setVisibility(View.VISIBLE); //To set visible
                     }
@@ -68,7 +70,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
 
     }
 
-    public void populateFields(Location l) {
+    private void populateFields(Location l) {
         ((TextView) findViewById(R.id.text_LocName)).setText("Name: " + l.getName());
         ((TextView) findViewById(R.id.text_LocType)).setText("Type: " + l.getType());
         ((TextView) findViewById(R.id.text_Long)).setText("Longitude: " + l.getLongitude());

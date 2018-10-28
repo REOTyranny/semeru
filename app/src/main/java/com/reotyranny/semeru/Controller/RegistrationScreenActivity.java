@@ -20,9 +20,9 @@ import com.reotyranny.semeru.R;
 
 public class RegistrationScreenActivity extends AppCompatActivity {
 
-    Model model = Model.getInstance();
+    private final Model model = Model.getInstance();
 
-    FirebaseAuth mAuth = model.getAuth();
+    private final FirebaseAuth mAuth = model.getAuth();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +74,6 @@ public class RegistrationScreenActivity extends AppCompatActivity {
     private void addDetails(String name, String email, AccountType acctType) {
         Account account = new Account(name, email, acctType);
         String userID = model.getUser().getUid();
-        model.getRef().child(model.USERS).child(userID).setValue(account);
+        model.getRef().child(Model.USERS).child(userID).setValue(account);
     }
 }

@@ -19,15 +19,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.R;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ItemListActivity extends AppCompatActivity {
 
-    List<Donation> items;
+    // --Commented out by Inspection (10/28/18, 11:29):List<Donation> items;
 
     private RecyclerView.Adapter mAdapter;
-
-    private RecyclerView.LayoutManager mLayoutManager;
 
     private RecyclerView mRecyclerView;
 
@@ -39,14 +36,14 @@ public class ItemListActivity extends AppCompatActivity {
 
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child("locations/" + locationKey + "/donations").orderByKey();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
             }
 

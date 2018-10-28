@@ -18,9 +18,9 @@ import com.reotyranny.semeru.R;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
-    Model model = Model.getInstance();
+    private final Model model = Model.getInstance();
 
-    FirebaseAuth mAuth = model.getAuth();
+    private final FirebaseAuth mAuth = model.getAuth();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                             new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    String email = ((EditText) findViewById(R.id.editText_Email)).getText()
-                                            .toString();
+//                                    String email = ((EditText) findViewById(R.id.editText_Email)).getText()
+////                                            .toString();
                                     if (!task.isSuccessful()) {
                                         Toast.makeText(LoginScreenActivity.this,
                                                 "Sign in error", Toast.LENGTH_SHORT).show();

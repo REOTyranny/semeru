@@ -2,6 +2,7 @@ package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,12 +18,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
+import java.util.Objects;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
-    Model model = Model.getInstance();
+    private final Model model = Model.getInstance();
 
-    FirebaseAuth mAuth = model.getAuth();
+    private final FirebaseAuth mAuth = model.getAuth();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +58,19 @@ public class HomeScreenActivity extends AppCompatActivity {
         if (user != null && user.getEmail() != null) {
             // User is signed in
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            Query query = reference.child(model.USERS).orderByChild("email").equalTo(user.getEmail());
+            Query query = reference.child(Model.USERS).orderByChild("email").equalTo(user.getEmail());
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.d("Database-Error", databaseError.getMessage());
                 }
 
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         // query matches exactly to user.getEmail() -- just use 1 iteration
                         DataSnapshot item = dataSnapshot.getChildren().iterator().next();
-                        String name = item.child("name").getValue().toString();
+                        String name = Objects.requireNonNull(item.child("name").getValue()).toString();
                         //String currentUserString = String.format(
                         //       getResources().getString(R.string.current_user), name);
                         String welcomeString = String.format(

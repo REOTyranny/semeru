@@ -2,6 +2,7 @@ package com.reotyranny.semeru.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,26 +21,26 @@ public class LocationAdapter extends
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView addressTextView;
+        final TextView addressTextView;
 
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public TextView nameTextView;
+        final TextView nameTextView;
 
-        public Button specificButton;
+        final Button specificButton;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.text_Name);
             addressTextView = itemView.findViewById(R.id.text_Address);
-            specificButton = itemView.findViewById(R.id.button_Specfic);
+            specificButton = itemView.findViewById(R.id.button_Specific);
         }
     }
 
-    private List<Location> mLocation;
+    private final List<Location> mLocation;
 
     // Pass in the contact array into the constructor
     public LocationAdapter(List<Location> location) {
@@ -58,7 +59,7 @@ public class LocationAdapter extends
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
         // Get the data model based on position
         Location location = mLocation.get(position);
 
@@ -81,8 +82,9 @@ public class LocationAdapter extends
     }
 
     // Usually involves inflating a layout from XML and returning the holder
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 

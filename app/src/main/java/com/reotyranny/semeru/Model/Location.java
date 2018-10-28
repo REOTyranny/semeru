@@ -36,9 +36,11 @@ public class Location {
         this.address = address;
     }
 
-    public String getCity() {
-        return city;
-    }
+// --Commented out by Inspection START (10/28/18, 11:29):
+//    public String getCity() {
+//        return city;
+//    }
+// --Commented out by Inspection STOP (10/28/18, 11:29)
 
     public void setCity(String city) {
         this.city = city;
