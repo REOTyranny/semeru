@@ -1,8 +1,8 @@
 package com.reotyranny.semeru.Controller;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -18,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +36,7 @@ public class AddItemActivity extends AppCompatActivity {
         constructSpinner();
 
         Button cancelBtn = findViewById(R.id.button_Cancel);
-        cancelBtn.setOnClickListener(new View.OnClickListener(){
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(AddItemActivity.this, HomeScreenActivity.class));
             }
@@ -52,6 +50,11 @@ public class AddItemActivity extends AppCompatActivity {
                         equalTo(model.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d("Database-Error", databaseError.getMessage());
+                    }
+
+                    @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             DataSnapshot item = dataSnapshot.getChildren().iterator().next();
@@ -64,6 +67,8 @@ public class AddItemActivity extends AppCompatActivity {
                                     "/donations/" + uid, donation);
                             childUpdates.put("/" + model.DONATIONS + "/" + uid, donation);
                             model.getRef().updateChildren(childUpdates);
+                        } else {
+                            Log.d("whatz", "nope location is currently" + model.userLocation);
                         }
                     }
                     @Override
@@ -76,20 +81,22 @@ public class AddItemActivity extends AppCompatActivity {
         });
     }
 
-    private Donation constructDonationObject(){
-        String shortDes = ((EditText)findViewById(R.id.editText_Short)).getText().toString();
-        String longDes = ((EditText)findViewById(R.id.editText_Full)).getText().toString();
-        String value = ((EditText)findViewById(R.id.editText_Value)).getText().toString();
-        String comments = ((EditText)findViewById(R.id.editText_Comments)).getText().toString();
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
+    private Donation constructDonationObject() {
+        Model Model = com.reotyranny.semeru.Model.Model.getInstance();
+        String shortDes = ((EditText) findViewById(R.id.editText_Short)).getText().toString();
+        String longDes = ((EditText) findViewById(R.id.editText_Full)).getText().toString();
+        String value = ((EditText) findViewById(R.id.editText_Value)).getText().toString();
+        String comments = ((EditText) findViewById(R.id.editText_Comments)).getText().toString();
+        Spinner spinner = findViewById(R.id.spinner_Category);
+
         String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
         String location = model.userLocation;
         Donation donation = new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments);
         return donation;
     }
 
-    private void constructSpinner(){
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_Category);
+    private void constructSpinner() {
+        Spinner spinner = findViewById(R.id.spinner_Category);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);

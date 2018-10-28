@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,9 +27,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+
         Button signOutButton =  findViewById(R.id.button_SignOut);
         signOutButton.setOnClickListener( new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 model.userLocation = "";
@@ -39,8 +38,8 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
-        Button loadIn =  findViewById(R.id.button_LoadIn);
-        loadIn.setOnClickListener( new View.OnClickListener() {
+        Button loadIn = findViewById(R.id.button_LoadIn);
+        loadIn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -59,19 +58,23 @@ public class HomeScreenActivity extends AppCompatActivity {
             Query query = reference.child(model.USERS).orderByChild("email").equalTo(user.getEmail());
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d("Database-Error", databaseError.getMessage());
+                }
+
+                @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         // query matches exactly to user.getEmail() -- just use 1 iteration
                         DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                         String name = item.child("name").getValue().toString();
-                        currentUserText.setText(name);
-                        welcomeUserText.setText(name);
+                        String currentUserString = String.format(
+                                getResources().getString(R.string.current_user), name);
+                        String welcomeString = String.format(
+                                getResources().getString(R.string.welcome_user), name);
+                        currentUserText.setText(currentUserString);
+                        welcomeUserText.setText(welcomeString);
                     }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.d("Database-Error", databaseError.getMessage());
                 }
             });
         }

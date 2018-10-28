@@ -1,4 +1,5 @@
 package com.reotyranny.semeru.Model;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -6,22 +7,32 @@ import java.util.List;
 
 
 public class Donation {
+
+    public enum Category {Clothing, Hat, Kitchen, Electronics, Households, Others}
+
+    private String category;
+
+    private List<String> categoryChoices = new LinkedList<>();
+
+    private String comments;
+
+    private String longDes;
+
+    private String place;
+
     //TODO: Integrate with Firebase
     private String shortDes;
-    private String longDes;
+
     private String timestamp;
-    private String place ;
+
     private float value;
-    private String comments;
-    private String category;
-    private List<String> categoryChoices = new LinkedList<>();
 
     public Donation() {
         // this empty constructor is required for firebase!! do not remove !
     }
 
-    public Donation ( String place, String shortDes, String longDes,
-                      float value, String category, String comments){
+    public Donation(String place, String shortDes, String longDes,
+            float value, String category, String comments) {
         this.timestamp = retrieveTimestamp();
         this.place = place;
         this.shortDes = shortDes;
@@ -30,26 +41,13 @@ public class Donation {
         this.comments = comments;
 
         this.category = category;
-        if (!categoryChoices.contains(category)){
+        if (!categoryChoices.contains(category)) {
             categoryChoices.add(category);
         }
     }
 
-    public enum Category{Clothing,Hat,Kitchen,Electronics,Households,Others}
-
-    public String retrieveTimestamp(){
-        String timer;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        timer = formatter.format(date);
-        return timer;
-
-    }
-    public String getComments() {
-        return comments;
-    }
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void addCategory(String newCat) {
+        categoryChoices.add(newCat);
     }
 
     public String getCategory() {
@@ -60,15 +58,12 @@ public class Donation {
         this.category = category;
     }
 
-    public void addCategory(String newCat){
-        categoryChoices.add(newCat);
+    public String getComments() {
+        return comments;
     }
 
-    public void initialCategories(){
-        categoryChoices.add("Kitchen");
-        categoryChoices.add("Clothes");
-        categoryChoices.add("Hat");
-        categoryChoices.add("Other");
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public String getLongDes() {
@@ -79,6 +74,14 @@ public class Donation {
         this.longDes = longDes;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
     public String getShortDes() {
         return shortDes;
     }
@@ -87,12 +90,12 @@ public class Donation {
         this.shortDes = shortDes;
     }
 
-    public String getPlace() {
-        return place;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public float getValue() {
@@ -103,12 +106,20 @@ public class Donation {
         this.value = value;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public void initialCategories() {
+        categoryChoices.add("Kitchen");
+        categoryChoices.add("Clothes");
+        categoryChoices.add("Hat");
+        categoryChoices.add("Other");
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public String retrieveTimestamp() {
+        String timer;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        timer = formatter.format(date);
+        return timer;
+
     }
 
 }

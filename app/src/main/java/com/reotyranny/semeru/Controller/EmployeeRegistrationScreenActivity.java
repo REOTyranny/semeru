@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -18,10 +21,6 @@ import com.reotyranny.semeru.Model.Account;
 import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-
 import java.util.ArrayList;
 
 public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
@@ -35,15 +34,20 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         final AccountType acctType = (AccountType) getIntent().getSerializableExtra("type");
 
         Button registerButton = findViewById(R.id.button_Register);
-        final Spinner spinner = (Spinner) findViewById(R.id.locationSpinner);
+        final Spinner spinner = findViewById(R.id.locationSpinner);
 
         // populate spinner with locations in firebase db
         model.getRef().child(model.LOCATIONS).addValueEventListener(new ValueEventListener() {
             @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Database-Error", databaseError.getMessage());
+            }
+
+            @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final ArrayList<String> locations = new ArrayList<String>();
 
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String locationName = snapshot.child("name").getValue().toString();
                     locations.add(locationName);
                 }
@@ -53,19 +57,15 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
                 areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(areasAdapter);
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("Database-Error", databaseError.getMessage());
-            }
         });
 
-        registerButton.setOnClickListener( new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final String name = ((EditText)findViewById(R.id.editText_Name)).getText().toString();
-                final String email = ((EditText)findViewById(R.id.editText_Email)).getText().toString();
-                final String password = ((EditText)findViewById(R.id.editText_Password)).getText().toString();
+                final String name = ((EditText) findViewById(R.id.editText_Name)).getText().toString();
+                final String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
+                final String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
                 final String location = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
                 model.getAuth().createUserWithEmailAndPassword(email, password).addOnCompleteListener(
@@ -93,7 +93,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         });
 
         Button cancelButton = findViewById(R.id.button_Cancel);
-        cancelButton.setOnClickListener( new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
