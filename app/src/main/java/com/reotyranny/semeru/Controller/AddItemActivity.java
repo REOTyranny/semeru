@@ -50,11 +50,6 @@ public class AddItemActivity extends AppCompatActivity {
                         equalTo(model.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d("Database-Error", databaseError.getMessage());
-                    }
-
-                    @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             DataSnapshot item = dataSnapshot.getChildren().iterator().next();
