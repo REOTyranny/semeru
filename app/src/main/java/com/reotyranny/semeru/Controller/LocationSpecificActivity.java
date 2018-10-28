@@ -69,12 +69,12 @@ public class LocationSpecificActivity extends AppCompatActivity {
     }
 
     public void populateFields(Location l) {
-        ((TextView) findViewById(R.id.text_LocName)).setText(l.getName());
-        ((TextView) findViewById(R.id.text_LocType)).setText(l.getType());
-        ((TextView) findViewById(R.id.text_Long)).setText("" + l.getLongitude());
-        ((TextView) findViewById(R.id.text_Lat)).setText("" + l.getLatitude());
-        ((TextView) findViewById(R.id.text_Address)).setText(l.getAddress());
-        ((TextView) findViewById(R.id.text_Phone)).setText(l.getPhone());
+        ((TextView) findViewById(R.id.text_LocName)).setText("Name: " + l.getName());
+        ((TextView) findViewById(R.id.text_LocType)).setText("Type: " + l.getType());
+        ((TextView) findViewById(R.id.text_Long)).setText("Longitude: " + l.getLongitude());
+        ((TextView) findViewById(R.id.text_Lat)).setText("Latitude: " + l.getLatitude());
+        ((TextView) findViewById(R.id.text_Address)).setText("Address: " + l.getAddress());
+        ((TextView) findViewById(R.id.text_Phone)).setText("Phone number: " + l.getPhone());
     }
 
 }

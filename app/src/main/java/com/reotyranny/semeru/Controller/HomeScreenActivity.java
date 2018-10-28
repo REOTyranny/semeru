@@ -48,7 +48,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
-        final TextView currentUserText = findViewById(R.id.currentUser_TextView);
+        //final TextView currentUserText = findViewById(R.id.currentUser_TextView);
         final TextView welcomeUserText = findViewById(R.id.text_Welcome);
 
         FirebaseUser user = model.getUser();
@@ -69,11 +69,11 @@ public class HomeScreenActivity extends AppCompatActivity {
                         // query matches exactly to user.getEmail() -- just use 1 iteration
                         DataSnapshot item = dataSnapshot.getChildren().iterator().next();
                         String name = item.child("name").getValue().toString();
-                        String currentUserString = String.format(
-                                getResources().getString(R.string.current_user), name);
+                        //String currentUserString = String.format(
+                        //       getResources().getString(R.string.current_user), name);
                         String welcomeString = String.format(
                                 getResources().getString(R.string.welcome_user), name);
-                        currentUserText.setText(currentUserString);
+                        //currentUserText.setText(currentUserString);
                         welcomeUserText.setText(welcomeString);
                     }
                 }
