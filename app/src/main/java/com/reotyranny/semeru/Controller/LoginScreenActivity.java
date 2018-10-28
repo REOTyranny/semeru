@@ -37,7 +37,6 @@ public class LoginScreenActivity extends AppCompatActivity {
                 String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
 
-
                 if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
                             LoginScreenActivity.this,
@@ -52,11 +51,12 @@ public class LoginScreenActivity extends AppCompatActivity {
                                 Toast.makeText(LoginScreenActivity.this,
                                         "Login Successful", Toast.LENGTH_SHORT).show();
                                 String uid = model.getUser().getUid();
+                                // Model.FireBaseCallback is used here instead
+                                // of model.FireBaseCallback because it is an interface!
                                 model.storeUser(uid, new Model.FireBaseCallback() {
                                             @Override
                                             public void onCallback(String location) {
-                                                Model.getInstance().userLocation = location;
-                                                Log.d("fff", "location is " + location);
+                                                model.userLocation = location;
                                                 startActivity(new Intent(
                                                         LoginScreenActivity.this, HomeScreenActivity.class));
                                             }

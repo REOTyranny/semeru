@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
 import com.reotyranny.semeru.Model.Account;
 import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.Model.Model;
@@ -22,10 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationScreenActivity extends AppCompatActivity {
 
-    Model FB = Model.getInstance();
-    FirebaseAuth mAuth = FB.getAuth();
-    DatabaseReference mDatabase = FB.getRef();
-
+    Model model = Model.getInstance();
+    FirebaseAuth mAuth = model.getAuth();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +73,8 @@ public class RegistrationScreenActivity extends AppCompatActivity {
 
         private void addDetails(String name, String email, AccountType acctType) {
             Account account = new Account(name, email, acctType);
-            String userID = FB.getUser().getUid();
-            FB.getRef().child("users").child(userID).setValue(account);
+            String userID = model.getUser().getUid();
+            model.getRef().child(model.USERS).child(userID).setValue(account);
         }
 
 

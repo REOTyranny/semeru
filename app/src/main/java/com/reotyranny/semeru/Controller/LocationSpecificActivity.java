@@ -19,15 +19,14 @@ import com.reotyranny.semeru.R;
 
 public class LocationSpecificActivity extends AppCompatActivity {
 
-
+    Model model = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_specific);
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
-        Model FB = Model.getInstance();
-        Query query = FB.getRef().child("locations").child(""+locationKey);
+        Query query = model.getRef().child(model.LOCATIONS).child(""+locationKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,7 +69,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
 
     }
     public void populateFields(Location l) {
-        ((TextView)findViewById(R.id.text_LocName)).setText(l.getName());
+        ((TextView) findViewById(R.id.text_LocName)).setText(l.getName());
         ((TextView) findViewById(R.id.text_LocType)).setText(l.getType());
         ((TextView) findViewById(R.id.text_Long)).setText("" + l.getLongitude());
         ((TextView) findViewById(R.id.text_Lat)).setText("" + l.getLatitude());

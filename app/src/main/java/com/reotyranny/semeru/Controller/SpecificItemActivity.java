@@ -17,7 +17,10 @@ import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
+
 public class SpecificItemActivity extends AppCompatActivity {
+    Model model = Model.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,15 +29,10 @@ public class SpecificItemActivity extends AppCompatActivity {
         final String itemKey = (String) getIntent().getSerializableExtra("itemKey");
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
 
-
-        Model FB = Model.getInstance();
-
-        DatabaseReference ref = FB.getRef();
-        Query query = ref.child("donations").child("" + itemKey);
+        Query query = model.getRef().child(model.DONATIONS).child("" + itemKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("wtf",dataSnapshot.toString());
                 if (dataSnapshot.exists()) {
                     Donation donation = dataSnapshot.getValue(Donation.class);
                     populateFields(donation);
@@ -45,7 +43,6 @@ public class SpecificItemActivity extends AppCompatActivity {
                 Log.d("Database-Error", databaseError.getMessage());
             }
         });
-
 
         Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener( new View.OnClickListener() {

@@ -28,6 +28,7 @@ public class LocationListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    Model model = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +39,8 @@ public class LocationListActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        Model model = Model.getInstance();
-        Query query = model.getRef().child("locations").orderByChild("key");
+
+        Query query = model.getRef().child(model.LOCATIONS).orderByChild("key");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

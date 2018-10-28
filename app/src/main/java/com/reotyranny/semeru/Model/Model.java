@@ -13,6 +13,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Model {
 
+    /** Firebase query paths **/
+    public static final String DONATIONS = "donations";
+    public static final String LOCATIONS = "locations";
+    public static final String USERS = "users";
+
     /** Singleton instance */
     private static final Model _instance = new Model();
     public static Model getInstance() { return _instance; }
@@ -39,7 +44,7 @@ public class Model {
     }
 
     public void storeUser (String uid, final FireBaseCallback fireBaseCallback) {
-        Query query = getRef().child("users/" + uid);
+        Query query = getRef().child(this.USERS).child(uid);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
