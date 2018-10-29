@@ -1,13 +1,15 @@
-package com.reotyranny.semeru;
+package com.reotyranny.semeru.Controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class Results extends AppCompatActivity {
+import com.reotyranny.semeru.R;
+
+public class Query extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_results);
+        setContentView(R.layout.activity_query);
     }
 }
