@@ -76,5 +76,6 @@ public class ItemListActivity extends AppCompatActivity {
                 startActivity(new Intent(ItemListActivity.this, AddItemActivity.class));
             }
         });
+
     }
 }

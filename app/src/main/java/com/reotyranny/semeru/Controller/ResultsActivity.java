@@ -3,7 +3,6 @@ package com.reotyranny.semeru.Controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,11 +17,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Donation;
+import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
 import java.util.ArrayList;
 
-public class Results extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity {
     // --Commented out by Inspection (10/28/18, 11:29):List<Donation> items;
 
     private RecyclerView.Adapter mAdapter;
@@ -35,15 +35,15 @@ public class Results extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         mRecyclerView = findViewById(R.id.recycler_view_results);
 
-        final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
-        final String searchCatagory = (String) getIntent().getSerializableExtra("searchCatagory");
-        final String search = (String) getIntent().getSerializableExtra("search");
+        final String location = (String) getIntent().getSerializableExtra("location");
+        final String searchType = (String) getIntent().getSerializableExtra("searchType");
+        final String searchQuery = (String) getIntent().getSerializableExtra("searchString");
         final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        // category search type
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        // Find correct items to output.
-        Query query = reference.child("locations/" + locationKey + "/donations").orderByKey();
+        Query query = reference.child(Model.DONATIONS).orderByChild("category").equalTo(searchQuery);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -59,16 +59,18 @@ public class Results extends AppCompatActivity {
                     items.add(donation);
                     itemKeys.add(issue.getKey());
                 }
-                mAdapter = new ItemAdapter(items, itemKeys, locationKey);
+                mAdapter = new ItemAdapter(items, itemKeys, -1); // unused location key
                 mRecyclerView.setAdapter(mAdapter);
             }
         });
 
-        Button backButton = findViewById(R.id.backButton);
+
+
+        Button backButton = findViewById(R.id.button_Back);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Results.this, Query.class));
+                startActivity(new Intent(ResultsActivity.this, QueryActivity.class));
             }
         });
 

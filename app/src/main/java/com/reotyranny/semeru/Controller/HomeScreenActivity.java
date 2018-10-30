@@ -50,6 +50,15 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
+        Button search = findViewById(R.id.button_SearchPage);
+        search.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeScreenActivity.this, QueryActivity.class));
+            }
+        });
+
         //final TextView currentUserText = findViewById(R.id.currentUser_TextView);
         final TextView welcomeUserText = findViewById(R.id.text_Welcome);
 
