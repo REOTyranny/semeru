@@ -28,6 +28,8 @@ public class ResultsActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
 
     private RecyclerView mRecyclerView;
+    private static final int ALL_LOCATIONS = -1; // first item in spinner
+    private final Model model = Model.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +37,28 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         mRecyclerView = findViewById(R.id.recycler_view_results);
 
-        final String location = (String) getIntent().getSerializableExtra("location");
+        final int location = (int) getIntent().getSerializableExtra("location");
         final String searchType = (String) getIntent().getSerializableExtra("searchType");
         final String searchQuery = (String) getIntent().getSerializableExtra("searchString");
         final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        // category search type
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child(Model.DONATIONS).orderByChild("category").equalTo(searchQuery);
+        Query query = null;
+
+        String queryField = searchType.equals("category") ? "category" : "shortDes";
+
+        if (location == ALL_LOCATIONS)
+            query = model.getRef().child(Model.DONATIONS).orderByChild(queryField).equalTo(searchQuery);
+        else
+            query = model.getRef().child(Model.LOCATIONS).child(""+location).child("donations").
+                    orderByChild(queryField).equalTo(searchQuery);
+
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
             }
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final ArrayList<Donation> items = new ArrayList<>();
@@ -63,8 +72,6 @@ public class ResultsActivity extends AppCompatActivity {
                 mRecyclerView.setAdapter(mAdapter);
             }
         });
-
-
 
         Button backButton = findViewById(R.id.button_Back);
         backButton.setOnClickListener(new View.OnClickListener() {
