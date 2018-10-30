@@ -29,6 +29,8 @@ public class SpecificItemActivity extends AppCompatActivity {
 
         final String itemKey = (String) getIntent().getSerializableExtra("itemKey");
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
+        final boolean isSearch = (boolean) getIntent().getSerializableExtra("search");
+
 
         Query query = model.getRef().child(Model.DONATIONS).child("" + itemKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -50,9 +52,15 @@ public class SpecificItemActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SpecificItemActivity.this, ItemListActivity.class);
-                intent.putExtra("locationKey", locationKey);
-                v.getContext().startActivity(intent);
+                if (isSearch) {
+                    v.getContext().startActivity(new Intent(SpecificItemActivity.this, QueryActivity.class));
+                }
+                else {
+                    Intent intent = new Intent(SpecificItemActivity.this, ItemListActivity.class);
+                    intent.putExtra("locationKey", locationKey);
+                    v.getContext().startActivity(intent);
+                }
+
             }
         });
     }

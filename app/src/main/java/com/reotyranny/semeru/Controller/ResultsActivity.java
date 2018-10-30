@@ -26,8 +26,8 @@ public class ResultsActivity extends AppCompatActivity {
     // --Commented out by Inspection (10/28/18, 11:29):List<Donation> items;
 
     private RecyclerView.Adapter mAdapter;
-
     private RecyclerView mRecyclerView;
+
     private static final int ALL_LOCATIONS = -1; // first item in spinner
     private final Model model = Model.getInstance();
 
@@ -68,7 +68,10 @@ public class ResultsActivity extends AppCompatActivity {
                     items.add(donation);
                     itemKeys.add(issue.getKey());
                 }
-                mAdapter = new ItemAdapter(items, itemKeys, -1); // unused location key
+                if (!items.isEmpty())
+                    findViewById(R.id.text_FailSearch).setVisibility(View.GONE);
+
+                mAdapter = new ItemAdapter(items, itemKeys, -1, true); // unused location key
                 mRecyclerView.setAdapter(mAdapter);
             }
         });
