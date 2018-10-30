@@ -56,7 +56,7 @@ public class ItemListActivity extends AppCompatActivity {
                     items.add(donation);
                     itemKeys.add(issue.getKey());
                 }
-                mAdapter = new ItemAdapter(items, itemKeys, locationKey);
+                mAdapter = new ItemAdapter(items, itemKeys, locationKey, false);
                 mRecyclerView.setAdapter(mAdapter);
             }
         });
