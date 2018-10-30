@@ -42,8 +42,8 @@
         <activity android:name=".Controller.AddItemActivity" />
         <activity android:name=".Controller.ItemListActivity" />
         <activity android:name=".Controller.SpecificItemActivity" />
-        <activity android:name=".Controller.Query" />
-        <activity android:name=".Controller.Results" />
+        <activity android:name=".Controller.QueryActivity" />
+        <activity android:name=".Controller.ResultsActivity" />
 
     </application>
 
