@@ -81,7 +81,7 @@ public class QueryActivity extends AppCompatActivity {
 
                 int index = radioGroup.indexOfChild(findViewById(radioGroup.getCheckedRadioButtonId()));
                 String searchString = searchText.getText().toString();
-                String location = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+                int locationKey = spinner.getSelectedItemPosition();
 
                 if (index == CATEGORY_RADIO_BUTTON) {
                     i.putExtra("searchType", "category");
@@ -90,7 +90,7 @@ public class QueryActivity extends AppCompatActivity {
                     i.putExtra("searchType", "item");
                 }
 
-                i.putExtra("location", location);
+                i.putExtra("location", locationKey-1);
                 i.putExtra("searchString", searchString);
                 startActivity(i);
             }
