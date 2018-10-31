@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,25 +40,33 @@ public class RegistrationScreenActivity extends AppCompatActivity {
                 final String name = ((EditText) findViewById(R.id.editText_Name)).getText().toString();
                 final String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                 final String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
-                        RegistrationScreenActivity.this,
-                        new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (!task.isSuccessful()) {
-                                    //TODO: Handle each type of login error
-                                    Toast.makeText(RegistrationScreenActivity.this,
-                                            "Login error - see log", Toast.LENGTH_LONG).show();
-                                    Log.w("registration-errors", "signInWithEmail:failure", task.getException());
-                                } else {
-                                    addDetails(name, email, acctType);
-                                    Toast.makeText(RegistrationScreenActivity.this,
-                                            "Registered successfully", Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(
-                                            RegistrationScreenActivity.this, HomeScreenActivity.class));
+
+                if (!TextUtils.isEmpty(password) && password.length() >= 6 && isValidEmail(email)) {
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+                            RegistrationScreenActivity.this,
+                            new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        //TODO: Handle each type of login error
+                                        Toast.makeText(RegistrationScreenActivity.this,
+                                                "Login error - see log", Toast.LENGTH_LONG).show();
+                                        Log.w("registration-errors", "signInWithEmail:failure", task.getException());
+                                    } else {
+                                        addDetails(name, email, acctType);
+                                        Toast.makeText(RegistrationScreenActivity.this,
+                                                "Registered successfully", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(
+                                                RegistrationScreenActivity.this, HomeScreenActivity.class));
+                                    }
                                 }
-                            }
-                        });
+                            });
+                } else {
+                    Toast.makeText(RegistrationScreenActivity.this,
+                            "Invalid e-mail or password", Toast.LENGTH_LONG).show();
+                }
+
+
             }
         });
 
@@ -75,5 +84,10 @@ public class RegistrationScreenActivity extends AppCompatActivity {
         Account account = new Account(name, email, acctType);
         String userID = model.getUser().getUid();
         model.getRef().child(Model.USERS).child(userID).setValue(account);
+    }
+
+    private boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && email.matches(
+                "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
     }
 }
