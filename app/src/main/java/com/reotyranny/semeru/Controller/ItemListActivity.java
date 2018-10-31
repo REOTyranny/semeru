@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Donation;
+import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class ItemListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child("locations/" + locationKey + "/donations").orderByKey();
+        Query query = reference.child(Model.LOCATIONS + "/" + locationKey + "/donations").orderByKey();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -56,7 +57,7 @@ public class ItemListActivity extends AppCompatActivity {
                     items.add(donation);
                     itemKeys.add(issue.getKey());
                 }
-                mAdapter = new ItemAdapter(items, itemKeys, locationKey, false);
+                mAdapter = new ItemAdapter(items, itemKeys, locationKey);
                 mRecyclerView.setAdapter(mAdapter);
             }
         });

@@ -43,13 +43,29 @@ public class ItemAdapter extends
 
     private final int mLocationKey;
 
-    private final boolean mIsSearch;
+    private final int mLocation;
+    private final String  mSearchType, mSearchString;
 
     // Pass in the contact array into the constructor
-    public ItemAdapter(List<Donation> donation, ArrayList<String> keys, int locationKey, boolean isSearch) {
+    public ItemAdapter(List<Donation> donation, ArrayList<String> keys, int locationKey) {
         mItemKeys = keys;
         mLocationKey = locationKey;
-        mIsSearch = isSearch;
+        mSearchType = mSearchString = null;
+        mLocation = -1;
+        if (donation == null) {
+            mItem = new ArrayList<>();
+        } else {
+            mItem = donation;
+        }
+    }
+
+    public ItemAdapter(List<Donation> donation, ArrayList<String> keys,
+                       int location, String searchType, String searchString) {
+        mItemKeys = keys;
+        mLocationKey = -1;
+        mLocation = location;
+        mSearchType = searchType;
+        mSearchString = searchString;
         if (donation == null) {
             mItem = new ArrayList<>();
         } else {
@@ -82,7 +98,10 @@ public class ItemAdapter extends
                 // locationKey required so SpecificItemActivity can return to screen with
                 // list of donations at said location
                 intent.putExtra("locationKey", mLocationKey);
-                intent.putExtra("search", mIsSearch);
+
+                intent.putExtra("location", mLocation);
+                intent.putExtra("searchType", mSearchType);
+                intent.putExtra("searchString", mSearchString);
 
                 v.getContext().startActivity(intent);
             }

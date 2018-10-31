@@ -29,8 +29,10 @@ public class SpecificItemActivity extends AppCompatActivity {
 
         final String itemKey = (String) getIntent().getSerializableExtra("itemKey");
         final int locationKey = (int) getIntent().getSerializableExtra("locationKey");
-        final boolean isSearch = (boolean) getIntent().getSerializableExtra("search");
 
+        final int location = (int) getIntent().getSerializableExtra("location");
+        final String searchType = (String) getIntent().getSerializableExtra("searchType");
+        final String searchQuery = (String) getIntent().getSerializableExtra("searchString");
 
         Query query = model.getRef().child(Model.DONATIONS).child("" + itemKey);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -52,9 +54,15 @@ public class SpecificItemActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSearch) {
-                    v.getContext().startActivity(new Intent(SpecificItemActivity.this, QueryActivity.class));
+                // if you came from search
+                if (searchType != null) {
+                    Intent intent = new Intent(SpecificItemActivity.this, ResultsActivity.class);
+                    intent.putExtra("location", location);
+                    intent.putExtra("searchType", searchType);
+                    intent.putExtra("searchString", searchQuery);
+                    v.getContext().startActivity(intent);
                 }
+                // otherwise you're a location employee
                 else {
                     Intent intent = new Intent(SpecificItemActivity.this, ItemListActivity.class);
                     intent.putExtra("locationKey", locationKey);
