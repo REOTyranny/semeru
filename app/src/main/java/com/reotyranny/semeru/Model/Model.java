@@ -63,7 +63,8 @@ public class Model {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     if (dataSnapshot.hasChild("location")) {
-                        fireBaseCallback.onCallback(Objects.requireNonNull(dataSnapshot.child("location").getValue()).toString());
+                        fireBaseCallback.onCallback(
+                                Objects.requireNonNull(dataSnapshot.child("location").getValue()).toString());
                     } else {
                         fireBaseCallback.onCallback("");
                     }

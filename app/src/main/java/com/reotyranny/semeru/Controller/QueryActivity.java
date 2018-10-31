@@ -11,23 +11,23 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.reotyranny.semeru.Model.AccountType;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class QueryActivity extends AppCompatActivity {
 
-    private final Model model = Model.getInstance();
     private static final int CATEGORY_RADIO_BUTTON = 0;
+
     private static final int NAME_RADIO_BUTTON = 1;
+
     private static final String ALL_LOCATIONS = "All locations";
+
+    private final Model model = Model.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,18 +85,15 @@ public class QueryActivity extends AppCompatActivity {
 
                 if (index == CATEGORY_RADIO_BUTTON) {
                     i.putExtra("searchType", "category");
-                }
-                else { // index == NAME_RADIO_BUTTON
+                } else { // index == NAME_RADIO_BUTTON
                     i.putExtra("searchType", "item");
                 }
 
-                i.putExtra("location", locationKey-1);
+                i.putExtra("location", locationKey - 1);
                 i.putExtra("searchString", searchString);
                 startActivity(i);
             }
         });
-
-
 
 
     }

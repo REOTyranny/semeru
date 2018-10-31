@@ -2,13 +2,13 @@ package com.reotyranny.semeru.Model;
 
 public class Account {
 
-    private boolean locked;
-
     private AccountType acctType;
 
     private String email;
 
     private String location;
+
+    private boolean locked;
 
     private String name;
 
