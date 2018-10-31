@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -69,27 +70,34 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
                 final String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
                 final String location = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
-                model.getAuth().createUserWithEmailAndPassword(email, password).addOnCompleteListener(
-                        EmployeeRegistrationScreenActivity.this,
-                        new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (!task.isSuccessful()) {
-                                    //TODO: Handle each type of login error
-                                    Toast.makeText(EmployeeRegistrationScreenActivity.this,
-                                            "Login error - see log", Toast.LENGTH_LONG).show();
-                                    Log.w("registration-errors", "signInWithEmail:failure", task.getException());
-                                } else {
+                if (!TextUtils.isEmpty(password) && password.length() >= 6 && isValidEmail(email)) {
+                    model.getAuth().createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+                            EmployeeRegistrationScreenActivity.this,
+                            new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        //TODO: Handle each type of login error
+                                        Toast.makeText(EmployeeRegistrationScreenActivity.this,
+                                                "Login error - see log", Toast.LENGTH_LONG).show();
+                                        Log.w("registration-errors", "signInWithEmail:failure", task.getException());
+                                    } else {
 
-                                    addDetails(name, email, acctType, location);
-                                    Toast.makeText(EmployeeRegistrationScreenActivity.this,
-                                            "Registered successfully", Toast.LENGTH_LONG).show();
+                                        addDetails(name, email, acctType, location);
+                                        Toast.makeText(EmployeeRegistrationScreenActivity.this,
+                                                "Registered successfully", Toast.LENGTH_LONG).show();
 
-                                    startActivity(new Intent(
-                                            EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
+                                        startActivity(new Intent(
+                                                EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
+                                    }
                                 }
-                            }
-                        });
+                            });
+                } else {
+                    Toast.makeText(EmployeeRegistrationScreenActivity.this,
+                            "Invalid e-mail or password", Toast.LENGTH_LONG).show();
+                }
+
+
             }
         });
 
@@ -117,5 +125,9 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && email.matches(
+                "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+    }
 
 }
