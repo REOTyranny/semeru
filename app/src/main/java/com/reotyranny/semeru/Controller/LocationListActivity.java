@@ -23,11 +23,11 @@ public class LocationListActivity extends AppCompatActivity {
 
     // --Commented out by Inspection (10/28/18, 11:29):List<Location> location;
 
-    private final Model model = Model.getInstance();
-
     private RecyclerView.Adapter mAdapter;
 
     private RecyclerView mRecyclerView;
+
+    private final Model model = Model.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

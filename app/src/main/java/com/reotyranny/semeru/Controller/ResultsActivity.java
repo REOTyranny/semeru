@@ -9,26 +9,24 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
-
 import java.util.ArrayList;
 
 public class ResultsActivity extends AppCompatActivity {
     // --Commented out by Inspection (10/28/18, 11:29):List<Donation> items;
 
+    private static final int ALL_LOCATIONS = -1; // first item in spinner
+
     private RecyclerView.Adapter mAdapter;
+
     private RecyclerView mRecyclerView;
 
-    private static final int ALL_LOCATIONS = -1; // first item in spinner
     private final Model model = Model.getInstance();
 
     @Override
@@ -47,18 +45,19 @@ public class ResultsActivity extends AppCompatActivity {
 
         String queryField = searchType.equals("category") ? "category" : "shortDes";
 
-        if (location == ALL_LOCATIONS)
+        if (location == ALL_LOCATIONS) {
             query = model.getRef().child(Model.DONATIONS).orderByChild(queryField).equalTo(searchQuery);
-        else
-            query = model.getRef().child(Model.LOCATIONS).child(""+location).child("donations").
+        } else {
+            query = model.getRef().child(Model.LOCATIONS).child("" + location).child("donations").
                     orderByChild(queryField).equalTo(searchQuery);
-
+        }
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("Database-Error", databaseError.getMessage());
             }
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final ArrayList<Donation> items = new ArrayList<>();
@@ -68,9 +67,10 @@ public class ResultsActivity extends AppCompatActivity {
                     items.add(donation);
                     itemKeys.add(issue.getKey());
                 }
-                if (!items.isEmpty())
+                if (!items.isEmpty()) {
                     findViewById(R.id.text_FailSearch).setVisibility(View.GONE);
-                
+                }
+
                 mAdapter = new ItemAdapter(items, itemKeys, location, searchType, searchQuery); // unused location key
                 mRecyclerView.setAdapter(mAdapter);
             }
