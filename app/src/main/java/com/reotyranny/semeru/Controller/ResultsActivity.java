@@ -70,8 +70,8 @@ public class ResultsActivity extends AppCompatActivity {
                 }
                 if (!items.isEmpty())
                     findViewById(R.id.text_FailSearch).setVisibility(View.GONE);
-
-                mAdapter = new ItemAdapter(items, itemKeys, -1, true); // unused location key
+                
+                mAdapter = new ItemAdapter(items, itemKeys, location, searchType, searchQuery); // unused location key
                 mRecyclerView.setAdapter(mAdapter);
             }
         });
@@ -84,5 +84,12 @@ public class ResultsActivity extends AppCompatActivity {
             }
         });
 
+        Button searchAgainButton = findViewById(R.id.button_SearchAgain);
+        searchAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ResultsActivity.this, QueryActivity.class));
+            }
+        });
     }
 }
