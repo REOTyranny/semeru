@@ -41,7 +41,7 @@ public class ResultsActivity extends AppCompatActivity {
         final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        Query query = null;
+        Query query;
 
         String queryField = searchType.equals("category") ? "category" : "shortDes";
 
