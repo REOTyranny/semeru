@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Controller.WelcomeScreenActivity"
-            android:label="@string/title_activity_welcome_screen"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
             <!-- This activity is the main entry / default -->
