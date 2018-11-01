@@ -45,6 +45,10 @@
         <activity android:name=".Controller.QueryActivity" />
         <activity android:name=".Controller.ResultsActivity" />
 
+        <meta-data
+            android:name="com.google.android.geo.AIzaSyDmpRcknVQdaZijxED4h2ZaSNvjfUPYT_E"
+            android:value="AIzaSyDmpRcknVQdaZijxED4h2ZaSNvjfUPYT_E" />
+
     </application>
 
 </manifest>
