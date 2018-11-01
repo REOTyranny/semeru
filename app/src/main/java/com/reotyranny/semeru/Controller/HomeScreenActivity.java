@@ -41,6 +41,15 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
+        Button map = findViewById(R.id.button_Map);
+        map.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeScreenActivity.this, MapsActivity.class));
+            }
+        });
+
         Button loadIn = findViewById(R.id.button_LoadIn);
         loadIn.setOnClickListener(new View.OnClickListener() {
 

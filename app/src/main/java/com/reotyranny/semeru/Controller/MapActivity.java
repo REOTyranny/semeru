@@ -29,6 +29,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
      */
     @Override
     public void onMapReady(GoogleMap map) {
+
         map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 
