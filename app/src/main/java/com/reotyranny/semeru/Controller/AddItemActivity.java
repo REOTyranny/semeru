@@ -40,6 +40,8 @@ public class AddItemActivity extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;
 
+    String downloadPath = null;
+
     Uri imageUri;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -113,10 +115,11 @@ public class AddItemActivity extends AppCompatActivity {
                     }
                 });
 
-                Uri file = Uri.fromFile(new File(imageUri.toString()));
+                final Uri file = Uri.fromFile(new File(imageUri.toString()));
                 StorageReference imageRef = storageRef.child("images/" + file.getLastPathSegment());
                 UploadTask uploadTask = imageRef.putFile(file);
-
+                findViewById(R.id.button_Cancel).setEnabled(false);
+                findViewById(R.id.button_Confirm).setEnabled(false);
                 // Register observers to listen for when the download is done or if it fails
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -134,6 +137,20 @@ public class AddItemActivity extends AppCompatActivity {
                         findViewById(R.id.button_Confirm).setEnabled(true);
                         Toast.makeText(AddItemActivity.this,
                                 "Upload successful!", Toast.LENGTH_LONG).show();
+                        storageRef.child("images/" + file.getLastPathSegment())
+                                .getDownloadUrl()
+                                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        // Got the download URL for 'users/me/profile.png'
+                                        downloadPath = uri.toString();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Log.d("URIerror", exception.toString());
+                            }
+                        });
                     }
                 });
 
@@ -177,11 +194,12 @@ public class AddItemActivity extends AppCompatActivity {
         String longDes = ((EditText) findViewById(R.id.editText_Full)).getText().toString();
         String value = ((EditText) findViewById(R.id.editText_Value)).getText().toString();
         String comments = ((EditText) findViewById(R.id.editText_Comments)).getText().toString();
+        String imageUrl = downloadPath;
         Spinner spinner = findViewById(R.id.spinner_Category);
 
         String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
         String location = model.userLocation;
-        return new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments);
+        return new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments, imageUrl);
     }
 
     private void constructSpinner() {

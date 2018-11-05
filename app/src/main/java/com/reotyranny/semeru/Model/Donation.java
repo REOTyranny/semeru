@@ -16,6 +16,8 @@ public class Donation {
 
     private String comments;
 
+    private String imageUrl;
+
     private String longDes;
 
     private String place;
@@ -44,6 +46,12 @@ public class Donation {
         if (!categoryChoices.contains(category)) {
             categoryChoices.add(category);
         }
+    }
+
+    public Donation(String place, String shortDes, String longDes,
+            float value, String category, String comments, String imageUrl) {
+        this(place, shortDes, longDes, value, category, comments);
+        this.imageUrl = imageUrl;
     }
 
 // --Commented out by Inspection START (10/28/18, 11:29):
