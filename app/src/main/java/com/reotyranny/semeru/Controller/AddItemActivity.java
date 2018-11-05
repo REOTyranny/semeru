@@ -1,6 +1,8 @@
 package com.reotyranny.semeru.Controller;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,18 +13,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.firebase.storage.UploadTask.TaskSnapshot;
 import com.reotyranny.semeru.Model.Donation;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 public class AddItemActivity extends AppCompatActivity {
+
+    private static final int READ_REQUEST_CODE = 42;
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
+    StorageReference storageRef = storage.getReference();
 
     private final Model model = Model.getInstance();
 
@@ -35,6 +51,22 @@ public class AddItemActivity extends AppCompatActivity {
         locationText.setText(model.userLocation);
 
         constructSpinner();
+
+        Button uploadBtn = findViewById(R.id.button_uploadImg);
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("image/*");
+                findViewById(R.id.button_Cancel).setEnabled(false);
+                findViewById(R.id.button_Confirm).setEnabled(false);
+                startActivityForResult(intent, READ_REQUEST_CODE);
+
+            }
+
+
+        });
 
         Button cancelBtn = findViewById(R.id.button_Cancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +109,48 @@ public class AddItemActivity extends AppCompatActivity {
                 startActivity(new Intent(AddItemActivity.this, HomeScreenActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+            Intent resultData) {
+
+        // The ACTION_OPEN_DOCUMENT intent was sent with the request code
+        // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
+        // response to some other intent, and the code below shouldn't run at all.
+
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // The document selected by the user won't be returned in the intent.
+            // Instead, a URI to that document will be contained in the return intent
+            // provided to this method as a parameter.
+            // Pull that URI using resultData.getData().
+            Uri uri;
+            if (resultData != null) {
+                uri = resultData.getData();
+                Uri file = Uri.fromFile(new File(uri.toString()));
+                StorageReference imageRef = storageRef.child("images/" + file.getLastPathSegment());
+                UploadTask uploadTask = imageRef.putFile(file);
+
+                // Register observers to listen for when the download is done or if it fails
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        findViewById(R.id.button_Cancel).setEnabled(true);
+                        findViewById(R.id.button_Confirm).setEnabled(true);
+                        Toast.makeText(AddItemActivity.this,
+                                "Upload error", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        findViewById(R.id.button_Cancel).setEnabled(true);
+                        findViewById(R.id.button_Confirm).setEnabled(true);
+                        Toast.makeText(AddItemActivity.this,
+                                "Upload successful!", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }
     }
 
     private Donation constructDonationObject() {
