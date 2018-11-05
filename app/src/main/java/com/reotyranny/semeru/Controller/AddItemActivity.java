@@ -145,6 +145,7 @@ public class AddItemActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Uri uri) {
                                             // Got the download URL for 'users/me/profile.png'
+                                            //This only gets called after the upload is done.
                                             downloadPath = uri.toString();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
@@ -199,7 +200,9 @@ public class AddItemActivity extends AppCompatActivity {
         String longDes = ((EditText) findViewById(R.id.editText_Full)).getText().toString();
         String value = ((EditText) findViewById(R.id.editText_Value)).getText().toString();
         String comments = ((EditText) findViewById(R.id.editText_Comments)).getText().toString();
-        String imageUrl = downloadPath;
+        //TODO: avoid collisions in filenames, and add a reference to an image UID in the Realtime DB object for retrieving the image later.
+        //The below code doesn't do that properly, it is just a stub.
+        String imageUrl = "images/" + imageUri.getLastPathSegment();
         Spinner spinner = findViewById(R.id.spinner_Category);
 
         String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
