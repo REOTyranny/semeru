@@ -22,7 +22,6 @@ public class Donation {
 
     private String place;
 
-    //TODO: Integrate with Firebase
     private String shortDes;
 
     private String timestamp;
@@ -74,7 +73,7 @@ public class Donation {
         return imageUrl;
     }
 
-    public void setImageUrl(final String imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
