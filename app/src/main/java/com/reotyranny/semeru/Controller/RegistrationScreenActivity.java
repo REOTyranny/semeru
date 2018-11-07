@@ -92,6 +92,9 @@ public class RegistrationScreenActivity extends AppCompatActivity {
     }
 
     private boolean isValidPassword(String password) {
-        return !TextUtils.isEmpty(password) && password.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
+        return !TextUtils.isEmpty(password)
+                && password.length() >= 6
+                && password.matches(
+                "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
     }
 }
