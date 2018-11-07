@@ -77,10 +77,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         locSum+=loc;
                         latSum+=lat;
                         LatLng a = new LatLng(lat, loc);
-                        mMap.addMarker(new MarkerOptions().position(a).title(l.getName()));
+                        mMap.addMarker(new MarkerOptions().position(a).title(l.getName()).snippet(l.getPhone()));
                     }
                     LatLng cam = new LatLng(latSum/total, locSum/total);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(cam));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cam, 8f));
                 }
 
             }
