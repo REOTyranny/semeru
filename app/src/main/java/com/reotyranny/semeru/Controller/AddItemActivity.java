@@ -40,15 +40,17 @@ public class AddItemActivity extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;
 
-    String downloadPath = null;
+    private String downloadPath = null;
 
-    Uri imageUri;
-
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-
-    StorageReference storageRef = storage.getReference();
+    private Uri localImageUri;
 
     private final Model model = Model.getInstance();
+
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+
+    private StorageReference storageRef = storage.getReference();
+
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +69,6 @@ public class AddItemActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("image/*");
-//                findViewById(R.id.button_Cancel).setEnabled(false);
-//                findViewById(R.id.button_Confirm).setEnabled(false);
                 startActivityForResult(intent, READ_REQUEST_CODE);
 
             }
@@ -87,38 +87,15 @@ public class AddItemActivity extends AppCompatActivity {
         confirmDonation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Query query = model.getRef().child(Model.LOCATIONS).orderByChild("name").
-                        equalTo(model.userLocation);
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.d("Database-Error", databaseError.getMessage());
-                    }
 
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            DataSnapshot item = dataSnapshot.getChildren().iterator().next();
-                            Donation donation = constructDonationObject();
-                            String uid = model.getRef().child(Model.LOCATIONS).child(Objects
-                                    .requireNonNull(item.getKey())).
-                                    child("donations").push().getKey();
-
-                            Map<String, Object> childUpdates = new HashMap<>();
-                            childUpdates.put("/" + Model.LOCATIONS + "/" + item.getKey() +
-                                    "/donations/" + uid, donation);
-                            childUpdates.put("/" + Model.DONATIONS + "/" + uid, donation);
-                            model.getRef().updateChildren(childUpdates);
-                        } else {
-                            Log.d("whatz", "nope location is currently" + model.userLocation);
-                        }
-                    }
-                });
-
-                final Uri file = Uri.fromFile(new File(imageUri.toString()));
-                StorageReference imageRef = storageRef.child("images/" + file.getLastPathSegment());
                 try {
-                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Uri file = Uri.fromFile(new File(localImageUri.toString()));
+                    final StorageReference imageRef = storageRef.child(
+                            "images/" + uid + file.getLastPathSegment());
+                    final InputStream imageStream = getContentResolver().openInputStream(localImageUri);
+                    if (imageStream == null) {
+                        throw new java.io.FileNotFoundException("File not found");
+                    }
                     UploadTask uploadTask = imageRef.putStream(imageStream);
                     findViewById(R.id.button_Cancel).setEnabled(false);
                     findViewById(R.id.button_Confirm).setEnabled(false);
@@ -139,8 +116,7 @@ public class AddItemActivity extends AppCompatActivity {
                             findViewById(R.id.button_Confirm).setEnabled(true);
                             Toast.makeText(AddItemActivity.this,
                                     "Upload successful!", Toast.LENGTH_LONG).show();
-                            storageRef.child("images/" + file.getLastPathSegment())
-                                    .getDownloadUrl()
+                            imageRef.getDownloadUrl()
                                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
@@ -151,7 +127,7 @@ public class AddItemActivity extends AppCompatActivity {
                                     }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception exception) {
-                                    Log.d("URIerror", exception.toString());
+                                    Log.d("URI error", exception.toString());
                                 }
                             });
                         }
@@ -159,6 +135,34 @@ public class AddItemActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                Query query = model.getRef().child(Model.LOCATIONS).orderByChild("name").
+                        equalTo(model.userLocation);
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.d("Database-Error", databaseError.getMessage());
+                    }
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            DataSnapshot item = dataSnapshot.getChildren().iterator().next();
+                            Donation donation = constructDonationObject();
+                            uid = model.getRef().child(Model.LOCATIONS).child(Objects
+                                    .requireNonNull(item.getKey())).
+                                    child("donations").push().getKey();
+
+                            Map<String, Object> childUpdates = new HashMap<>();
+                            childUpdates.put("/" + Model.LOCATIONS + "/" + item.getKey() +
+                                    "/donations/" + uid, donation);
+                            childUpdates.put("/" + Model.DONATIONS + "/" + uid, donation);
+                            model.getRef().updateChildren(childUpdates);
+                        } else {
+                            Log.d("whatz", "nope location is currently" + model.userLocation);
+                        }
+                    }
+                });
 
                 startActivity(new Intent(AddItemActivity.this, HomeScreenActivity.class));
             }
@@ -179,10 +183,10 @@ public class AddItemActivity extends AppCompatActivity {
             // provided to this method as a parameter.
             // Pull that URI using resultData.getData().
             if (resultData != null) {
-                imageUri = resultData.getData();
+                localImageUri = resultData.getData();
 
                 try {
-                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final InputStream imageStream = getContentResolver().openInputStream(localImageUri);
                     final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                     ImageView imView = findViewById(R.id.donationImageView);
                     imView.setImageBitmap(selectedImage);
@@ -195,14 +199,11 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private Donation constructDonationObject() {
-        //Model Model = com.reotyranny.semeru.Model.Model.getInstance();
         String shortDes = ((EditText) findViewById(R.id.editText_Short)).getText().toString();
         String longDes = ((EditText) findViewById(R.id.editText_Full)).getText().toString();
         String value = ((EditText) findViewById(R.id.editText_Value)).getText().toString();
         String comments = ((EditText) findViewById(R.id.editText_Comments)).getText().toString();
-        //TODO: avoid collisions in filenames, and add a reference to an image UID in the Realtime DB object for retrieving the image later.
-        //The below code doesn't do that properly, it is just a stub.
-        String imageUrl = "images/" + imageUri.getLastPathSegment();
+        String imageUrl = downloadPath;
         Spinner spinner = findViewById(R.id.spinner_Category);
 
         String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();

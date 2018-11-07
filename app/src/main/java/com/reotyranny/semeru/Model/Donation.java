@@ -54,12 +54,6 @@ public class Donation {
         this.imageUrl = imageUrl;
     }
 
-// --Commented out by Inspection START (10/28/18, 11:29):
-//    public void addCategory(String newCat) {
-//        categoryChoices.add(newCat);
-//    }
-// --Commented out by Inspection STOP (10/28/18, 11:29)
-
     public String getCategory() {
         return category;
     }
@@ -74,6 +68,14 @@ public class Donation {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(final String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getLongDes() {
