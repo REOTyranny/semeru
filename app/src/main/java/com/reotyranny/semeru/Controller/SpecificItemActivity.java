@@ -55,6 +55,8 @@ public class SpecificItemActivity extends AppCompatActivity {
             public void onSuccess(byte[] bytes) {
                 // Data for "images/island.jpg" is returns, use this as needed
                 bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                ImageView image = findViewById(R.id.donationImageSpecific);
+                image.setImageBitmap(bm);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -118,8 +120,6 @@ public class SpecificItemActivity extends AppCompatActivity {
         categoryView.setText("Category: " + d.getCategory());
         TextView commentsView = findViewById(R.id.text_Comments);
         commentsView.setText("Comments: " + d.getComments());
-        ImageView image = findViewById(R.id.donationImageSpecific);
-        image.setImageBitmap(bm);
 //        TextView Timestamp = findViewById(R.id.text_Timestamp);
 //        Timestamp.setText(d.getTimestamp());
     }
