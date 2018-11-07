@@ -99,6 +99,9 @@ public class HomeScreenActivity extends AppCompatActivity {
                 }
             });
         }
+        else {
+            welcomeUserText.setText("Welcome Guest");
+        }
 
     }
 

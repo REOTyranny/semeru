@@ -31,6 +31,14 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             }
         });
 
+        Button guestButton = findViewById(R.id.button_Guest);
+        guestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WelcomeScreenActivity.this, HomeScreenActivity.class));
+            }
+        });
+
     }
 
 
