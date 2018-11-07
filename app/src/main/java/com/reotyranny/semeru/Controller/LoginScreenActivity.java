@@ -16,18 +16,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 
+import java.util.Timer;
+
 public class LoginScreenActivity extends AppCompatActivity {
 
     private final Model model = Model.getInstance();
 
     private final FirebaseAuth mAuth = model.getAuth();
-
+    int userAttempts = 0;
+    private static final int MAXATTEMPTS = 3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        Button confirmButton = findViewById(R.id.button_Confirm);
+        final Button confirmButton = findViewById(R.id.button_Confirm);
         confirmButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -43,8 +46,23 @@ public class LoginScreenActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (!task.isSuccessful()) {
-                                        Toast.makeText(LoginScreenActivity.this,
-                                                "Sign in error", Toast.LENGTH_SHORT).show();
+                                        userAttempts++;
+                                        if (userAttempts > MAXATTEMPTS) {
+                                            confirmButton.setEnabled(false);
+                                            confirmButton.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    confirmButton.setEnabled(true);
+                                                    userAttempts = 0;
+                                                }
+                                            }, 60000);
+                                            Toast.makeText(LoginScreenActivity.this,
+                                                    "Maximum Login Attemps reached, Try again later", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(LoginScreenActivity.this,
+                                                    "Sign in error", Toast.LENGTH_SHORT).show();
+                                        }
                                     } else {
                                         Toast.makeText(LoginScreenActivity.this,
                                                 "Login Successful", Toast.LENGTH_SHORT).show();

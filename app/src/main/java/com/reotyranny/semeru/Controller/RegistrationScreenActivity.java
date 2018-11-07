@@ -41,7 +41,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
                 final String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                 final String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
 
-                if (!TextUtils.isEmpty(password) && password.length() >= 6 && isValidEmail(email)) {
+                if (!TextUtils.isEmpty(password) && isValidPassword(password) && isValidEmail(email)) {
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
                             RegistrationScreenActivity.this,
                             new OnCompleteListener<AuthResult>() {
@@ -89,5 +89,9 @@ public class RegistrationScreenActivity extends AppCompatActivity {
     private boolean isValidEmail(String email) {
         return !TextUtils.isEmpty(email) && email.matches(
                 "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+    }
+
+    private boolean isValidPassword(String password) {
+        return !TextUtils.isEmpty(password) && password.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
     }
 }
