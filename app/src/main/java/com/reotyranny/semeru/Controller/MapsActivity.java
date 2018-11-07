@@ -1,10 +1,9 @@
 package com.reotyranny.semeru.Controller;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.util.Log;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -18,12 +17,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
-
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
     private final Model model = Model.getInstance();
 
 
@@ -53,7 +52,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
 
-
         Query query = model.getRef().child(Model.LOCATIONS).orderByChild("key");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -74,12 +72,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         double loc = l.getLongitude();
                         double lat = l.getLatitude();
                         total++;
-                        locSum+=loc;
-                        latSum+=lat;
+                        locSum += loc;
+                        latSum += lat;
                         LatLng a = new LatLng(lat, loc);
                         mMap.addMarker(new MarkerOptions().position(a).title(l.getName()).snippet(l.getPhone()));
                     }
-                    LatLng cam = new LatLng(latSum/total, locSum/total);
+                    LatLng cam = new LatLng(latSum / total, locSum / total);
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cam, 8f));
                 }
 
