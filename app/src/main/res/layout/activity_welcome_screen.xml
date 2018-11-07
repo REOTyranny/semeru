@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Welcome_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
@@ -10,7 +9,6 @@
     tools:context=".Controller.WelcomeScreenActivity">
 
     <include
-        android:id="@+id/include"
         layout="@layout/content_welcome_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

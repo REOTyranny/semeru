@@ -40,7 +40,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
                     Location l = dataSnapshot.getValue(Location.class);
                     populateFields(Objects.requireNonNull(l));
                     String specificLocation = l.getName();
-                    if (model.userLocation.equals(specificLocation)) {
+                    if (model.getUserLocation().equals(specificLocation)) {
                         Button seeItems = findViewById(R.id.button_ItemsList);
                         seeItems.setVisibility(View.VISIBLE); //To set visible
                     }

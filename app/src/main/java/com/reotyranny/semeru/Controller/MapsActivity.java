@@ -18,6 +18,8 @@ import com.reotyranny.semeru.Model.Location;
 import com.reotyranny.semeru.Model.Model;
 import com.reotyranny.semeru.R;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -33,7 +35,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        Objects.requireNonNull(mapFragment).getMapAsync(this);
     }
 
 
@@ -61,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Location> locations = new ArrayList<>();
+                Collection<Location> locations = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     double locSum = 0;
                     double latSum = 0;

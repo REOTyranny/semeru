@@ -4,9 +4,25 @@ public class Location {
 
     private int key;
 
-    private float longitude, latitude;
+    private float longitude;
 
-    private String name, city, address, state, zip, type, phone, website;
+    private float latitude;
+
+    private String name;
+
+    private String city;
+
+    private String address;
+
+    private String state;
+
+    private String zip;
+
+    private String type;
+
+    private String phone;
+
+    private String website;
 
     public Location() {
         // empty constructor required for firebase!

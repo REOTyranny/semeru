@@ -39,19 +39,21 @@ public class ItemAdapter extends
 
     private final List<Donation> mItem;
 
-    private final ArrayList<String> mItemKeys;
+    private final List<String> mItemKeys;
 
     private final int mLocation;
 
     private final int mLocationKey;
 
-    private final String mSearchType, mSearchString;
+    private String mSearchString = null;
+
+    private final String mSearchType;
 
     // Pass in the contact array into the constructor
-    public ItemAdapter(List<Donation> donation, ArrayList<String> keys, int locationKey) {
+    public ItemAdapter(List<Donation> donation, List<String> keys, int locationKey) {
         mItemKeys = keys;
         mLocationKey = locationKey;
-        mSearchType = mSearchString = null;
+        mSearchType = mSearchString;
         mLocation = -1;
         if (donation == null) {
             mItem = new ArrayList<>();
@@ -60,7 +62,7 @@ public class ItemAdapter extends
         }
     }
 
-    public ItemAdapter(List<Donation> donation, ArrayList<String> keys,
+    public ItemAdapter(List<Donation> donation, List<String> keys,
             int location, String searchType, String searchString) {
         mItemKeys = keys;
         mLocationKey = -1;

@@ -10,7 +10,6 @@
 
 
     <TextView
-        android:id="@+id/Text_title"
         android:layout_width="164dp"
         android:layout_height="42dp"
         android:layout_marginBottom="8dp"

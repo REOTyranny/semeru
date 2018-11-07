@@ -70,14 +70,13 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
                 final String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
                 final String location = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
-                if (!TextUtils.isEmpty(password) && password.length() >= 6 && isValidEmail(email)) {
+                if (!TextUtils.isEmpty(password) && (password.length() >= 6) && isValidEmail(email)) {
                     model.getAuth().createUserWithEmailAndPassword(email, password).addOnCompleteListener(
                             EmployeeRegistrationScreenActivity.this,
                             new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (!task.isSuccessful()) {
-                                        //TODO: Handle each type of login error
                                         Toast.makeText(EmployeeRegistrationScreenActivity.this,
                                                 "Login error - see log", Toast.LENGTH_LONG).show();
                                         Log.w("registration-errors", "signInWithEmail:failure", task.getException());
@@ -118,7 +117,7 @@ public class EmployeeRegistrationScreenActivity extends AppCompatActivity {
         model.storeUser(uID, new Model.FireBaseCallback() {
             @Override
             public void onCallback(String location) {
-                model.userLocation = location;
+                model.setUserLocation(location);
                 startActivity(new Intent(
                         EmployeeRegistrationScreenActivity.this, HomeScreenActivity.class));
             }
