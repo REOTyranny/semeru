@@ -43,7 +43,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         Query query;
 
-        String queryField = searchType.equals("category") ? "category" : "shortDes";
+        String queryField = "category".equals(searchType) ? "category" : "shortDes";
 
         if (location == ALL_LOCATIONS) {
             query = model.getRef().child(Model.DONATIONS).orderByChild(queryField).equalTo(searchQuery);

@@ -28,7 +28,7 @@ public class LoginScreenActivity extends AppCompatActivity {
 
     private final FirebaseAuth mAuth = model.getAuth();
 
-    private int userAttempts = 0;
+    private int userAttempts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                 final String email = ((EditText) findViewById(R.id.editText_Email)).getText().toString();
                 final String password = ((EditText) findViewById(R.id.editText_Password)).getText().toString();
 
-                if (!TextUtils.isEmpty(password) && password.length() >= 6 && isValidEmail(email)) {
+                if (!TextUtils.isEmpty(password) && (password.length() >= 6) && isValidEmail(email)) {
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
                             LoginScreenActivity.this,
                             new OnCompleteListener<AuthResult>() {
@@ -71,7 +71,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                                         model.storeUser(uid, new Model.FireBaseCallback() {
                                             @Override
                                             public void onCallback(String location) {
-                                                model.userLocation = location;
+                                                model.setUserLocation(location);
                                                 startActivity(new Intent(
                                                         LoginScreenActivity.this, HomeScreenActivity.class));
                                             }
@@ -122,8 +122,9 @@ public class LoginScreenActivity extends AppCompatActivity {
         SharedPreferences prefs = this.getSharedPreferences("time", Context.MODE_PRIVATE);
         long previousTime = prefs.getLong("time", 0);
         long currentTime = new Date().getTime();
+        final long ONE_MINUTE = 60 * 1000;
         // 5*60*1000 = 5 min, each with 60 sec, each with 1000 millisec
-        if (currentTime - previousTime > 5 * 60 * 1000) {
+        if ((currentTime - previousTime) > (5 * ONE_MINUTE)) {
             //enable the button
             confirmButton.setEnabled(true);
         } else {
@@ -131,10 +132,12 @@ public class LoginScreenActivity extends AppCompatActivity {
             //it to to become enabled if you're still in the app and the time ran out
             confirmButton.setEnabled(false);
             new CountDownTimer(currentTime - previousTime, 1000) {
+                @Override
                 public void onFinish() {
                     confirmButton.setEnabled(true);
                 }
 
+                @Override
                 public void onTick(long millisUntilFinished) {
                     //confirmButton.setText("" + millisUntilFinished / 1000);
                 }

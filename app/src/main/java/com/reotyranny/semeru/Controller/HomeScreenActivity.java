@@ -35,7 +35,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                model.userLocation = "";
+                model.setUserLocation(null);
                 mAuth.signOut();
                 startActivity(new Intent(HomeScreenActivity.this, WelcomeScreenActivity.class));
             }
@@ -73,7 +73,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         FirebaseUser user = model.getUser();
 
-        if (user != null && user.getEmail() != null) {
+        if ((user != null) && (user.getEmail() != null)) {
             // User is signed in
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
             Query query = reference.child(Model.USERS).orderByChild("email").equalTo(user.getEmail());

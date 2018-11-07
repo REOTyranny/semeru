@@ -40,15 +40,15 @@ public class AddItemActivity extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;
 
-    private String downloadPath = null;
+    private String downloadPath;
 
     private Uri localImageUri;
 
     private final Model model = Model.getInstance();
 
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    private StorageReference storageRef = storage.getReference();
+    private final StorageReference storageRef = storage.getReference();
 
     private String uid;
 
@@ -58,7 +58,7 @@ public class AddItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_item);
 
         TextView locationText = findViewById(R.id.locationText);
-        locationText.setText(model.userLocation);
+        locationText.setText(model.getUserLocation());
 
         constructSpinner();
 
@@ -78,6 +78,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         Button cancelBtn = findViewById(R.id.button_Cancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(new Intent(AddItemActivity.this, HomeScreenActivity.class));
             }
@@ -89,7 +90,7 @@ public class AddItemActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Query query = model.getRef().child(Model.LOCATIONS).orderByChild("name").
-                        equalTo(model.userLocation);
+                        equalTo(model.getUserLocation());
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -161,7 +162,7 @@ public class AddItemActivity extends AppCompatActivity {
                             model.getRef().updateChildren(childUpdates);
 
                         } else {
-                            Log.d("whatz", "nope location is currently" + model.userLocation);
+                            Log.d("whatz", "nope location is currently" + model.getUserLocation());
                         }
                     }
                 });
@@ -179,7 +180,7 @@ public class AddItemActivity extends AppCompatActivity {
         // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
         // response to some other intent, and the code below shouldn't run at all.
 
-        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if ((requestCode == READ_REQUEST_CODE) && (resultCode == Activity.RESULT_OK)) {
             // The document selected by the user won't be returned in the intent.
             // Instead, a URI to that document will be contained in the return intent
             // provided to this method as a parameter.
@@ -209,7 +210,7 @@ public class AddItemActivity extends AppCompatActivity {
         Spinner spinner = findViewById(R.id.spinner_Category);
 
         String category = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-        String location = model.userLocation;
+        String location = model.getUserLocation();
         return new Donation(location, shortDes, longDes, Float.parseFloat(value), category, comments, imageUrl);
     }
 

@@ -31,7 +31,7 @@ public class Model {
 
     private static final Model _instance = new Model();
 
-    public String userLocation = "";
+    String userLocation;
 
     public static Model getInstance() {
         return _instance;
@@ -49,6 +49,14 @@ public class Model {
 
     public FirebaseUser getUser() {
         return getAuth().getCurrentUser();
+    }
+
+    public String getUserLocation() {
+        return userLocation;
+    }
+
+    public void setUserLocation(final String userLocation) {
+        this.userLocation = userLocation;
     }
 
     public void storeUser(String uid, final FireBaseCallback fireBaseCallback) {

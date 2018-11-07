@@ -1,9 +1,9 @@
 package com.reotyranny.semeru.Model;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 
 
 public class Donation {
@@ -12,7 +12,7 @@ public class Donation {
 
     private String category;
 
-    private final List<String> categoryChoices = new LinkedList<>();
+    private final Collection<String> categoryChoices = new LinkedList<>();
 
     private String comments;
 
@@ -126,9 +126,8 @@ public class Donation {
 
     private String retrieveTimestamp() {
         String timer;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
-        timer = formatter.format(date);
+        timer = DateFormat.getDateTimeInstance().format(date);
         return timer;
 
     }

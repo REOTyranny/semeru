@@ -48,7 +48,6 @@ public class RegistrationScreenActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (!task.isSuccessful()) {
-                                        //TODO: Handle each type of login error
                                         Toast.makeText(RegistrationScreenActivity.this,
                                                 "Login error - see log", Toast.LENGTH_LONG).show();
                                         Log.w("registration-errors", "signInWithEmail:failure", task.getException());
@@ -93,7 +92,7 @@ public class RegistrationScreenActivity extends AppCompatActivity {
 
     private boolean isValidPassword(String password) {
         return !TextUtils.isEmpty(password)
-                && password.length() >= 6
+                && (password.length() >= 6)
                 && password.matches(
                 "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
     }
