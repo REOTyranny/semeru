@@ -88,54 +88,6 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                try {
-                    final Uri file = Uri.fromFile(new File(localImageUri.toString()));
-                    final StorageReference imageRef = storageRef.child(
-                            "images/" + uid + file.getLastPathSegment());
-                    final InputStream imageStream = getContentResolver().openInputStream(localImageUri);
-                    if (imageStream == null) {
-                        throw new java.io.FileNotFoundException("File not found");
-                    }
-                    UploadTask uploadTask = imageRef.putStream(imageStream);
-                    findViewById(R.id.button_Cancel).setEnabled(false);
-                    findViewById(R.id.button_Confirm).setEnabled(false);
-                    // Register observers to listen for when the download is done or if it fails
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            findViewById(R.id.button_Cancel).setEnabled(true);
-                            findViewById(R.id.button_Confirm).setEnabled(true);
-                            Toast.makeText(AddItemActivity.this,
-                                    "Upload error", Toast.LENGTH_LONG).show();
-                            Log.d("uploadError", exception.toString());
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            findViewById(R.id.button_Cancel).setEnabled(true);
-                            findViewById(R.id.button_Confirm).setEnabled(true);
-                            Toast.makeText(AddItemActivity.this,
-                                    "Upload successful!", Toast.LENGTH_LONG).show();
-                            imageRef.getDownloadUrl()
-                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            // Got the download URL for 'users/me/profile.png'
-                                            //This only gets called after the upload is done.
-                                            downloadPath = uri.toString();
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                    Log.d("URI error", exception.toString());
-                                }
-                            });
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
                 Query query = model.getRef().child(Model.LOCATIONS).orderByChild("name").
                         equalTo(model.userLocation);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -153,11 +105,61 @@ public class AddItemActivity extends AppCompatActivity {
                                     .requireNonNull(item.getKey())).
                                     child("donations").push().getKey();
 
+                            try {
+                                final Uri file = Uri.fromFile(new File(localImageUri.toString()));
+                                final StorageReference imageRef = storageRef.child(
+                                        "images/" + uid);
+                                final InputStream imageStream = getContentResolver().openInputStream(localImageUri);
+                                if (imageStream == null) {
+                                    throw new java.io.FileNotFoundException("File not found");
+                                }
+                                UploadTask uploadTask = imageRef.putStream(imageStream);
+                                findViewById(R.id.button_Cancel).setEnabled(false);
+                                findViewById(R.id.button_Confirm).setEnabled(false);
+                                // Register observers to listen for when the download is done or if it fails
+                                uploadTask.addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        findViewById(R.id.button_Cancel).setEnabled(true);
+                                        findViewById(R.id.button_Confirm).setEnabled(true);
+                                        Toast.makeText(AddItemActivity.this,
+                                                "Upload error", Toast.LENGTH_LONG).show();
+                                        Log.d("uploadError", exception.toString());
+                                    }
+                                }).addOnSuccessListener(new OnSuccessListener<TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        findViewById(R.id.button_Cancel).setEnabled(true);
+                                        findViewById(R.id.button_Confirm).setEnabled(true);
+                                        Toast.makeText(AddItemActivity.this,
+                                                "Upload successful!", Toast.LENGTH_LONG).show();
+                                        imageRef.getDownloadUrl()
+                                                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
+                                                        // Got the download URL for 'users/me/profile.png'
+                                                        //This only gets called after the upload is done.
+                                                        downloadPath = uri.toString();
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                Log.d("URI error", exception.toString());
+                                            }
+                                        });
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            donation.setImageUrl(downloadPath);
                             Map<String, Object> childUpdates = new HashMap<>();
                             childUpdates.put("/" + Model.LOCATIONS + "/" + item.getKey() +
                                     "/donations/" + uid, donation);
                             childUpdates.put("/" + Model.DONATIONS + "/" + uid, donation);
                             model.getRef().updateChildren(childUpdates);
+
                         } else {
                             Log.d("whatz", "nope location is currently" + model.userLocation);
                         }
