@@ -1,5 +1,6 @@
-package com.reotyranny.semeru.Controller;
+package com.reotyranny.semeru.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,8 +21,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.reotyranny.semeru.Model.Donation;
-import com.reotyranny.semeru.Model.Model;
+import com.reotyranny.semeru.model.Donation;
+import com.reotyranny.semeru.model.Model;
 import com.reotyranny.semeru.R;
 import java.util.Objects;
 
@@ -107,6 +108,7 @@ public class SpecificItemActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void populateFields(Donation d) {
         TextView shortDesView = findViewById(R.id.text_Short);
         shortDesView.setText("Short description: " + d.getShortDes());

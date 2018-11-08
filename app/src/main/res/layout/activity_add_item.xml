@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.AddItemActivity">
+    tools:context=".controller.AddItemActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,7 +19,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.007" />
+        app:layout_constraintVertical_bias="0.007"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,7 +35,8 @@
         app:layout_constraintHorizontal_bias="0.011"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/editText_Short"
@@ -51,7 +53,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736" />
+        app:layout_constraintVertical_bias="0.736"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,7 +70,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_Short"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/editText_Full"
@@ -80,7 +85,9 @@
         app:layout_constraintBottom_toTopOf="@+id/editText_Value"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -95,7 +102,8 @@
         app:layout_constraintHorizontal_bias="0.009"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_Full"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/editText_Value"
@@ -109,7 +117,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textView7"
@@ -122,7 +132,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.637"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_Full" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_Full"
+        tools:ignore="HardcodedText" />
 
     <Spinner
         android:id="@+id/spinner_Category"
@@ -151,7 +162,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_Value" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_Value"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/editText_Comments"
@@ -168,7 +180,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.677" />
+        app:layout_constraintVertical_bias="0.677"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -183,7 +197,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_Category"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/button_Cancel"
@@ -199,7 +214,8 @@
         app:layout_constraintHorizontal_bias="0.027"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/button_Confirm"
@@ -215,7 +231,8 @@
         app:layout_constraintHorizontal_bias="0.988"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/locationText"
@@ -228,7 +245,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.397"
         app:layout_constraintStart_toEndOf="@+id/editText_Value"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/button_uploadImg"
@@ -244,7 +262,8 @@
         app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toEndOf="@+id/button_Cancel"
         app:layout_constraintTop_toBottomOf="@+id/editText_Comments"
-        app:layout_constraintVertical_bias="0.935" />
+        app:layout_constraintVertical_bias="0.935"
+        tools:ignore="HardcodedText" />
 
     <ImageView
         android:id="@+id/donationImageView"
@@ -261,6 +280,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editText_Comments"
         app:layout_constraintVertical_bias="0.655"
         tools:srcCompat="@tools:sample/backgrounds/scenic"
-        android:contentDescription="TODO" />
+        android:contentDescription="TODO"
+        tools:ignore="ContentDescription,HardcodedText" />
 
 </android.support.constraint.ConstraintLayout>

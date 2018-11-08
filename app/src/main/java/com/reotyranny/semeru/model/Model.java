@@ -1,4 +1,4 @@
-package com.reotyranny.semeru.Model;
+package com.reotyranny.semeru.model;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -31,7 +31,7 @@ public class Model {
 
     private static final Model _instance = new Model();
 
-    String userLocation;
+    private String userLocation;
 
     public static Model getInstance() {
         return _instance;

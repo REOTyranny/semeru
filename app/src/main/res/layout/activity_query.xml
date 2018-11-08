@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.QueryActivity">
+    tools:context=".controller.QueryActivity">
 
     <AutoCompleteTextView
         android:id="@+id/search_Text"
@@ -19,7 +19,8 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.015"
+        tools:ignore="LabelFor" />
 
     <Spinner
         android:id="@+id/spinner2"
@@ -50,7 +51,8 @@
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintVertical_bias="0.157"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="85dp"
@@ -66,7 +68,8 @@
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.25"
+        tools:ignore="HardcodedText" />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/radioGroup"
@@ -87,13 +90,15 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category" />
+            android:text="Category"
+            tools:ignore="HardcodedText" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Name" />
+            android:text="Name"
+            tools:ignore="HardcodedText" />
     </RadioGroup>
 
     <Button
@@ -110,7 +115,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.984" />
+        app:layout_constraintVertical_bias="0.984"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/button_Search"
@@ -126,6 +132,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357" />
+        app:layout_constraintVertical_bias="0.357"
+        tools:ignore="HardcodedText" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.reotyranny.semeru.Controller;
+package com.reotyranny.semeru.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import com.reotyranny.semeru.Model.Location;
+import com.reotyranny.semeru.model.Location;
 import com.reotyranny.semeru.R;
 import java.util.ArrayList;
 import java.util.List;

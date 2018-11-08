@@ -1,5 +1,6 @@
-package com.reotyranny.semeru.Controller;
+package com.reotyranny.semeru.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.reotyranny.semeru.Model.Model;
+import com.reotyranny.semeru.model.Model;
 import com.reotyranny.semeru.R;
 import java.util.Objects;
 
@@ -26,6 +27,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     private final FirebaseAuth mAuth = model.getAuth();
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

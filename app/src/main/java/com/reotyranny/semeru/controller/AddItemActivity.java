@@ -1,4 +1,4 @@
-package com.reotyranny.semeru.Controller;
+package com.reotyranny.semeru.controller;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,8 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.firebase.storage.UploadTask.TaskSnapshot;
-import com.reotyranny.semeru.Model.Donation;
-import com.reotyranny.semeru.Model.Model;
+import com.reotyranny.semeru.model.Donation;
+import com.reotyranny.semeru.model.Model;
 import com.reotyranny.semeru.R;
 import java.io.File;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package com.reotyranny.semeru.Controller;
+package com.reotyranny.semeru.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.reotyranny.semeru.Model.Model;
+import com.reotyranny.semeru.model.Model;
 import com.reotyranny.semeru.R;
 import java.util.ArrayList;
 import java.util.Objects;

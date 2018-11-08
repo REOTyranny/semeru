@@ -1,4 +1,4 @@
-package com.reotyranny.semeru.Controller;
+package com.reotyranny.semeru.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
