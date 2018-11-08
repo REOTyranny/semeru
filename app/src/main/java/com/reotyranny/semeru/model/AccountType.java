@@ -1,4 +1,4 @@
-package com.reotyranny.semeru.Model;
+package com.reotyranny.semeru.model;
 
 import android.support.annotation.NonNull;
 

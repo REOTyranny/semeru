@@ -1,4 +1,4 @@
-package com.reotyranny.semeru.Controller;
+package com.reotyranny.semeru.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.reotyranny.semeru.Model.Model;
+import com.reotyranny.semeru.model.Model;
 import com.reotyranny.semeru.R;
 import java.util.Date;
 
@@ -104,6 +104,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         verifyLockout(confirmButton);
     }
 
+    @SuppressWarnings("LongLine")
     private boolean isValidEmail(String email) {
         return !TextUtils.isEmpty(email) && email.matches(
                 "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");

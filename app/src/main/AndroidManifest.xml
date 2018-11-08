@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.reotyranny.semeru">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.reotyranny.semeru"
+    tools:ignore="GoogleAppIndexingWarning">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -22,7 +24,7 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
-            android:name=".Controller.WelcomeScreenActivity"
+            android:name=".controller.WelcomeScreenActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -34,28 +36,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Controller.LoginScreenActivity"
+            android:name=".controller.LoginScreenActivity"
             android:label="LoginScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Controller.RegistrationScreenActivity"
+            android:name=".controller.RegistrationScreenActivity"
             android:label="RegistrationScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Controller.HomeScreenActivity"
+            android:name=".controller.HomeScreenActivity"
             android:label="HomeScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Controller.EmployeeRegistrationScreenActivity" />
-        <activity android:name=".Controller.AccountTypeActivity" />
+        <activity android:name=".controller.EmployeeRegistrationScreenActivity" />
+        <activity android:name=".controller.AccountTypeActivity" />
         <activity
-            android:name=".Controller.LocationListActivity"
+            android:name=".controller.LocationListActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".Controller.LocationSpecificActivity" />
-        <activity android:name=".Controller.AddItemActivity" />
-        <activity android:name=".Controller.ItemListActivity" />
-        <activity android:name=".Controller.SpecificItemActivity" />
-        <activity android:name=".Controller.QueryActivity" />
-        <activity android:name=".Controller.ResultsActivity" />
+        <activity android:name=".controller.LocationSpecificActivity" />
+        <activity android:name=".controller.AddItemActivity" />
+        <activity android:name=".controller.ItemListActivity" />
+        <activity android:name=".controller.SpecificItemActivity" />
+        <activity android:name=".controller.QueryActivity" />
+        <activity android:name=".controller.ResultsActivity" />
 
         <meta-data
             android:name="com.google.android.geo.AIzaSyDmpRcknVQdaZijxED4h2ZaSNvjfUPYT_E"
@@ -74,7 +76,7 @@
             android:value="AIzaSyDmpRcknVQdaZijxED4h2ZaSNvjfUPYT_E" />
 
         <activity
-            android:name=".Controller.MapsActivity"
+            android:name=".controller.MapsActivity"
             android:label="title_activity_maps" />
 
         <uses-library

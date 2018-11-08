@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.LocationSpecificActivity"
+    tools:context=".controller.LocationSpecificActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <LinearLayout
@@ -75,7 +75,8 @@
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.956" />
+        app:layout_constraintVertical_bias="0.956"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/button_ItemsList"
@@ -92,6 +93,7 @@
         app:layout_constraintHorizontal_bias="0.61"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.585" />
+        app:layout_constraintVertical_bias="0.585"
+        tools:ignore="HardcodedText" />
 
 </android.support.constraint.ConstraintLayout>

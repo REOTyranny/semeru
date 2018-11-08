@@ -1,4 +1,4 @@
-package com.reotyranny.semeru.Controller;
+package com.reotyranny.semeru.controller;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,8 +14,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.reotyranny.semeru.Model.Location;
-import com.reotyranny.semeru.Model.Model;
+import com.reotyranny.semeru.model.Location;
+import com.reotyranny.semeru.model.Model;
 import com.reotyranny.semeru.R;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -71,7 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Location l = snapshot.getValue(Location.class);
                         locations.add(l);
-                        double loc = l.getLongitude();
+                        double loc = Objects.requireNonNull(l).getLongitude();
                         double lat = l.getLatitude();
                         total++;
                         locSum += loc;
@@ -80,7 +80,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         mMap.addMarker(new MarkerOptions().position(a).title(l.getName()).snippet(l.getPhone()));
                     }
                     LatLng cam = new LatLng(latSum / total, locSum / total);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cam, 8f));
+                    //noinspection MagicNumber
+                    float DEFAULT_ZOOM = 8f;
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cam, DEFAULT_ZOOM));
                 }
 
             }

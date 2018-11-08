@@ -26,5 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="More Information"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        tools:ignore="HardcodedText" />
 </LinearLayout>

@@ -1,5 +1,6 @@
-package com.reotyranny.semeru.Controller;
+package com.reotyranny.semeru.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,8 +13,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.reotyranny.semeru.Model.Location;
-import com.reotyranny.semeru.Model.Model;
+import com.reotyranny.semeru.model.Location;
+import com.reotyranny.semeru.model.Model;
 import com.reotyranny.semeru.R;
 import java.util.Objects;
 
@@ -70,6 +71,7 @@ public class LocationSpecificActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void populateFields(Location l) {
         ((TextView) findViewById(R.id.text_LocName)).setText("Name: " + l.getName());
         ((TextView) findViewById(R.id.text_LocType)).setText("Type: " + l.getType());
