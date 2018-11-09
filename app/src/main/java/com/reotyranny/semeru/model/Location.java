@@ -3,6 +3,7 @@ package com.reotyranny.semeru.model;
 /**
  * Represents a location.
  */
+@SuppressWarnings("WeakerAccess")
 public class Location {
 
     private String address;
@@ -52,17 +53,17 @@ public class Location {
     public Location(int key, String name, float longitude, float latitude, String address,
             String city, String state, String zip, String type, String phone, String website) {
 
-        this.key = key;
-        this.name = name;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.type = type;
-        this.phone = phone;
-        this.website = website;
+        setKey(key);
+        setName(name);
+        setLongitude(longitude);
+        setLatitude(latitude);
+        setAddress(address);
+        setCity(city);
+        setState(state);
+        setZip(zip);
+        setType(type);
+        setPhone(phone);
+        setWebsite(website);
     }
 
     /**
@@ -83,6 +84,23 @@ public class Location {
         this.address = address;
     }
 
+    /**
+     * Getter method for city.
+     *
+     * @return location city
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * Setter method for city.
+     *
+     * @param city location city
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     /**
      * Getter method for location key.
@@ -91,6 +109,15 @@ public class Location {
      */
     public int getKey() {
         return key;
+    }
+
+    /**
+     * Setter method for key.
+     *
+     * @param key a location key
+     */
+    public void setKey(int key) {
+        this.key = key;
     }
 
     /**
@@ -200,25 +227,40 @@ public class Location {
     public void setType(String type) {
         this.type = type;
     }
-//Unused methods commented out
-//    public String getWebsite() {
-//        return website;
-//    }
-//
-//    public void setWebsite(String website) {
-//        this.website = website;
-//    }
-//
-//    public String getZip() {
-//        return zip;
-//    }
-//
-//    public void setZip(String zip) {
-//        this.zip = zip;
-//    }
-//
-//    public void setCity(String city) {
-//        this.city = city;
-//    }
 
+    /**
+     * Getter method for a website.
+     *
+     * @return the location website
+     */
+    public String getWebsite() {
+        return website;
+    }
+
+    /**
+     * Setter method for a website.
+     *
+     * @param website location website
+     */
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    /**
+     * Getter method for ZIP code.
+     *
+     * @return location ZIP code
+     */
+    public String getZip() {
+        return zip;
+    }
+
+    /**
+     * Setter method for ZIP code.
+     *
+     * @param zip location ZIP code
+     */
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 }
