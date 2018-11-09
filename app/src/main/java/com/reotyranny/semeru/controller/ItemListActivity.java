@@ -16,11 +16,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.reotyranny.semeru.R;
 import com.reotyranny.semeru.model.Donation;
 import com.reotyranny.semeru.model.Model;
-import com.reotyranny.semeru.R;
 import java.util.ArrayList;
 
+/**
+ * Controller for item list view.
+ */
 public class ItemListActivity extends AppCompatActivity {
 
     // --Commented out by Inspection (10/28/18, 11:29):List<Donation> items;

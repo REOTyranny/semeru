@@ -1,5 +1,8 @@
 package com.reotyranny.semeru.model;
 
+/**
+ * Represents a Firebase account.
+ */
 public class Account {
 
     private AccountType acctType;
@@ -14,14 +17,17 @@ public class Account {
 
     private String username;
 
+    /**
+     * Creates a new Account object
+     */
     public Account() {
     }
 
     /**
      * Creates a new Account object
      *
-     * @param name the user's name
-     * @param email the user's email address
+     * @param name     the user's name
+     * @param email    the user's email address
      * @param acctType the account type
      */
     public Account(String name, String email, AccountType acctType) {
@@ -34,8 +40,8 @@ public class Account {
     /**
      * Creates a new Account object
      *
-     * @param name the user's name
-     * @param email the user's email address
+     * @param name     the user's name
+     * @param email    the user's email address
      * @param acctType the account type
      * @param location the location where the user works
      */

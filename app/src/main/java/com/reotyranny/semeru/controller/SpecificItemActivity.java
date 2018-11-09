@@ -21,12 +21,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.reotyranny.semeru.R;
 import com.reotyranny.semeru.model.Donation;
 import com.reotyranny.semeru.model.Model;
-import com.reotyranny.semeru.R;
 import java.util.Objects;
 
-
+/**
+ * Controller for the specific item view.
+ */
 public class SpecificItemActivity extends AppCompatActivity {
 
     private Bitmap bm;

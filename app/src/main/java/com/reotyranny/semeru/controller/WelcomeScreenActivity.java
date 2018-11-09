@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import com.reotyranny.semeru.R;
 
+/**
+ * Controller for the Welcome! view.
+ */
 public class WelcomeScreenActivity extends AppCompatActivity {
 
     @Override

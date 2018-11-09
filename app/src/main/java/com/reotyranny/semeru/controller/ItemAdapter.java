@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import com.reotyranny.semeru.model.Donation;
 import com.reotyranny.semeru.R;
+import com.reotyranny.semeru.model.Donation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapts items into a proper format for view.
+ */
 public class ItemAdapter extends
         RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
@@ -49,7 +52,13 @@ public class ItemAdapter extends
 
     private final String mSearchType;
 
-    // Pass in the contact array into the constructor
+    /**
+     * Instantiates items for a view.
+     *
+     * @param donation    list of donations
+     * @param keys        list of item keys
+     * @param locationKey key of a Location
+     */
     public ItemAdapter(List<Donation> donation, List<String> keys, int locationKey) {
         mItemKeys = keys;
         mLocationKey = locationKey;
@@ -62,6 +71,15 @@ public class ItemAdapter extends
         }
     }
 
+    /**
+     * Instantiates items for a view.
+     *
+     * @param donation     list of donations
+     * @param keys         list of item keys
+     * @param location     a location key
+     * @param searchType   type to search
+     * @param searchString string to search
+     */
     public ItemAdapter(List<Donation> donation, List<String> keys,
             int location, String searchType, String searchString) {
         mItemKeys = keys;

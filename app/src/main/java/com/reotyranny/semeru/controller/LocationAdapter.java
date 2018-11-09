@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import com.reotyranny.semeru.model.Location;
 import com.reotyranny.semeru.R;
+import com.reotyranny.semeru.model.Location;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapts locations into a recycler view.
+ */
 public class LocationAdapter extends
         RecyclerView.Adapter<LocationAdapter.ViewHolder> {
 
@@ -42,7 +45,11 @@ public class LocationAdapter extends
 
     private final List<Location> mLocation;
 
-    // Pass in the contact array into the constructor
+    /**
+     * Instantiates a location adapter.
+     *
+     * @param location a list of locations
+     */
     public LocationAdapter(List<Location> location) {
         if (location == null) {
             mLocation = new ArrayList<>();
