@@ -130,7 +130,7 @@ public class Account {
 
     /**
      * Set's the username associated with the Account object
-     * 
+     *
      * @param username the username associated with the Account object
      */
     public void setUsername(String username) {
