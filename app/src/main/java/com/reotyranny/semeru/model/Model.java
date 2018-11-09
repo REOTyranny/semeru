@@ -22,7 +22,11 @@ public class Model {
      */
     public interface FireBaseCallback {
 
-        // when asynchronous query completes, run the given onCallback() method
+        /**
+         * Runs the callback for a location name.
+         *
+         * @param locationName a location name
+         */
         void onCallback(String locationName);
     }
 
@@ -48,6 +52,11 @@ public class Model {
         return _instance;
     }
 
+    /**
+     * Returns a Firebase Authentication instance.
+     *
+     * @return a Firebase Authentication instance
+     */
     public FirebaseAuth getAuth() {
         return FirebaseAuth.getInstance();
     }
