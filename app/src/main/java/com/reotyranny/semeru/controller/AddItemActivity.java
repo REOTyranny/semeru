@@ -27,15 +27,18 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.firebase.storage.UploadTask.TaskSnapshot;
+import com.reotyranny.semeru.R;
 import com.reotyranny.semeru.model.Donation;
 import com.reotyranny.semeru.model.Model;
-import com.reotyranny.semeru.R;
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Add item screen controller.
+ */
 public class AddItemActivity extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;

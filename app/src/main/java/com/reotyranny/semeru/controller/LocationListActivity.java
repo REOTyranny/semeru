@@ -13,15 +13,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.reotyranny.semeru.R;
 import com.reotyranny.semeru.model.Location;
 import com.reotyranny.semeru.model.Model;
-import com.reotyranny.semeru.R;
 import java.util.ArrayList;
 
-
+/**
+ * Controller for the location list view.
+ */
 public class LocationListActivity extends AppCompatActivity {
-
-    // --Commented out by Inspection (10/28/18, 11:29):List<Location> location;
 
     private RecyclerView.Adapter mAdapter;
 

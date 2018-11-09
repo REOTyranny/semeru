@@ -16,10 +16,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.reotyranny.semeru.model.Model;
 import com.reotyranny.semeru.R;
+import com.reotyranny.semeru.model.Model;
 import java.util.Date;
 
+/**
+ * Controller for the login screen
+ */
 public class LoginScreenActivity extends AppCompatActivity {
 
     private static final int MAX_ATTEMPTS = 3;

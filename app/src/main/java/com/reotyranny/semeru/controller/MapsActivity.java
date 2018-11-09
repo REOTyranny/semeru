@@ -14,13 +14,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.reotyranny.semeru.R;
 import com.reotyranny.semeru.model.Location;
 import com.reotyranny.semeru.model.Model;
-import com.reotyranny.semeru.R;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Controller for the Google Maps view.
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;

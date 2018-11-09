@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import com.reotyranny.semeru.model.AccountType;
 import com.reotyranny.semeru.R;
+import com.reotyranny.semeru.model.AccountType;
 
+/**
+ * Account type chooser screen controller.
+ */
 public class AccountTypeActivity extends AppCompatActivity {
 
     @Override

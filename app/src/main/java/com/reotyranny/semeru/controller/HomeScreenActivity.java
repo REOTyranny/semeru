@@ -17,10 +17,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.reotyranny.semeru.model.Model;
 import com.reotyranny.semeru.R;
+import com.reotyranny.semeru.model.Model;
 import java.util.Objects;
 
+/**
+ * Controller for home screen.
+ */
 public class HomeScreenActivity extends AppCompatActivity {
 
     private final Model model = Model.getInstance();
@@ -100,8 +103,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                     }
                 }
             });
-        }
-        else {
+        } else {
             welcomeUserText.setText("Welcome Guest");
         }
 

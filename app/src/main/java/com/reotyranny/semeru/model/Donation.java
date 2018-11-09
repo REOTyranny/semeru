@@ -6,9 +6,17 @@ import java.util.Date;
 import java.util.LinkedList;
 
 
+/**
+ * Models a Donation.
+ */
 public class Donation {
 
-    public enum Category {Clothing, Hat, Kitchen, Electronics, Households, Others}
+    /**
+     * Possible categories of donations.
+     */
+    public enum Category {
+        Clothing, Hat, Kitchen, Electronics, Households, Others
+    }
 
     private String category;
 
@@ -28,6 +36,9 @@ public class Donation {
 
     private float value;
 
+    /**
+     * Creates a new Donation object
+     */
     public Donation() {
         // this empty constructor is required for firebase!! do not remove !
     }
@@ -35,10 +46,10 @@ public class Donation {
     /**
      * Creates a new Donation object
      *
-     * @param place where the item was donated
+     * @param place    where the item was donated
      * @param shortDes short description of item
-     * @param longDes full-length description of item
-     * @param value monetary value of item
+     * @param longDes  full-length description of item
+     * @param value    monetary value of item
      * @param category what type of item the donated item is
      * @param comments any additional information about the item in text form
      */
@@ -60,10 +71,10 @@ public class Donation {
     /**
      * Creates a new Donation object
      *
-     * @param place where the item was donated
+     * @param place    where the item was donated
      * @param shortDes short description of item
-     * @param longDes full-length description of item
-     * @param value monetary value of item
+     * @param longDes  full-length description of item
+     * @param value    monetary value of item
      * @param category what type of item the donated item is
      * @param comments any additional information about the item in text form
      * @param imageUrl an image of the item
@@ -193,6 +204,7 @@ public class Donation {
 
     /**
      * Sets the timestamp for the time the item was donated
+     *
      * @param timestamp the timestamp for the time the item was donated
      */
     public void setTimestamp(String timestamp) {
@@ -229,7 +241,7 @@ public class Donation {
 
     /**
      * Gets the timestamp from the computer at the time an item is donated
-     * 
+     *
      * @return the timestamp from the computer at the time the item was donated
      */
     private String retrieveTimestamp() {

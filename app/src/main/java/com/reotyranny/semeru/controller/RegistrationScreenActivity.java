@@ -14,11 +14,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.reotyranny.semeru.R;
 import com.reotyranny.semeru.model.Account;
 import com.reotyranny.semeru.model.AccountType;
 import com.reotyranny.semeru.model.Model;
-import com.reotyranny.semeru.R;
 
+/**
+ * Controller for the registration screen view.
+ */
 public class RegistrationScreenActivity extends AppCompatActivity {
 
     private final Model model = Model.getInstance();

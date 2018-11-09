@@ -13,13 +13,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.reotyranny.semeru.R;
 import com.reotyranny.semeru.model.Donation;
 import com.reotyranny.semeru.model.Model;
-import com.reotyranny.semeru.R;
 import java.util.ArrayList;
 
+/**
+ * Controller for the search results view.
+ */
 public class ResultsActivity extends AppCompatActivity {
-    // --Commented out by Inspection (10/28/18, 11:29):List<Donation> items;
 
     private static final int ALL_LOCATIONS = -1; // first item in spinner
 
