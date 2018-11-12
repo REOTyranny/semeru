@@ -236,8 +236,18 @@ public class Donation {
         categoryChoices.add("Kitchen");
         categoryChoices.add("Clothes");
         categoryChoices.add("Hat");
+        categoryChoices.add("Electronics");
+        categoryChoices.add("Household");
         categoryChoices.add("Other");
     }
+
+    /**
+     * Gets the possible categories for a Donation object
+     *
+     * @return the possible categories for a Donation object
+     */
+    //public Collection<String> getCategories() { return categoryChoices; }
+
 
     /**
      * Gets the timestamp from the computer at the time an item is donated
