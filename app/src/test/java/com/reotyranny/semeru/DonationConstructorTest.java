@@ -9,6 +9,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.*;
+import java.lang.Class;
+import java.util.Collection;
+
 
 public class DonationConstructorTest {
 
@@ -47,8 +51,13 @@ public class DonationConstructorTest {
         Donation d4 = new Donation(goodPlace, goodShortDes, goodLongDes,
                 goodValue, goodCategory, goodComments);
 
+        Class donation = d4.getClass();
+        Field categoriesField = donation.getDeclaredField("categoryChoices");
+        categoriesField.setAccessible(true);
+        Collection<String> categories = (Collection<String>) categoriesField.get(d4);
+
         assertEquals(goodCategory, "Hat");
-        assertTrue(Donation.getCategories().size() == 6);
+        assertTrue(categories.size() == 6);
     }
 
     @Test
